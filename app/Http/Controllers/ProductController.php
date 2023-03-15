@@ -37,6 +37,7 @@ class ProductController extends Controller
     }
     public function addProduct()
     {
+        // return session()->get('productDataLabels');
         \Session::forget('showProductData');
         $categories = Category::all();
         $productSession = session()->get('productData');
@@ -59,11 +60,13 @@ class ProductController extends Controller
     }
     public function showCatProduct($id,$name)
     {
-        \Session::forget(['showProductData','productData','productDataLabels']);
+        // return session()->get('productDataLabels');
+        \Session::forget(['showProductData','productData']);
         // return \Session::all();
         $category = Category::find($id);
         $productData = Product::where('category_id',$id)->first();
         $productArrayKey = array_search(str_replace(' ','-',$name),$productData->name);
+        // return $productData->category;;
         // return $productData['pricing'][$productArrayKey];
         session()->put('showProductData',$productData['name'][$productArrayKey]);
         return view('admin.product.addProduct', compact('category','productData','productArrayKey'));
@@ -169,6 +172,7 @@ class ProductController extends Controller
     }
     public function propertySession(Request $request)
     {
+        // return $request;
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
         $product = Product::where('category_id',$request->category_id)->first();
@@ -312,12 +316,15 @@ class ProductController extends Controller
         $product->save();
         
         session()->put('productDataLabels',$request->all());
-        if(count($datasfiltered) == count($actions) && count($percentagesfiltered) == count($actions))
+        if(count($request->labels) !== count($datasfiltered))
         {
-            return response(1);
-        } else {
             return response(0);
-        }
+        } elseif(count($datasfiltered) >! count($actions) || count($percentagesfiltered) >! count($actions))
+            {
+                return response(1);
+            } else {
+                return response(0);
+            }
     } else {
         $product->save();
         

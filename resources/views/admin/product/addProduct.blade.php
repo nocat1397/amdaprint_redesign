@@ -4,6 +4,7 @@
 
     @include('admin.link')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
     <style>
         #productPricingForm, #productPropertyForm{
           display: none;
@@ -195,6 +196,7 @@
 
                     <div class="alert alert-warning shadow text-center"><h5 class="font-weight-bold">Product Properties (if any)</h5></div>
                     <input type="hidden" name="category_id" value="{{session('productData')['catId'] ?? $category->id ?? ''}}">
+                    <input type="hidden" name="label_session" value="{{session('productDataLabels')['category_id'] ?? ''}}">
                     <div class="col-md-12">
                      <div class="form-row" id="properties">
                       @if(isset($productData['property'][$productArrayKey]))
@@ -261,20 +263,20 @@
                          
                        
                          <div class="btn-inline mt-2">
-                           <button class="btn btn-outline-danger btn-sm removePData{{$key}}" type="button"><i class="fa fa-minus"></i></button>
-                           <button class="btn btn-outline-primary btn-sm float-right addPData{{$key}}" type="button"><i class="fa fa-plus"></i></button>
+                           <button class="btn btn-outline-danger btn-sm removePData{{$key}}" type="button" data-key="{{$key}}" onclick="remove({{$key}})"><i class="fa fa-minus"></i></button>
+                           <button class="btn btn-outline-primary btn-sm float-right addPData{{$key}}" type="button" data-key="{{$key}}" onclick="plus({{$key}})"><i class="fa fa-plus"></i></button>
                         </div>
                         <script>
-                          $('.addPData{{$key}}').click(function(){
-                            $('.propertyData{{$key}}').append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data{{$key}}" type="text" name="data{{$key}}[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action{{$key}}[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage{{$key}}" name="percentage{{$key}}[]"></div></div></div>')
-                          });
-                          $('.removePData{{$key}}').click(function(){
-                            var count = $(".propertyData{{$key}}").find("*").length;
-                            if(count > 7)
-                            {
-                              $('.propertyData{{$key}}').children().last().remove();
-                            }
-                          });
+                          // $('.addPData{{$key}}').click(function(){
+                          //   $('.propertyData{{$key}}').append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data{{$key}}" type="text" name="data{{$key}}[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action{{$key}}[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage{{$key}}" name="percentage{{$key}}[]"></div></div></div>')
+                          // });
+                          // $('.removePData{{$key}}').click(function(){
+                          //   var count = $(".propertyData{{$key}}").find("*").length;
+                          //   if(count > 7)
+                          //   {
+                          //     $('.propertyData{{$key}}').children().last().remove();
+                          //   }
+                          // });
                         </script>
                            </div>
                          </div>
@@ -353,7 +355,7 @@
                             </div>
                           </div>
                           @endif
-                          @if(isset($category) && $category !== null && $category->name == 'Business Cards')
+                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Business Cards')
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -374,7 +376,8 @@
                               <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]" value="{{$pricing[3]}}">
                             </div>
                           </div>
-                          @elseif(isset($category) && $category !== null && $category->name == 'Banners')
+                          @endif
+                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Banners')
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -574,6 +577,21 @@
     });
 </script>
 <script>
+  function plus(key){
+      var key = key;
+      // alert(key);
+    $('.propertyData'+key).append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data{{$key}}" type="text" name="data{{$key}}[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action{{$key}}[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage{{$key}}" name="percentage{{$key}}[]"></div></div></div>')
+  };
+  function remove(key){
+    var key = key;
+    var count = $(".propertyData"+key).find("*").length;
+    if(count > 13)
+    {
+      $('.propertyData'+key).children().last().remove();
+    }
+  };
+</script>
+<script>
   $(document).ready(function() {
     var catName = $('select[name="category_id"]').find(':selected').text();
     var catName2 =  $('input[name="cat_name"]').val();
@@ -669,10 +687,14 @@
           
           success:function(response) {
             console.log(response);
-            $('#properties').load(location.href + ' #properties .col-md-3');
-            $('#qtyPricing').load(location.href + ' #qtyPricing .form-row');
-            if(response > 0)
+            if(response < 1)
             {
+              $('#properties').load(location.href + ' #properties .col-md-3');
+              $('#qtyPricing').load(location.href + ' #qtyPricing .form-row');
+            
+            } else {
+              $('#properties').load(location.href + ' #properties .col-md-3');
+              $('#qtyPricing').load(location.href + ' #qtyPricing .form-row');
               $('#productPropertyForm').slideUp();
               $('#productPricingForm').slideDown();
             }
