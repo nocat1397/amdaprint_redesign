@@ -195,7 +195,7 @@
                   <form id="productPropertyForm">
 
                     <div class="alert alert-warning shadow text-center"><h5 class="font-weight-bold">Product Properties (if any)</h5></div>
-                    <input type="hidden" name="category_id" value="{{session('productData')['catId'] ?? $category->id ?? ''}}">
+                    <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                     <input type="hidden" name="label_session" value="{{session('productDataLabels')['category_id'] ?? ''}}">
                     <div class="col-md-12">
                      <div class="form-row" id="properties">
@@ -317,7 +317,7 @@
                         <div class="col-md-12 text-center">
                           <div class="alert alert-success shadow text-center"><h5 class="font-weight-bold">Add Product Price</h5></div>
                         </div>
-                        <input type="hidden" name="category_id" value="{{session('productData')['catId'] ?? $category->id ?? ''}}">
+                        <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
                           @if ($productData !== null && isset($productData['pricing'][$productArrayKey]))
                               
@@ -580,7 +580,7 @@
   function plus(key){
       var key = key;
       // alert(key);
-    $('.propertyData'+key).append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data{{$key}}" type="text" name="data{{$key}}[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action{{$key}}[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage{{$key}}" name="percentage{{$key}}[]"></div></div></div>')
+    $('.propertyData'+key).append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data'+key+'" type="text" name="data'+key+'[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action'+key+'[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage'+key+'" name="percentage'+key+'[]"></div></div></div>')
   };
   function remove(key){
     var key = key;

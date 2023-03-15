@@ -61,7 +61,7 @@ class ProductController extends Controller
     public function showCatProduct($id,$name)
     {
         // return session()->get('productDataLabels');
-        \Session::forget(['showProductData','productData']);
+        \Session::forget(['showProductData','productData','productDataLabels']);
         // return \Session::all();
         $category = Category::find($id);
         $productData = Product::where('category_id',$id)->first();
@@ -82,7 +82,7 @@ class ProductController extends Controller
         {
             $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
             // return $keyFind;
-            if($keyFind !== null)
+            if($keyFind != null)
             {
                 $names = $product->name;
                 $replaceName = Arr::set($names,$keyFind,str_replace(' ','-',$request->name));
@@ -172,10 +172,10 @@ class ProductController extends Controller
     }
     public function propertySession(Request $request)
     {
-        // return $request;
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
-        $product = Product::where('category_id',$request->category_id)->first();
+        $product = Product::where('category_id',(int)$request->category_id)->first();
+        // return $product;
         if($product !== null)
         {
             $names = $product->name;
@@ -186,7 +186,7 @@ class ProductController extends Controller
             $propertyAction = $product->property_action;
             $propertyPercentage = $product->property_percentage;
             $labels = array_filter($request->labels);
-            // return $labels;
+            // return $properties;
             if($properties != null)
             {
                 $keyCheck = array_key_exists($keyFind,$properties);
@@ -209,8 +209,6 @@ class ProductController extends Controller
             }
             //////////////////////////////////////////////////////////////////
             foreach ($inputs as $key => $value) {
-                $values[] = $value;
-                $keys[] = $key;
                 if(Str::contains($key, 'data')){
                     $datas[] = $value;
                 }
@@ -221,6 +219,7 @@ class ProductController extends Controller
                     $actions[] = $value;
                 }
             }
+            // return $datas;
             if(isset($datas) && isset($percentages) && isset($actions))
             {
 
