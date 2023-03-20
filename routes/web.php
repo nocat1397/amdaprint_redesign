@@ -384,6 +384,7 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::post('/store-category', 'CategoryController@store');
         Route::post('/update-category', 'CategoryController@update');
         Route::get('/delete-category/{id}', 'CategoryController@destroy');
+        Route::post('/categorySeq', 'CategoryController@sequence');
 
         Route::get('/logout', function(){
             Auth::logout();

@@ -37,7 +37,7 @@ class ProductController extends Controller
     }
     public function addProduct()
     {
-        // return session()->get('productDataLabels');
+        // return session()->get('productData');
         \Session::forget('showProductData');
         $categories = Category::all();
         $productSession = session()->get('productData');
@@ -73,19 +73,21 @@ class ProductController extends Controller
     }
     public function infoSession(Request $request)
     {
-        // return $request;
+        \Session::forget('productData');
         $productData = session('productData');
         session()->put('productData',$request->all());
         $product = Product::where('category_id',$request->catId)->first();
-        // return $productData;
+        $productName = Str::title($request->name);
+        // return $product;
         if($product !== null)
         {
-            $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
-            // return $keyFind;
-            if($keyFind != null)
+            // $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
+            $keyFind = array_search(str_replace(' ','-',$productName ?? session('showProductData')),$product->name);
+            if($keyFind !== false)
             {
+                // return $keyFind;
                 $names = $product->name;
-                $replaceName = Arr::set($names,$keyFind,str_replace(' ','-',$request->name));
+                $replaceName = Arr::set($names,$keyFind,str_replace(' ','-',$productName));
                 $name = $replaceName;
                 // return $keyFind;
                 
@@ -113,8 +115,9 @@ class ProductController extends Controller
                                 'size'=>$size,'paper_type'=>$paperType,'qty'=>$qty]);
                 $product->save();
             } else {
+                // return $keyFind;
                 $names = $product->name;
-                $replaceName = array_push($names,str_replace(' ','-',$request->name));
+                $replaceName = array_push($names,str_replace(' ','-',$productName));
                 $name = $replaceName;
                 // return $names;
                 
@@ -147,7 +150,7 @@ class ProductController extends Controller
             return response(session()->get('productData'));
             
         } else {
-            $name[] = str_replace(' ','-',$request->name);
+            $name[] = str_replace(' ','-',$productName);
             // return $name;
             $specs[] = $request->specs;
             $desc[] = $request->desc;
@@ -175,7 +178,7 @@ class ProductController extends Controller
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
         $product = Product::where('category_id',(int)$request->category_id)->first();
-        // return $product;
+        // return $request->category_id;
         if($product !== null)
         {
             $names = $product->name;
@@ -186,21 +189,21 @@ class ProductController extends Controller
             $propertyAction = $product->property_action;
             $propertyPercentage = $product->property_percentage;
             $labels = array_filter($request->labels);
-            // return $properties;
+            // return $keyFind;
             if($properties != null)
             {
                 $keyCheck = array_key_exists($keyFind,$properties);
-                $propertiesArray = Arr::set($properties,$keyFind,$labels);
+                // $propertiesArray = Arr::set($properties,$keyFind,$labels);
                 // return \Session::all();
-                // return $keyCheck;
                 if($keyCheck != false)
                 {
                     $keySet = array($keyFind => str_replace(' ','-',$labels));
                     $property = array_replace($properties, $keySet);
-                    //     // return $property;
-                    $product->update(['property'=>$propertiesArray]);
+                    // return $property;
+                    $product->update(['property'=>$property]);
                 } else {
                     $property = array_push($properties, str_replace(' ','-',$labels));
+                        // return $properties;
                     $product->update(['property'=>$properties]);
                 }
             } else {

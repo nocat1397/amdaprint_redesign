@@ -355,7 +355,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Business Cards')
+                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Business Cards' || str_replace('-',' ',$productData->category->name) == 'Envelope' || str_replace('-',' ',$productData->category->name) == 'Letter Heads' || str_replace('-',' ',$productData->category->name) == 'Folders' || str_replace('-',' ',$productData->category->name) == 'Brochure' || str_replace('-',' ',$productData->category->name) == 'Invitation Cards' || str_replace('-',' ',$productData->category->name) == 'Greetings Cards')
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -377,7 +377,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Banners')
+                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Banners' || str_replace('-',' ',$productData->category->name) == 'Stand & Displays')
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -510,11 +510,11 @@
 <script>
     $('select[name="category_id"]').click(function(){
       var catName = $(this).find(':selected').text();
-      if(catName == 'Banners')
+      if(catName == 'Banners' || catName == 'Stand & Displays')
       {
         $('.paperTypeDiv').slideUp();
       }
-      if(catName == 'Business Cards')
+      if(catName == 'Business Cards' || catName == 'Envelope' || catName == 'Letter Heads' || catName == 'Folders' || catName == 'Brochure' || catName == 'Invitation Cards' || catName == 'Greetings Cards')
       {
         $('.paperTypeDiv').slideDown();
       }
@@ -597,11 +597,11 @@
     var catName2 =  $('input[name="cat_name"]').val();
     var finalCatName = catName || catName2;
     // alert(finalCatName);
-      if(finalCatName == 'Banners')
+      if(finalCatName == 'Banners' || finalCatName == 'Stand & Displays')
       {
         $('.paperTypeDiv').hide();
       }
-      if(finalCatName == 'Business Cards')
+      if(finalCatName == 'Business Cards' || finalCatName == 'Envelope' || finalCatName == 'Letter Heads' || finalCatName == 'Folders' || finalCatName == 'Brochure' || finalCatName == 'Invitation Cards' || finalCatName == 'Greetings Cards')
       {
         $('.paperTypeDiv').slideDown();
       }
@@ -626,7 +626,7 @@
               .map(function(){return $(this).val();}).get();
       var paperType = $("input[name='paperType[]']")
               .map(function(){return $(this).val();}).get();
-      if(finalCatName == 'Business Cards')
+      if(finalCatName == 3 || finalCatName == 4 || finalCatName == 5 || finalCatName == 6 || finalCatName == 7 || finalCatName == 8 || finalCatName == 9)
       {  
         if(size[0] != "" && paperType[0] != "" && qty[0] != "")
         {
@@ -639,6 +639,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
             console.log(error)
@@ -646,7 +647,7 @@
         });
       }
     }
-      if(finalCatName == 'Banners')
+      if(finalCatName == 1 || finalCatName == 2)
       {  
         if(size[0] != "" && qty[0] != "")
         {
@@ -659,6 +660,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
             console.log(error)

@@ -18,13 +18,14 @@ class CategoryController extends Controller
         $cat = new Category;
         $cat->name = str_replace(' ','-',$request->name);
         $cat->save();
-        
+        $cat->update(['sequence'=>$cat->id]);
+        $cat->save();
         return Redirect::back()->with('success','Category Added.');
     }
 
     public function show()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('sequence','ASC')->get();
 
         return view('admin.category.showCategory', compact('categories'));
     }
@@ -44,5 +45,15 @@ class CategoryController extends Controller
         $cat->delete();
         
         return Redirect::back()->with('danger','<strong class="text-danger">Category Deleted.</strong>');
+    }
+    public function sequence(Request $request)
+    {
+        foreach ($request->ids as $key => $id) {
+            $category = Category::find($id);
+            $category->update(['sequence'=>$request->index[$key]]);
+            $category->save();
+            $categories[] = $category;
+        }
+        return response($categories);
     }
 }

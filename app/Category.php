@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['sequence','name'];
 
     public function product() {
         return $this->hasOne('App\Product');

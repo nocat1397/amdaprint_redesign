@@ -94,21 +94,21 @@
             <div class="col-md-12 p-0">
               <div class="card shadow">
                 <div class="card-body table-responsive p-0">
-                  <table class="table" style="width: 100%">
+                  <table class="table" id="sort" style="width: 100%">
                     @if (\Session::has('danger'))
 		                	<div class="alert alert-light catAdd">
                           <h6>{!! \Session::get('danger') !!}</h6>
 		                	</div>
 		                @endif
                     <thead style="background-color: #FCDFBB; color: #a23f25; border: 1px solid #a23f25">
-                      <th>Id</th>
+                      <th class="index">Id</th>
                       <th>Category</th>
                       <th>Action</th>
                     </thead>
                       <tbody>
                       @foreach ($categories as $data)
-                      <tr>
-                        <td>{{$data->id}}</td>
+                      <tr data-id="{{$data->id}}" data-seq="{{$data->sequence}}" data-category="{{$data->name}}">
+                        <td class="index">{{$data->sequence}}</td>
                         <td>{{str_replace('-',' ',$data->name)}}</td>
                         <td>
                           <div class="btn-group">
@@ -172,10 +172,59 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-@include('admin.script')
+{{-- @include('admin.script') --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
   $(document).ready(function(){
+
+  var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index) {
+        $(this).width($originals.eq(index).width())
+    });
+    return $helper;
+},
+    updateIndex = function(e, ui) {
+        $('td.index', ui.item.parent()).each(function (i) {
+            $(this).html(i + 1);
+        });
+    };
+
+$("#sort tbody").sortable({
+    helper: fixHelperModified,
+    stop: updateIndex,
+    update: function(event, ui) {
+            var ids = [];
+            var seq = [];
+            var index = [];
+            var categories = [];
+            $('#sort tbody tr').each(function() {
+                ids.push($(this).data('id'));
+                seq.push($(this).data('seq'));
+                categories.push($(this).data('category'));
+                index.push($(this).find('td').html());
+            });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+              type: "POST",
+              url: "/categorySeq",
+              data: {ids:ids,seq:seq,index:index.sort(),categories:categories},
+
+              success:function(response) {
+                console.log(response);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
+    }
+}).disableSelection();
     setTimeout(() => {
       $('.alert-light').slideUp();
     }, 3000);
