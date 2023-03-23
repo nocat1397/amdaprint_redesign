@@ -55,6 +55,7 @@ class ProductController extends Controller
     }
     public function showProduct()
     {
+        \Session::forget(['showProductData','productData','productDataLabels']);
         $categories = Category::with('product')->has('product')->get();
         // return $categories;
         return view('admin.product.showProducts', compact('categories'));
@@ -62,7 +63,7 @@ class ProductController extends Controller
     public function showCatProduct($id,$name)
     {
         // return session()->get('productDataLabels');
-        \Session::forget(['showProductData','productData','productDataLabels']);
+        \Session::forget(['showProductData','productData']);
         // return \Session::all();
         $category = Category::find($id);
         $productData = Product::where('category_id',$id)->first();
@@ -343,35 +344,91 @@ class ProductController extends Controller
     }
     public function pricingSession(Request $request)
     {
+        $product = Product::where('category_id',(int)$request->category_id)->first();
         // return $request;
-        if(isset($request->pricingQty) && count($request->pricing) == count($request->pricingQty))
+        if($product !== null)
         {
-            $product = Product::where('category_id',$request->category_id)->first();
+            $names = $product->name;
             $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
-            $priceFilter = array_filter($request->pricing);
-            foreach ($priceFilter as $key => $pricing) {
-                $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
-            }
-            $pricings = $product->pricing;
+            $allPricings = $product->pricing;
             
-            $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
-            $product->update(['pricing'=>$pricingArrSet]);
-            $product->save();
+            
+            if(isset($request->pricingQty) && count($request->pricing) == count($request->pricingQty))
+            {
+                if($allPricings != null)
+                {
+                $keyCheck = array_key_exists($keyFind,$allPricings);
+                if($keyCheck != false)
+                {    
+                    $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                    }
+                    $pricings = $product->pricing;
+                    
+                    $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
+                    $product->update(['pricing'=>$pricingArrSet]);
+                    $product->save();
+                } else {
+                    $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                    }
+                    $pricings = $product->pricing;
+                    
+                    $pricingArrPush = array_push($pricings,$pricingArray);
+                    $product->update(['pricing'=>$pricings]);
+                    $product->save();
+                } 
+            } else {
+                $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                    }
+                $pricingsArray[] = $pricingArray;
+                $product->update(['pricing'=>$pricingsArray]);
+                $product->save();
+            }
         } else {
-            $product = Product::where('category_id',$request->category_id)->first();
-            $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
-            $priceFilter = array_filter($request->pricing);
-            foreach ($priceFilter as $key => $pricing) {
-                $pricingArray[] = array($request->pricingSize[$key],$pricing);
+            if($allPricings != null)
+            {
+                $keyCheck = array_key_exists($keyFind,$allPricings);
+                if($keyCheck != false)
+                {
+                    $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = array($request->pricingSize[$key],$pricing);
+                    }
+                    $pricings = $product->pricing;
+                    
+                    $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
+                    $product->update(['pricing'=>$pricingArrSet]);
+                    $product->save();
+                } else {
+                    $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = array($request->pricingSize[$key],$pricing);
+                    }
+                    $pricings = $product->pricing;
+                    
+                    $pricingArrPush = array_push($pricings,$pricingArray);
+                    $product->update(['pricing'=>$pricings]);
+                    $product->save();
+                } 
+            } else {
+                $priceFilter = array_filter($request->pricing);
+                    foreach ($priceFilter as $key => $pricing) {
+                        $pricingArray[] = array($request->pricingSize[$key],$pricing);
+                    }
+                    
+                    $pricingsArray[] = $pricingArray;
+                    $product->update(['pricing'=>$pricingsArray]);
+                    $product->save();
             }
-            $pricings = $product->pricing;
-            
-            $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
-            $product->update(['pricing'=>$pricingArrSet]);
-            $product->save();
         }
             \Session::forget(['productData', 'productDataLabels','showProductData']);
         return response(1);
+    }
 
     }
     /**

@@ -6,9 +6,19 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
     <style>
-        #productPricingForm, #productPropertyForm{
-          display: none;
-        }
+      @if(!empty(session()->get('productDataLabels')))
+      #productPricingForm{
+        display: block;
+      } 
+      #productInfoForm, #productPropertyForm{
+        display: none;
+      } 
+      @else 
+      #productPricingForm, #productPropertyForm{
+        display: none;
+      } 
+      @endif
+
     </style>
 
 </head>
@@ -299,7 +309,7 @@
                   <button type="button" class="btn btn-primary shadow" id="productPropertyNext">Next <i class="fa fa-arrow-right"></i></button>
                 </div>
               </form>
-                        
+                        @if(!empty(session()->get('productDataLabels')))
                     <form id="productPricingForm">
                     <div class="form-row">
                         <div class="col-md-12 text-center">
@@ -307,11 +317,9 @@
                         </div>
                         <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
-                          {{-- {{$productData->category}} --}}
                           @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category->id !== 1)
                               
                           @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
-                              {{-- {{$pricing}} --}}
                           <div class="form-row align-items-center">
                             <div class="col-md-3">
                               <div class="form-group">
@@ -344,7 +352,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && $productData->category->name == 3 || $productData->category->name == 4 || $productData->category->name == 5 || $productData->category->name == 6 || $productData->category->name == 7 || $productData->category->name == 8 || $productData->category->name == 9)
+                          @if($productData !== null && $productData->category_id == 3 || $productData->category_id == 4 || $productData->category_id == 5 || $productData->category_id == 6 || $productData->category_id == 7 || $productData->category_id == 8 || $productData->category_id == 9)
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -366,7 +374,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && $productData->category->id == 2)
+                          @if($productData !== null && $productData->category_id == 2)
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -392,7 +400,8 @@
                         @endforeach
                         @endif
                       </div>
-                      @if($productData !== null && $productData->category->id !== 1)
+                  
+                      @if($productData !== null && $productData->category_id !== 1)
                       <div class="col-md-12" id="qtyPricing">
                           <div class="form-row align-items-center">
 
@@ -537,7 +546,7 @@
                         <button class="btn btn-primary shadow" type="button" id="productPricingFinish">Finish <i class="fa fa-check"></i></button>
                       </div> 
                     </form>
-
+                    @endif
               </div>
             </div>
 
@@ -771,9 +780,6 @@
     }
     });
     $('#productPropertyNext').on('click', function(e){
-      // var catId = $('select[name="category_id"]').val() ?? $('input[name="category_id"]').val();
-      // // alert(catId);
-      // // return false;
       $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -801,6 +807,7 @@
             } else {
               $('#properties').load(location.href + ' #properties .col-md-3');
               $('#qtyPricing').load(location.href + ' #qtyPricing .form-row');
+              location.reload(true);
               $('#productPropertyForm').slideUp();
               $('#productPricingForm').slideDown();
             }
