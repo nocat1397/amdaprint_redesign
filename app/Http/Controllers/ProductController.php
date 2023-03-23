@@ -178,7 +178,7 @@ class ProductController extends Controller
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
         $product = Product::where('category_id',(int)$request->category_id)->first();
-        // return $request->category_id;
+        return $request;
         if($product !== null)
         {
             $names = $product->name;
