@@ -328,12 +328,14 @@ class ProductController extends Controller
                 return response(0);
             }
     } else {
+        return "in if condition";
         $product->save();
         
         session()->put('productDataLabels',$request->all());
         return response(0);
-
+        
     }
+    return "out of if condition";
             
         }
     }
