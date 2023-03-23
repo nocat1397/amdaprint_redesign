@@ -183,7 +183,7 @@ class ProductController extends Controller
         if($product !== null)
         {
             $names = $product->name;
-            $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
+            $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
             
             $properties = $product->property;
             $propertyData = $product->property_data;
@@ -347,7 +347,7 @@ class ProductController extends Controller
         if(isset($request->pricingQty) && count($request->pricing) == count($request->pricingQty))
         {
             $product = Product::where('category_id',$request->category_id)->first();
-            $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
+            $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
             $priceFilter = array_filter($request->pricing);
             foreach ($priceFilter as $key => $pricing) {
                 $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
