@@ -317,7 +317,7 @@
                         </div>
                         <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
-                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category->id !== 1)
+                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category_id !== 1)
                               
                           @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
                           <div class="form-row align-items-center">
@@ -401,7 +401,7 @@
                         @endif
                       </div>
                   
-                      @if($productData !== null && $productData->category_id !== 1)
+                      @if($productData !== null && $productData->category_id != 1)
                       <div class="col-md-12" id="qtyPricing">
                           <div class="form-row align-items-center">
 
