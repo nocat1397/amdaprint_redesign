@@ -161,10 +161,10 @@
                           <button class="btn btn-outline-success btn-sm ml-auto" type="button" id="addPaperType"><i class="fa fa-plus"></i> Add</button>
                         </div>
                       </div>
-                      <div class="col-md-6 col-lg-6 form-group" style="border-left:0.2px solid grey">
+                      <div class="col-md-6 col-lg-6 form-group qtyDiv" style="border-left:0.2px solid grey">
                         <label for="">Quantity :</label>
                           <div class="form-row qty">
-                            @if($productData !== null)
+                            @if($productData !== null && isset($productData['qty'][$productArrayKey]))
                           @foreach($productData['qty'][$productArrayKey] as $qty)
                             <div class="col-md-3">
                               <div class="form-group">
@@ -266,18 +266,6 @@
                            <button class="btn btn-outline-danger btn-sm removePData{{$key}}" type="button" data-key="{{$key}}" onclick="remove({{$key}})"><i class="fa fa-minus"></i></button>
                            <button class="btn btn-outline-primary btn-sm float-right addPData{{$key}}" type="button" data-key="{{$key}}" onclick="plus({{$key}})"><i class="fa fa-plus"></i></button>
                         </div>
-                        <script>
-                          // $('.addPData{{$key}}').click(function(){
-                          //   $('.propertyData{{$key}}').append('<div class="rounded border p-2 mb-2"><label for="">Property Data :</label><div class="form-group"><input class="form-control data{{$key}}" type="text" name="data{{$key}}[]" placeholder="Enter Data"></div><div class="form-row"><div class="col-md-8"><label for="">Action :</label><select name="action{{$key}}[]" class="form-control"><option value="1">Percentage</option><option value="0">Fix Value</option></select></div><div class="col-md-4"><label for="">Value :</label><input type="text" class="form-control percentage{{$key}}" name="percentage{{$key}}[]"></div></div></div>')
-                          // });
-                          // $('.removePData{{$key}}').click(function(){
-                          //   var count = $(".propertyData{{$key}}").find("*").length;
-                          //   if(count > 7)
-                          //   {
-                          //     $('.propertyData{{$key}}').children().last().remove();
-                          //   }
-                          // });
-                        </script>
                            </div>
                          </div>
                        </div>
@@ -319,7 +307,8 @@
                         </div>
                         <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
-                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]))
+                          {{-- {{$productData->category}} --}}
+                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category->id !== 1)
                               
                           @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
                               {{-- {{$pricing}} --}}
@@ -355,7 +344,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Business Cards' || str_replace('-',' ',$productData->category->name) == 'Envelope' || str_replace('-',' ',$productData->category->name) == 'Letter Heads' || str_replace('-',' ',$productData->category->name) == 'Folders' || str_replace('-',' ',$productData->category->name) == 'Brochure' || str_replace('-',' ',$productData->category->name) == 'Invitation Cards' || str_replace('-',' ',$productData->category->name) == 'Greetings Cards')
+                          @if($productData !== null && $productData->category->name == 3 || $productData->category->name == 4 || $productData->category->name == 5 || $productData->category->name == 6 || $productData->category->name == 7 || $productData->category->name == 8 || $productData->category->name == 9)
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -377,7 +366,7 @@
                             </div>
                           </div>
                           @endif
-                          @if($productData !== null && str_replace('-',' ',$productData->category->name) == 'Banners' || str_replace('-',' ',$productData->category->name) == 'Stand & Displays')
+                          @if($productData !== null && $productData->category->id == 2)
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="">Quantity :</label>
@@ -403,8 +392,10 @@
                         @endforeach
                         @endif
                       </div>
+                      @if($productData !== null && $productData->category->id !== 1)
                       <div class="col-md-12" id="qtyPricing">
                           <div class="form-row align-items-center">
+
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label for="">Size :</label>
@@ -467,6 +458,76 @@
                           <button class="btn btn-outline-primary btn-sm float-right" type="button" id="addQtypricing"><i class="fa fa-plus"></i> Add</button>
                         </div>
                       </div>
+                      @else
+                      <div class="col-md-12">
+                        <div class="form-row align-items-center">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Size(feet) :</label>
+                                <input name="pricingSize[]" class="form-control" value="0-99" type="hidden">
+                                <input type="text" value="Up to 99 sqft" class="form-control" disabled readonly>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Amount :</label>
+                              <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $productData['pricing'][$productArrayKey][0][1] : ''}}" name="pricing[]">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-row align-items-center">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Size(feet) :</label>
+                                <input name="pricingSize[]" class="form-control" value="100-149" type="hidden">
+                                <input type="text" value="100 to 149 sqft" class="form-control" disabled readonly>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Amount :</label>
+                              <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $productData['pricing'][$productArrayKey][1][1] : ''}}" name="pricing[]">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-row align-items-center">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Size(feet) :</label>
+                                <input name="pricingSize[]" class="form-control" value="150-199" type="hidden">
+                                <input type="text" value="150 to 199 sqft" class="form-control" disabled readonly>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Amount :</label>
+                              <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $productData['pricing'][$productArrayKey][2][1] : ''}}" name="pricing[]">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-row align-items-center">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Size(feet) :</label>
+                                <input name="pricingSize[]" class="form-control" value="200" type="hidden">
+                                <input type="text" value="200 sqft and above" class="form-control" disabled readonly>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Amount :</label>
+                              <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $productData['pricing'][$productArrayKey][3][1] : ''}}" name="pricing[]">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      @endif
 
                       </div> 
                       <hr>
@@ -510,13 +571,20 @@
 <script>
     $('select[name="category_id"]').click(function(){
       var catName = $(this).find(':selected').text();
-      if(catName == 'Banners' || catName == 'Stand & Displays')
+      if(catName == 'Banners')
       {
         $('.paperTypeDiv').slideUp();
+        $('.qtyDiv').slideUp();
+      }
+      if(catName == 'Stand & Displays')
+      {
+        $('.paperTypeDiv').slideUp();
+        $('.qtyDiv').slideDown();
       }
       if(catName == 'Business Cards' || catName == 'Envelope' || catName == 'Letter Heads' || catName == 'Folders' || catName == 'Brochure' || catName == 'Invitation Cards' || catName == 'Greetings Cards')
       {
         $('.paperTypeDiv').slideDown();
+        $('.qtyDiv').slideDown();
       }
     });
     $('#addSpec').click(function(){
@@ -596,14 +664,21 @@
     var catName = $('select[name="category_id"]').find(':selected').text();
     var catName2 =  $('input[name="cat_name"]').val();
     var finalCatName = catName || catName2;
-    // alert(finalCatName);
-      if(finalCatName == 'Banners' || finalCatName == 'Stand & Displays')
+    // alert(finalCatN  ame);
+    if(finalCatName == 'Banners')
       {
         $('.paperTypeDiv').hide();
+        $('.qtyDiv').hide();
+      }
+      if(finalCatName == 'Stand & Displays')
+      {
+        $('.paperTypeDiv').hide();
+        $('.qtyDiv').slideDown();
       }
       if(finalCatName == 'Business Cards' || finalCatName == 'Envelope' || finalCatName == 'Letter Heads' || finalCatName == 'Folders' || finalCatName == 'Brochure' || finalCatName == 'Invitation Cards' || finalCatName == 'Greetings Cards')
       {
         $('.paperTypeDiv').slideDown();
+        $('.qtyDiv').slideDown();
       }
     $('#productInfoNext').on('click', function(e){
       $.ajaxSetup({
@@ -626,7 +701,8 @@
               .map(function(){return $(this).val();}).get();
       var paperType = $("input[name='paperType[]']")
               .map(function(){return $(this).val();}).get();
-      if(finalCatName == 3 || finalCatName == 4 || finalCatName == 5 || finalCatName == 6 || finalCatName == 7 || finalCatName == 8 || finalCatName == 9)
+              // alert(finalCatName);
+      if(catId == 3 || catId == 4 || catId == 5 || catId == 6 || catId == 7 || catId == 8 || catId == 9)
       {  
         if(size[0] != "" && paperType[0] != "" && qty[0] != "")
         {
@@ -647,7 +723,29 @@
         });
       }
     }
-      if(finalCatName == 1 || finalCatName == 2)
+      if(catId == 1)
+      {  
+        // alert(finalCatName);
+        if(size[0] != "")
+        {
+        $.ajax({
+          type: "POST",
+          url: "/product-info-session",
+          data: {catId:catId,name:name,desc:desc,specs:specs,size:size},
+          
+          success:function(response) {
+            console.log(response);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
+            $('#properties').load(location.href + ' #properties .col-md-3');
+          },
+          error: function(error){
+            console.log(error)
+          }
+        });
+      }
+    }
+      if(catId == 2)
       {  
         if(size[0] != "" && qty[0] != "")
         {

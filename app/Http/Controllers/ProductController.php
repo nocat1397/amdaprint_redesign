@@ -340,7 +340,7 @@ class ProductController extends Controller
     public function pricingSession(Request $request)
     {
         // return $request;
-        if(count($request->pricing) == count($request->pricingQty))
+        if(isset($request->pricingQty) && count($request->pricing) == count($request->pricingQty))
         {
             $product = Product::where('category_id',$request->category_id)->first();
             $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
@@ -348,11 +348,21 @@ class ProductController extends Controller
             foreach ($priceFilter as $key => $pricing) {
                 $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
             }
-            // return $pricingArray;
             $pricings = $product->pricing;
             
             $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
-            // return $pricingArrSet;
+            $product->update(['pricing'=>$pricingArrSet]);
+            $product->save();
+        } else {
+            $product = Product::where('category_id',$request->category_id)->first();
+            $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
+            $priceFilter = array_filter($request->pricing);
+            foreach ($priceFilter as $key => $pricing) {
+                $pricingArray[] = array($request->pricingSize[$key],$pricing);
+            }
+            $pricings = $product->pricing;
+            
+            $pricingArrSet = Arr::set($pricings,$keyFind,$pricingArray);
             $product->update(['pricing'=>$pricingArrSet]);
             $product->save();
         }
