@@ -699,22 +699,23 @@
               .map(function(){return $(this).val();}).get();
       var qty = $("input[name='qty[]']")
               .map(function(){return $(this).val();}).get();
-      var paperType = $("input[name='paperType[]']")
+              var paperType = $("input[name='paperType[]']")
               .map(function(){return $(this).val();}).get();
               // alert(finalCatName);
       if(catId == 3 || catId == 4 || catId == 5 || catId == 6 || catId == 7 || catId == 8 || catId == 9)
       {  
         if(size[0] != "" && paperType[0] != "" && qty[0] != "")
         {
-        $.ajax({
-          type: "POST",
-          url: "/product-info-session",
-          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,paperType:paperType,qty:qty},
-          
-          success:function(response) {
-            console.log(response);
-            $('#productInfoForm').slideUp();
-            $('#productPropertyForm').slideDown();
+          $.ajax({
+            type: "POST",
+            url: "/product-info-session",
+            data: {catId:catId,name:name,desc:desc,specs:specs,size:size,paperType:paperType,qty:qty},
+            
+            success:function(response) {
+              console.log(response);
+              $('#productInfoForm').slideUp();
+              $('#productPropertyForm').slideDown();
+              $('#productPropertyForm').load(location.href + ' #productPropertyForm div');
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
@@ -728,15 +729,16 @@
         // alert(finalCatName);
         if(size[0] != "")
         {
-        $.ajax({
-          type: "POST",
-          url: "/product-info-session",
-          data: {catId:catId,name:name,desc:desc,specs:specs,size:size},
-          
-          success:function(response) {
-            console.log(response);
-            $('#productInfoForm').slideUp();
-            $('#productPropertyForm').slideDown();
+          $.ajax({
+            type: "POST",
+            url: "/product-info-session",
+            data: {catId:catId,name:name,desc:desc,specs:specs,size:size},
+            
+            success:function(response) {
+              console.log(response);
+              $('#productInfoForm').slideUp();
+              $('#productPropertyForm').slideDown();
+              $('#productPropertyForm').load(location.href + ' #productPropertyForm div');
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
@@ -758,6 +760,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('#productPropertyForm').load(location.href + ' #productPropertyForm div');
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
