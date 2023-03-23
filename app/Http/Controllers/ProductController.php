@@ -37,19 +37,20 @@ class ProductController extends Controller
     }
     public function addProduct()
     {
-        // return session()->get('productData');
+        // return session()->forget('productData');
         \Session::forget('showProductData');
         $categories = Category::all();
         $productSession = session()->get('productData');
         $productData = Product::where('category_id',$productSession['catId'] ?? '')->first();
-        // return $productData;
+        // return [$productSession,$productData];
         if($productData != null)
         {
-            $productArrayKey = array_search(str_replace(' ','-',$productSession['name']),$productData->name);
+            $productName = Str::title($productSession['name']);
+            $productArrayKey = array_search(str_replace(' ','-',$productName),$productData->name);
         } else {
             $productArrayKey = null;
         }
-        // return \Session::all();
+        // return [$productSession,$productArrayKey,$productData];
         return view('admin.product.addProduct', compact('categories','productData','productArrayKey','productSession'));
     }
     public function showProduct()
@@ -178,7 +179,7 @@ class ProductController extends Controller
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
         $product = Product::where('category_id',(int)$request->category_id)->first();
-        return $request;
+        // return $request;
         if($product !== null)
         {
             $names = $product->name;
@@ -189,7 +190,7 @@ class ProductController extends Controller
             $propertyAction = $product->property_action;
             $propertyPercentage = $product->property_percentage;
             $labels = array_filter($request->labels);
-            return $request;
+            // return $request;
             if($properties != null)
             {
                 $keyCheck = array_key_exists($keyFind,$properties);
@@ -209,7 +210,7 @@ class ProductController extends Controller
             } else {
                 $property[] = $labels;
                 $product->update(['property'=>$property]);
-                $product->save();
+                // $product->save();
             }
             //////////////////////////////////////////////////////////////////
             foreach ($inputs as $key => $value) {

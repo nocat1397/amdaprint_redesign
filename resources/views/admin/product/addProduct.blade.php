@@ -715,6 +715,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
@@ -737,6 +738,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
@@ -758,6 +760,7 @@
             console.log(response);
             $('#productInfoForm').slideUp();
             $('#productPropertyForm').slideDown();
+            $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
           },
           error: function(error){
@@ -768,6 +771,9 @@
     }
     });
     $('#productPropertyNext').on('click', function(e){
+      // var catId = $('select[name="category_id"]').val() ?? $('input[name="category_id"]').val();
+      // // alert(catId);
+      // // return false;
       $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
