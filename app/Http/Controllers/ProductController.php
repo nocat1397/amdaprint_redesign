@@ -189,7 +189,7 @@ class ProductController extends Controller
             $propertyAction = $product->property_action;
             $propertyPercentage = $product->property_percentage;
             $labels = array_filter($request->labels);
-            // return $keyFind;
+            return $request;
             if($properties != null)
             {
                 $keyCheck = array_key_exists($keyFind,$properties);
@@ -209,6 +209,7 @@ class ProductController extends Controller
             } else {
                 $property[] = $labels;
                 $product->update(['property'=>$property]);
+                $product->save();
             }
             //////////////////////////////////////////////////////////////////
             foreach ($inputs as $key => $value) {
@@ -328,14 +329,14 @@ class ProductController extends Controller
                 return response(0);
             }
     } else {
-        return "in if condition";
+        // return "in if condition";
         $product->save();
         
         session()->put('productDataLabels',$request->all());
         return response(0);
         
     }
-    return "out of if condition";
+    // return "out of if condition";
             
         }
     }
