@@ -56,7 +56,7 @@ class ProductController extends Controller
     public function showProduct()
     {
         \Session::forget(['showProductData','productData','productDataLabels']);
-        $categories = Category::with('product')->has('product')->get();
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         // return $categories;
         return view('admin.product.showProducts', compact('categories'));
     }
@@ -438,17 +438,45 @@ class ProductController extends Controller
      */
     public function dynaRoute($category,$productName)
     {
-        $categories = Category::with('product')->has('product')->get();
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cat = Category::where('name',$category)->with('product')->first();
         $products = $cat->product;
         $productKey = array_search($productName,$products['name']);
-        // return $products['paper_type'];
         $product = str_replace('-',' ',$productName);
+        // return $product;
         switch ($category) {
-            case 'business-cards':
+            case 'Business-Cards':
                 return view('front-end.products.bCard.custom',compact('product','category','categories','productKey','products'));
                 break;
-            
+            case 'Banners':
+                if(str_contains($product, 'Custom'))
+                {
+                    return view('front-end.products.banners.custom',compact('product','category','categories','productKey','products'));
+                } else {
+                    return view('front-end.products.banners.other',compact('product','category','categories','productKey','products'));
+                }
+                break;
+            case 'Stand-&-Displays':
+                return view('front-end.products.stand-display.custom',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Folders':
+                return view('front-end.products.stationary.folders.custom',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Envelope':
+                return view('front-end.products.stationary.envelope.custom',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Brochure':
+                return view('front-end.products.marketing.brochure',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Letter-Heads':
+                return view('front-end.products.stationary.letterhead',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Invitation-Cards':
+                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
+                break;
+            case 'Greetings-Cards':
+                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
+                break;
             default:
 
                 break;

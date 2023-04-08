@@ -71,12 +71,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Categories</h1>
+            <h1 class="m-0 text-dark">Sub Categories</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Home</a></li>
-              <li class="breadcrumb-item active">Categories</li>
+              <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
+              <li class="breadcrumb-item active">Sub Categories</li>
             </ol>
           </div><!-- /.col -->
           <div>
@@ -89,9 +90,32 @@
 
     <!-- Main content -->
     <div class="content">
-        <div class="container-fluid">
+        <div class="container">
           <div class="row justify-content-center">
-            <div class="col-md-12 p-0">
+            <div class="col-md-6 p-0">
+              <div class="card shadow">
+                <div class="card-body">
+                  @if (\Session::has('success'))
+		            	<div class="alert alert-success catAdd">
+                      <h6>{!! \Session::get('success') !!}</h6>
+		            	</div>
+		            @endif
+                <form method="POST" action="/store-subcategory">
+                  @csrf
+                  <input type="hidden" name="cat_id" value="{{$id}}">
+                    <div class="form-group">
+                      {!! Form::label('name', 'Name') !!}
+                      {!! Form::text('name', null, ['class'=>'form-control text-capitalize', 'placeholder'=>'Enter Category']) !!}
+                    </div>
+                    <hr>
+                    <div class="form-group text-center">
+                        <button class="btn btn-dark" type="submit">Submit</button>
+                    </div>    
+                </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 p-0">
               <div class="card shadow">
                 <div class="card-body table-responsive p-0">
                   <table class="table" id="sort" style="width: 100%">
@@ -102,21 +126,21 @@
 		                @endif
                     <thead style="background-color: #FCDFBB; color: #a23f25; border: 1px solid #a23f25">
                       <th class="index">Id</th>
-                      <th>Category</th>
+                      <th>Name</th>
                       <th>Action</th>
                     </thead>
                       <tbody>
-                      @foreach ($categories as $data)
+                      @foreach ($subCat as $data)
                       <tr data-id="{{$data->id}}" data-seq="{{$data->sequence}}" data-category="{{$data->name}}">
-                        <td class="index">{{$data->sequence}}</td>
+                        <td class="index">{{++$loop->index}}</td>
                         <td>{{str_replace('-',' ',$data->name)}}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="{{url('sub-categories/'.$data->id)}}" class="btn btn-light bg-primary text-light shadow rounded-pill btn-sm">Sub Categories</a>
+                            <button class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#modal{{$data->id}}"><i class="fas fa-edit"></i></button>
                           </div>
                         </td>
                       </tr>
-                      <div class="modal fade" id="modal-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal fade" id="modal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
                             <div class="modal-header" style="background-color: #FCDFBB; color: #a23f25; border: 1px solid #a23f25">
@@ -126,9 +150,9 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="/update-category" method="POST">
+                              <form action="/update-subcategory" method="POST">
                                 @csrf
-                                <input type="hidden" name="cat_id" value="{{$data->id}}">
+                                <input type="hidden" name="subcat_id" value="{{$data->id}}">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Name</label>
                                   <input type="text" class="form-control" name="name" value="{{str_replace('-',' ',$data->name)}}">
@@ -171,60 +195,11 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-{{-- @include('admin.script') --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+@include('admin.script')
 <script>
   $(document).ready(function(){
-
-  var fixHelperModified = function(e, tr) {
-    var $originals = tr.children();
-    var $helper = tr.clone();
-    $helper.children().each(function(index) {
-        $(this).width($originals.eq(index).width())
-    });
-    return $helper;
-},
-    updateIndex = function(e, ui) {
-        $('td.index', ui.item.parent()).each(function (i) {
-            $(this).html(i + 1);
-        });
-    };
-
-$("#sort tbody").sortable({
-    helper: fixHelperModified,
-    stop: updateIndex,
-    update: function(event, ui) {
-            var ids = [];
-            var seq = [];
-            var index = [];
-            var categories = [];
-            $('#sort tbody tr').each(function() {
-                ids.push($(this).data('id'));
-                seq.push($(this).data('seq'));
-                categories.push($(this).data('category'));
-                index.push($(this).find('td').html());
-            });
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-              type: "POST",
-              url: "/categorySeq",
-              data: {ids:ids,seq:seq,index:index.sort(),categories:categories},
-
-              success:function(response) {
-                console.log(response);
-              },
-              error: function(error){
-                console.log(error)
-              }
-            });
-    }
-}).disableSelection();
     setTimeout(() => {
+      $('.alert-success').slideUp();
       $('.alert-light').slideUp();
     }, 3000);
   })

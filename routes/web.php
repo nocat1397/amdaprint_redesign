@@ -79,29 +79,32 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::get('/{category}/{product}', 'ProductController@dynaRoute');
     /////////Banners Start/////////
 
-    //custom vinyl
+    //all banners vinyl
     Route::get('/banners/custom-vinyl-banner', 'ProductController@customVinyl');
-    Route::post('/custom-vinyl-qty', 'BannerController@mainQty');
-    Route::post('/custom-vinyl-banner-size', 'BannerController@bannerSize');
-    Route::post('/custom-vinyl-hanging', 'BannerController@hanging');
-    Route::post('/custom-vinyl-wind', 'BannerController@wind');
 
-
-    Route::get('/banners/vinyl-eco-friendly-banner', 'ProductController@ecoVinyl');
-    Route::get('/banners/backlit-banner', 'ProductController@backlitVinyl');
-    Route::get('/banners/vinyl-mesh-banner', 'ProductController@meshVinyl');
-    Route::get('/banners/vinyl-billboard-banner', 'ProductController@billboardVinyl');
-    Route::get('/banners/premium-quality-banner', 'ProductController@premiumVinyl');
 
     /////////Banners End/////////
 
-    /////////Business Card Start/////////
+
+
+
+    /////////Business Card, Folders, Brochure, Letterheads, Envelope, Invitation Cards, Greeting Cards/////////
+    Route::post('/custom-card-price', 'BcardController@cardPrice');
+    Route::post('/custom-card-properties', 'BcardController@cardProperty');
+    //////////Custom & Other Banners /////////
+    Route::post('/custom-banner-price', 'BannerController@bannerPrice');
+    Route::post('/custom-banner-properties', 'BannerController@bannerProperty');
+    //////////Stand & displays & Frames /////////
+    Route::post('/custom-stand-price', 'StandController@standPrice');
+    Route::post('/custom-stand-properties', 'StandController@standProperty');
+
+
+
+
 
     // Standard Cards start
     Route::get('/business-cards/standard-business-cards', 'ProductController@bStandard');
     Route::get('/business-cards/standard-business-cards/custom-business-card', 'ProductController@bcustom');
-    Route::post('/custom-card-price', 'BcardController@cardPrice');
-    Route::post('/custom-card-properties', 'BcardController@cardProperty');
     Route::post('/custom-card-size', 'BcardController@cardSize');
     Route::post('/custom-card-qty', 'BcardController@mainQty');
     Route::post('/custom-card-paper', 'BcardController@paperType');
@@ -249,6 +252,8 @@ Route::domain(env('DOMAIN'))->group(function () {
     /////////Stand and Display Start/////////
 
     //rollup stand
+    
+
     Route::get('/stand-display/rollup-banner-stand', 'ProductController@rollupStand');
     Route::post('/rollup-banner-stand-size', 'StandController@bannerSize');
     Route::post('/rollup-banner-stand-qty', 'StandController@mainQty');
@@ -379,6 +384,9 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::post('/product-pricing-session', 'ProductController@pricingSession');
         
         //categories CRUD
+        Route::get('/sub-categories/{id}', 'CategoryController@subCategories');
+        Route::post('/store-subcategory', 'CategoryController@storeSub');
+        Route::post('/update-subcategory', 'CategoryController@updateSub');
         Route::get('/add-category', 'CategoryController@index');
         Route::get('/categories', 'CategoryController@show');
         Route::post('/store-category', 'CategoryController@store');

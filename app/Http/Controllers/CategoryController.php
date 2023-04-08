@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -22,6 +23,14 @@ class CategoryController extends Controller
         $cat->save();
         return Redirect::back()->with('success','Category Added.');
     }
+    public function storeSub(Request $request)
+    {
+        $subCat = new SubCategory;
+        $subCat->category_id = $request->cat_id;
+        $subCat->name = str_replace(' ','-',$request->name);
+        $subCat->save();
+        return Redirect::back()->with('success','Sub Category Added.');
+    }
 
     public function show()
     {
@@ -35,6 +44,14 @@ class CategoryController extends Controller
         $category = Category::find($request->cat_id);
         $category->update(['name'=>str_replace(' ','-',$request->name)]);
         $category->save();
+
+        return Redirect::back()->with('danger','<strong class="text-primary">Category Updated.</strong>');
+    }
+    public function updateSub(Request $request)
+    {
+        $subcategory = SubCategory::find($request->subcat_id);
+        $subcategory->update(['name'=>str_replace(' ','-',$request->name)]);
+        $subcategory->save();
 
         return Redirect::back()->with('danger','<strong class="text-primary">Category Updated.</strong>');
     }
@@ -55,5 +72,10 @@ class CategoryController extends Controller
             $categories[] = $category;
         }
         return response($categories);
+    }
+    public function subCategories($id)
+    {
+        $subCat = SubCategory::where('category_id',$id)->get();
+        return view('admin.category.subCategories', compact('subCat','id'));
     }
 }

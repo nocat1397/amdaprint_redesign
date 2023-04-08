@@ -56,38 +56,30 @@
 								<div class="details_image clearfix">
 									<div class="tab-content">
 										<div id="image_1" class="tab-pane active">
-											<img src="/assets/images/details/shop/marketing/brochure1.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/folders/key/1.jpg" alt="image_not_found">
 										</div>
 										<div id="image_2" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure2.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/folders/key/2.jpg" alt="image_not_found">
 										</div>
 										<div id="image_3" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure3.jpg" alt="image_not_found">
-										</div>
-										<div id="image_4" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure4.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/folders/key/3.jpg" alt="image_not_found">
 										</div>
 									</div>
 
 									<ul class="nav ul_li_block clearfix float-left owl-carousel productImg_slider" role="tablist">
 										<li>
 											<a class="active" data-toggle="tab" href="#image_1">
-												<img src="/assets/images/details/shop/marketing/brochure1.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/folders/key/1.jpg" alt="image_not_found">
 											</a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#image_2">
-												<img src="/assets/images/details/shop/marketing/brochure2.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/folders/key/2.jpg" alt="image_not_found">
 											</a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#image_3">
-												<img src="/assets/images/details/shop/marketing/brochure3.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_4">
-												<img src="/assets/images/details/shop/marketing/brochure4.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/folders/key/3.jpg" alt="image_not_found">
 											</a>
 										</li>
 									</ul>
@@ -104,20 +96,16 @@
 										<li><i class="fas fa-star-half"></i></li>
 									</ul>
 									<div class="row mb-4">
-										<div class="col-md-12 bg-lights pt-3">
-											<strong>Personalize your professional stationery to stand out.</strong>
-										</div>
 										<div class="bg-lights p-3 col-md-6">
 											<ul class="list-unstyled mb-0">
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Suitable for commercial or professional use.</li>
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>A weight of approximately 70 pounds is available.</li>											
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>During the cutting process, thin borders are likely to appear lopsided.</li>											
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>In order to leave a lasting impression, high-quality printed folders are a must.</li>
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>In order to accommodate different budgets and business needs, the folders can be customized.</li>											
 											</ul>
 										</div>
 										<div class="bg-lights p-3 col-md-6">
 											<ul class="list-unstyled mb-0">
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Material that is of high quality and durable.</li>											
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>An option that allows you to display your brand name/logo creatively.</li>											
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>Durable paper construction facilitates long-lasting use.</li>											
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>Additional storage for pocket use.</li>											
 											</ul>
 										</div>
 									</div>
@@ -619,7 +607,6 @@
            			});
 
 			};
-			
 	</script>
 
 </body>

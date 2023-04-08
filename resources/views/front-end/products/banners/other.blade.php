@@ -114,23 +114,21 @@
 									<div id="details_form">
                                         <form action="" class="productForm">
                                             @csrf
+											<input type="hidden" name="product_id" value="{{$products->id}}">
+                                            <input type="hidden" name="product_key" value="{{$productKey}}">
+											<input type="hidden" name="base_price">
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
-                                                    <label class="my-1 mr-2">Size (W x H)</label>
+                                                    <label class="my-1 mr-2">Size (Feet)</label>
                                                 </div>
 
-                                                <div class="col form-inline">
-                                                    <select class="mr-2 w-50" id="bannerSize">
-                                                        <option selected value="6">3 x 2 Feet</option>
-                                                        <option value="8">2 x 4 Feet</option>
-                                                        <option value="15">3 x 5 Feet</option>
-                                                        <option value="12">3 x 4 Feet</option>
-                                                        <option value="30">5 x 6 Feet</option>
-                                                        <option value="42">6 x 7 Feet</option>
-                                                        <option value="10">5 x 2 Feet</option>
-                                                        <option value="45">15 x 3 Feet</option>
-                                                        
+                                                <div class="col-md-6 form-inline">
+                                                    <select class="mr-2 w-100" id="bannerSize">
+                                                        @foreach ($products['size'][$productKey] as $size)
+														<option value="{{$size}}">{{str_replace('-',' ',$size)}}</option>
+														@endforeach
                                                     </select>
+													
                                                 </div>
 
                                             </div>
@@ -138,29 +136,35 @@
                                                 <div class="col-md-3">
                                                     <label class="my-1 mr-2">Quantitiy</label>
                                                 </div>
-
-                                                <div class="col">
-                                                    <input class="input_number w-50" type="number" value="1" id="mainQty" min="1">
+                                                <div class="col-md-6">
+                                                    <input class="input_number w-100" type="number" value="1" id="mainQty" min="1">
                                                 </div>
-                                               
                                             </div>
                                             <hr class="mt-5 mb-5">
-                                            
+											@foreach ($products['property'][$productKey] as $key=>$property)
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
-													<label class="my-1 mr-2">Upgrade To Premium</label>
+                                                    <input type="hidden" name="property_key[]" value="{{$key}}">
+													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
                                                 </div>
-												
+
                                                 <div class="col-md-6">
-													<select class="w-100" id="uvPrim">
-														<option selected value="0">No</option>
-                                                        <option value="1">16 oz with UV Print</option>
-                                                    </select>
+													<select class="w-100" id="propertiesPer_{{$key}}" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
+														@if (isset($products['property_data'][$productKey][$key]))
+														@foreach ($products['property_data'][$productKey][$key] as $dataKey=>$data)
+														<option value="{{$dataKey}}">{{$data}}</option>
+														@endforeach
+														@else 
+														<option>No Data</option>
+														@endif
+													</select>
                                                 </div>
-												<div class="col-md-3">
-												   <label id="uvPrimAmount" class="text-danger font-weight-bold">$<span></span></label>
-												</div>
+                                               <div class="col-md-3">
+												<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
+											   </div>
                                             </div>
+											@endforeach
+
                                         </form>
                                     </div>
 									{{-- <ul class="quantity_cart ul_li mb_30 clearfix">
@@ -205,23 +209,6 @@
 														<strong class="text-dark">Hire a Designer @ $9.99</strong>
 													</label>
 													<p class="text-muted">Let a professional Designer create your design @ $9.99</p>
-												  </div>
-												  <div class="form-check">
-													<button
-    												  data-design-type="Poster"
-    												  data-api-key="API KEY GOES HERE"
-    												  class="canva-design-button"
-    												  style="display: none;"
-    												  >Design with Canva</button
-    												>
-    												<script>
-    												  (function (c, a, n) {
-    												    var w = c.createElement(a),
-    												      s = c.getElementsByTagName(a)[0];
-    												    w.src = n;
-    												    s.parentNode.insertBefore(w, s);
-    												  })(document, "script", "https://sdk.canva.com/designbutton/v2/api.js");
-    												</script>
 												  </div>
 											</div>
 										</form>
@@ -355,75 +342,113 @@
 @include('front-end.section.scripts')
 <script>
 	$(document).ready(function(){
-		$('#uvPrimAmount').hide();
+		$('[id^=property]').hide();
 	});
 </script>
 <script>
 	$('#bannerSize').on('change',function(){
-		
-		// $('#wind').prop('selectedIndex', 0);
-		$('#uvPrim').val('0').niceSelect('update');
-		$('#uvPrimAmount').fadeOut().hide();
-		$('#mainQty').val(1);
-		if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-		if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-		$('#total').html(bannerRate.toFixed(2));
-		var finalTotal = (bannerRate*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
+		$('[id^=propertiesPer]')[0].selectedIndex = 0;
+		$('[id^=propertiesPer]').niceSelect('update');
+		$('[id^=property]').fadeOut().hide();
+			$('.customSize').fadeOut();
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+			var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var bannerSize = $('#bannerSize').val();
+			var qty = $('#mainQty').val();
+            
+            $.ajax({
+              type: "POST",
+              url: "/custom-banner-price",
+              data: {id:id,key:key,size:bannerSize,qty:qty},
+            
+              success:function(response) {
+                console.log(response);  
+				// return false;
+				$('#total').html(response.total.toFixed(2));
+				$('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.baseRate);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
+			
 	});
-	$('#mainQty').on('change',function(){
+	$('#mainQty').on('change keyup',function(){
 		
-		// $('#wind').prop('selectedIndex', 0);
-		$('#uvPrim').val('0').niceSelect('update');
-		$('#uvPrimAmount').fadeOut().hide();
+		$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+			var bannerSize = $('#bannerSize').val();
+            var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var qty = $(this).val();
+            
+            $.ajax({
+              type: "POST",
+              url: "/custom-banner-price",
+              data: {id:id,key:key,size:bannerSize,qty:qty},
+            
+              success:function(response) {
+                console.log(response);  
+				// return false;
+				$('#total').html(response.total.toFixed(2));
+				$('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.baseRate);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
+	});
+	// Property percentage Check
+	function propertyPricing($id,$key){
+				
+				$.ajaxSetup({
+					   headers: {
+						   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					   }
+				   });
+				var id = $('input[name="product_id"]').val();
+				var product_key = $('input[name="product_key"]').val();
+				var property_key = $('input[name="property_key[]"]').map(function(){return $(this).val();}).get();
+				var percentageKey = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").val();}).get();
+				var bannerSize = $('#bannerSize').val();
+				var qty = $('#mainQty').val();
+				var basePrice = $('input[name="base_price"]').val();
+				var total = $('#total').html();
+				   $.ajax({
+					 type: "POST",
+					 url: "/custom-banner-properties",
+					 data: {id:id,product_key:product_key,property_key:property_key,percentageKey:percentageKey,size:bannerSize,qty:qty,basePrice:basePrice,total:total},
+				
+					 success:function(response) {
+					   console.log(response);  
+					   $('#total').html(response.total.toFixed(2));
+					   $('#finalTotal').html(response.final.toFixed(2));   
+					   $.each(response.percentageRates, function(key, value) {
+						if (value > 0) {	
+							$('#property_'+key+' span').html(value.toFixed(2));
+							$('#property_'+key).fadeIn().show();
+						} else {
+							$('#property_'+key+' span').html(value.toFixed(2));
+							$('#property_'+key).fadeOut().hide();
+						}
+					   })
+					 },
+					 error: function(error){
+					   console.log(error)
+					 }
+				   });
 
-		if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-		if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-		var qtyRate = bannerRate*$(this).val();
-		$('#total').html(qtyRate.toFixed(2));
-		var finalTotal = (qtyRate*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-	});
+		};
 </script>
 <script>
 	function addCart(loginStatus)
@@ -475,223 +500,37 @@
 
 	}
 </script>
-	<script>
-		$(document).ready(function(){
-			if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-			if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-			$('#total').html(bannerRate.toFixed(2));
-			var finalTotal = (bannerRate*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-			// main qty
-			$('#mainQty').change(function(){
-				var qty = $(this).val();
-				if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-				if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-				var final = bannerRate*qty;
-				
-				$('#total').html(final.toFixed(2));
-				var finalTotal = (final*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-			});
-
-			// UV premium
-			$('#uvPrim').change(function(){
-				var value = $(this).val();
-				if(value == 1)
-				{
-					var qty = $('#mainQty').val();
-					if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-					if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-					var qtyRate = bannerRate*qty;
-					if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-					if(bannerSize < 21)
-					{
-						$('#uvPrimAmount span').html('9.20');
-						$('#uvPrimAmount').fadeIn().show();
-						var final = parseFloat($('#total').html())+parseFloat('9.20');
-					
-						$('#total').html(final.toFixed(2));
-						var finalTotal = (final*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-					} else {
-						if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-						if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-						
-						var primVal = (qtyRate*30)/100;
-						$('#uvPrimAmount span').html(primVal.toFixed(2));
-						$('#uvPrimAmount').fadeIn().show();
-						var final = parseFloat($('#total').html())+parseFloat(primVal.toFixed(2));
-					
-						$('#total').html(final.toFixed(2));
-						var finalTotal = (final*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-					}
-
-				} else {
-					$('#uvPrimAmount').fadeIn().hide();
-					var qty = $('#mainQty').val();
-					if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-					if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-					var qtyRate = bannerRate*qty;
-					if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-					if(bannerSize < 21)
-					{
-						var final = parseFloat($('#total').html())-parseFloat('9.20');
-						$('#total').html(final.toFixed(2));
-						var finalTotal = (final*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-					} else {
-						if($('#bannerSize').val() == 0)
-					{
-					
-						var bannerSize = $('#customOne').val()*$('#customTwo').val();
-					
-					} else {
-					
-						var bannerSize = $('#bannerSize').val();
-					
-					}
-						if (bannerSize < 50) {
-    	    var bannerRate = bannerSize*5.66;
-    	} 
-    	if (bannerSize > 49 && bannerSize < 100) {
-    	    var bannerRate = bannerSize*5.15;
-    	} 
-    	if (bannerSize > 99 && bannerSize < 200) {
-    	    var bannerRate = bannerSize*4.63;
-    	}
-    	if (bannerSize > 199) {
-    	    var bannerRate = bannerSize*4.12;
-    	}
-						var primVal = (qtyRate*30)/100;
-						var final = parseFloat($('#total').html())-parseFloat(primVal.toFixed(2));
-						$('#total').html(final.toFixed(2));
-						var finalTotal = (final*100)/50;
-					$('#finalTotal').html(finalTotal.toFixed(2));
-					}
-				}
-			});
-			
+<script>
+	$(document).ready(function(){
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
 		});
-	</script>
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		var bannerSize = $('#bannerSize').val();
+		var qty = $('#mainQty').val();
+		
+		$.ajax({
+		  type: "POST",
+		  url: "/custom-banner-price",
+		  data: {id:id,key:key,size:bannerSize,qty:qty},
+		
+		  success:function(response) {
+			console.log(response);  
+			// return false;
+			$('#total').html(response.total.toFixed(2));
+			$('#finalTotal').html(response.final.toFixed(2));   
+			$('input[name="base_price"]').val(response.baseRate);
+		  },
+		  error: function(error){
+			console.log(error)
+		  }
+		});
+	});
+</script>
+
 
 </body>
 

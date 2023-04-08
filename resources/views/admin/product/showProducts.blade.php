@@ -130,7 +130,16 @@
                         <td>{{str_replace('-',' ',$category->name)}}</td>
                         <td>
                           @foreach ($category->product['name'] as $name)
-                          <a href="/product/{{$category->id}}/{{$name}}" target="_blank" type="button" class="tags text-capitalize mb-2">{{str_replace('-',' ',$name)}}</a>
+                          <div class="btn-group">
+
+                            <button type="button" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle btn tags text-capitalize mb-2">{{str_replace('-',' ',$name)}}</button>
+                            <div class="dropdown-menu" style="">
+                              <a class="dropdown-item" type="button" href="/product/{{$category->id}}/{{$name}}" target="_blank">Edit</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item disabled" type="button" href="javascript:void(0)" data-toggle="modal" data-target="#image{{$category->id}}">Upload Image</a>
+                              <a class="dropdown-item disabled" type="button" href="#">Assign Sub Category</a>
+                            </div>
+                          </div>
                           @endforeach
                         </td>
                       </tr>
@@ -170,59 +179,7 @@
 @include('admin.script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function(){
-      $('form').attr("autocomplete","off");
-      $('input').attr("autocomplete","off");
-      var i=1;
-      $("#add_row").click(function(){b=i-1;
-          $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
-          $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-          i++; 
-      });
-      $("#delete_row").click(function(){
-        if(i>1){
-      $("#addr"+(i-1)).html('');
-      i--;
-      }
-      calc();
-    });
-    
-    $('#tab_logic tbody').on('keyup change',function(){
-      calc();
-    });
-    $('#tax').on('keyup change',function(){
-      calc_total();
-    });
-    
-  
-  });
-  
-  function calc()
-  {
-    $('#tab_logic tbody tr').each(function(i, element) {
-      var html = $(this).html();
-      if(html!='')
-      {
-        var qty = $(this).find('.qty').val();
-        var price = $(this).find('.price').val();
-        $(this).find('.total').val(qty*price);
-        
-        calc_total();
-      }
-      });
-  }
-  
-  function calc_total()
-  {
-    total=0;
-    $('.total').each(function() {
-          total += parseInt($(this).val());
-      });
-    $('#sub_total').val(total.toFixed(2));
-    tax_sum=total/100*$('#tax').val();
-    $('#tax_amount').val(tax_sum.toFixed(2));
-    $('#total_amount').val((tax_sum+total).toFixed(2));
-  }
+   
 </script>
 </body>
 </html>

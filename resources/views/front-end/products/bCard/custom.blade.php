@@ -129,7 +129,7 @@
 											</div>
 											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label class="my-1 mr-2">Size</label>
+													<label class="my-1 mr-2">Size (Inch)</label>
 												</div>
 												
 												<div class="col-md-6">
@@ -584,7 +584,6 @@
 					var id = $('input[name="product_id"]').val();
 					var product_key = $('input[name="product_key"]').val();
 					var property_key = $('input[name="property_key[]"]').map(function(){return $(this).val();}).get();
-					// var percentageKey = percentage.value;
 					var percentageKey = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").val();}).get();
 					var cardSize = $('#cardSize').val();
 					var paperType = $('#paperType').val();

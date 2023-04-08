@@ -2,103 +2,95 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
-    public function bannerSize(Request $request)
+    public function bannerPrice(Request $request)
     {
         $size = $request->size;
-        if ($size < 100) {
-            $bannerRate = $size*1.99;
+        $cal1 = strtok($size,'x');
+        $cal2 = substr($size, strpos($size, "x") + 1);
+        $totalSize = $cal1*$cal2;
+        $qty = $request->qty;
+        if ($totalSize < 100) {
+            $priceArray = ['0-99'];
         } 
-        if ($size > 99 && $size < 150) {
-            $bannerRate = $size*1.81;
+        if ($totalSize > 99 && $size < 150) {
+            $priceArray = ['100-149'];
         } 
-        if ($size > 149 && $size < 200) {
-            $bannerRate = $size*1.66;
+        if ($totalSize > 149 && $size < 200) {
+            $priceArray = ['150-199'];
         }
-        if ($size > 199) {
-            $bannerRate = $size*1.53;
+        if ($totalSize > 199) {
+            $priceArray = ['200'];
         }
+        $product = Product::find($request->id);
+        $priceCheck = $product->pricing[$request->key];
+        foreach ($priceCheck as $key => $check) {
+            $priceFind[] = $this->comparePriceArrays($check,$priceArray);
+        }
+        $price = array_values(array_filter(array_map('floatval',$priceFind)));
+        // return $price;
+        $bannerRate = ($totalSize*$price[0])*$qty;
         $finalTotal = ($bannerRate*100)/50;
-        return response()->json(['total'=>$bannerRate,'final'=>$finalTotal]);
+        return response()->json(['total'=>$bannerRate,'final'=>$finalTotal,'baseRate'=>$price[0]]);
+        
     }
-    public function mainQty(Request $request)
+    public function comparePriceArrays($array1,$array2) {
+        $uniqueValues = array_unique(array_slice($array1, 0, 1));
+        // return $uniqueValues;
+        if ($uniqueValues === $array2) {
+            return $array1[1];
+        }
+    }
+    public function bannerProperty(Request $request)
     {
+        // return $request;
+        $product = Product::find($request->id);
+
+        $propertyKeys = $request->property_key;
+        $percentageKeys = $request->percentageKey;
+        $baseRate = $request->basePrice;
+        $total = $request->total;
+
         $size = $request->size;
-        if ($size < 100) {
-            $bannerRate = $size*1.99;
-        } 
-        if ($size > 99 && $size < 150) {
-            $bannerRate = $size*1.81;
-        } 
-        if ($size > 149 && $size < 200) {
-            $bannerRate = $size*1.66;
+        $cal1 = strtok($size,'x');
+        $cal2 = substr($size, strpos($size, "x") + 1);
+        $totalSize = $cal1*$cal2;
+
+        foreach ($propertyKeys as $key=>$property) {
+            $actions[] = $product['property_action'][$request->product_key][$key];
+            $percentages[] = $product['property_percentage'][$request->product_key][$key];
         }
-        if ($size > 199) {
-            $bannerRate = $size*1.53;
+        foreach ($percentageKeys as $perKey=>$percentage) {
+            $actionFind[] = $actions[$perKey][$percentage];
+            $percentageFind[] = $percentages[$perKey][$percentage];
         }
-        $qtyRate = $bannerRate*$request->qty;
-		$finalTotal = ($qtyRate*100)/50;
-        return response()->json(['total'=>$qtyRate,'final'=>$finalTotal]);
+        
+        foreach ($percentageFind as $actionKey => $percentageCount) {
+            if($actionFind[$actionKey] > 0)
+            {
+                $percentageRate = (($totalSize*$baseRate)*$percentageCount)/100;
+                // return $percentageRate;
+                $array1[] = $percentageRate;
+            } else {
+                $percentageRate = $percentageCount;
+                $array1[] = (float)$percentageRate;
+            }
+        }
+        // return response()->json([$actionFind,$percentageFind,$array1]);
+
+        $percentageTotal = array_sum($array1);
+        
+        $qty = $request->qty;
+        // return $percentageTotal;
+        $bannerRate = $percentageTotal+(($totalSize*$baseRate)*$qty);
+        $finalTotal = ($bannerRate*100)/50;
+        return response()->json(['baseRate'=>$baseRate,'percentageRates'=>$array1, 'total'=>$bannerRate,'final'=>$finalTotal]);
+        
     }
-    public function hanging(Request $request)
-    {
-        if($request->hanging > 0)
-        {
-            $size = $request->size;
-            if ($size < 100) {
-                $bannerRate = ($request->size*1.99)*$request->qty;
-            } 
-            if ($size > 99 && $size < 150) {
-                $bannerRate = ($request->size*1.81)*$request->qty;
-            } 
-            if ($size > 149 && $size < 200) {
-                $bannerRate = ($request->size*1.66)*$request->qty;
-            }
-            if ($size > 199) {
-                $bannerRate = ($request->size*1.53)*$request->qty;
-            }
-            $hangingRate = (($bannerRate*30)/100);
-            $totalRate = $hangingRate+$request->total;
-            $finalTotal = (($totalRate*100)/50);
-            return response()->json(['hanging'=>$hangingRate,'total'=>$totalRate,'final'=>$finalTotal]);
-        } else {
-            $size = $request->size;
-            if ($size < 100) {
-                $bannerRate = ($request->size*1.99)*$request->qty;
-            } 
-            if ($size > 99 && $size < 150) {
-                $bannerRate = ($request->size*1.81)*$request->qty;
-            } 
-            if ($size > 149 && $size < 200) {
-                $bannerRate = ($request->size*1.66)*$request->qty;
-            }
-            if ($size > 199) {
-                $bannerRate = ($request->size*1.53)*$request->qty;
-            }
-            $hangingRate = (($bannerRate*30)/100);
-            $totalRate = $request->total-$hangingRate;
-            $finalTotal = (($totalRate*100)/50);
-            return response()->json(['hanging'=>$hangingRate,'total'=>$totalRate,'final'=>$finalTotal]);
-        }
-    }
-    public function wind(Request $request)
-    {
-        if($request->wind > 0)
-        {
-            $bannerRate = ($request->size*2.99)*$request->qty;
-            $windRate = 8.99;
-            $totalRate = $windRate+$request->total;
-            $finalTotal = (($totalRate*100)/50);
-            return response()->json(['wind'=>$windRate,'total'=>$totalRate,'final'=>$finalTotal]);
-        } else {
-            $bannerRate = ($request->size*2.99)*$request->qty;
-            $windRate = '';
-            $totalRate = $request->total-8.99;
-            $finalTotal = (($totalRate*100)/50);
-            return response()->json(['wind'=>$windRate,'total'=>$totalRate,'final'=>$finalTotal]);
-        }
-    }
+    
 }

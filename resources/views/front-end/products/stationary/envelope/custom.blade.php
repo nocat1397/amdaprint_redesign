@@ -56,38 +56,30 @@
 								<div class="details_image clearfix">
 									<div class="tab-content">
 										<div id="image_1" class="tab-pane active">
-											<img src="/assets/images/details/shop/marketing/brochure1.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/envelope/6x9/1.jpg" alt="image_not_found">
 										</div>
 										<div id="image_2" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure2.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/envelope/6x9/2.jpg" alt="image_not_found">
 										</div>
 										<div id="image_3" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure3.jpg" alt="image_not_found">
-										</div>
-										<div id="image_4" class="tab-pane fade">
-											<img src="/assets/images/details/shop/marketing/brochure4.jpg" alt="image_not_found">
+											<img src="/assets/images/details/shop/envelope/6x9/3.jpg" alt="image_not_found">
 										</div>
 									</div>
 
 									<ul class="nav ul_li_block clearfix float-left owl-carousel productImg_slider" role="tablist">
 										<li>
 											<a class="active" data-toggle="tab" href="#image_1">
-												<img src="/assets/images/details/shop/marketing/brochure1.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/envelope/6x9/1.jpg" alt="image_not_found">
 											</a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#image_2">
-												<img src="/assets/images/details/shop/marketing/brochure2.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/envelope/6x9/2.jpg" alt="image_not_found">
 											</a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#image_3">
-												<img src="/assets/images/details/shop/marketing/brochure3.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_4">
-												<img src="/assets/images/details/shop/marketing/brochure4.jpg" alt="image_not_found">
+												<img src="/assets/images/details/shop/envelope/6x9/3.jpg" alt="image_not_found">
 											</a>
 										</li>
 									</ul>

@@ -16,7 +16,7 @@ class LinkController extends Controller
     public function home() {
         $banners = Banner::first();
         $coupons = Coupon::all();
-        $categories = Category::with('product')->has('product')->get();
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         // return $categories;
         return view('front-end.home', compact('banners','coupons','categories'));
     }

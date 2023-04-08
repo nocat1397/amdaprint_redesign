@@ -93,7 +93,6 @@
 									</ul>
 								</div>
 							</div>
-
 							<div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_content">
 									<h2 class="item_title mb-2 text-capitalize">{{$product}}</h2>
@@ -121,72 +120,113 @@
 											</ul>
 										</div>
 									</div>
-									{{-- <span class="price_text mb_30"><strong>₹89.00</strong> <del>₹100.00</del></span> --}}
 									<div id="details_form">
                                         <form action="" class="productForm">
                                             @csrf
                                             
-                                            <hr class="mt-5 mb-5">
-											<div class="form-row mb-3">
+                                            <input type="hidden" name="product_id" value="{{$products->id}}">
+                                            <input type="hidden" name="product_key" value="{{$productKey}}">
+                                            <input type="hidden" name="base_price">
+											
+											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label class="my-1 mr-2">Size</label>
+													<label class="my-1 mr-2">Size (Inch)</label>
 												</div>
 												
 												<div class="col-md-6">
-													<select class="w-100" id="letterheadSize">
-														<option selected value="46.75">5.5 X 8.5 Inch</option>
-														<option value="93.5">8.5  X 11 Inch</option>  
-														<option value="96.68">A4 (8.27  X 11.69 inch)</option>  
-													</select> 
+													<select class="w-100" id="cardSize">
+														@foreach ($products['size'][$productKey] as $size)
+														<option value="{{$size}}">{{str_replace('-',' ',$size)}}</option>
+														@endforeach
+													</select>
 												</div>
 												
 											</div>
-											<div class="form-row mb-3">
+											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
 													<label class="my-1 mr-2">Paper Type</label>
 												</div>
 												
 												<div class="col-md-6">
-													<input type="text" value="70 LBS Navigator Paper" disabled class="w-100" id="paperType">
+													<select class="w-100" id="paperType">
+														@foreach ($products['paper_type'][$productKey] as $paperType)
+														<option value="{{$paperType}}">{{str_replace('-',' ',$paperType)}}</option> 
+														@endforeach 
+													</select>
 												</div>
 												
 											</div>
-                                            <div class="form-row mb-3">
+											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label class="my-1 mr-2">Printing Side</label>
+													<label class="my-1 mr-2">Quantity:</label>
 												</div>
 												
 												<div class="col-md-6">
-													<select class="w-100" id="printSide">
-														<option selected value="0">Single Side</option>
-														<option value="1">Back Side</option>  
+													<select class="w-100" id="mainQty">
+														@foreach ($products['qty'][$productKey] as $qty)
+														<option value="{{$qty}}">{{$qty}}</option>
+														@endforeach
 													</select>
 												</div>
+												
+											</div>
+                                            @foreach ($products['property'][$productKey] as $key=>$property)
+											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label id="printsideAmount" class="text-danger font-weight-bold">$<span></span></label>
+													<input type="hidden" name="property_key[]" value="{{$key}}">
+													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
+												</div>
+												
+												<div class="col-md-6">
+													<select class="w-100" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
+														@if (isset($products['property_data'][$productKey][$key]))
+														@foreach ($products['property_data'][$productKey][$key] as $dataKey=>$data)
+														<option value="{{$dataKey}}">{{$data}}</option>
+														@endforeach
+														@else 
+														<option>No Data</option>
+														@endif
+													</select>
+												</div>
+                                                <div class="col-md-3">
+													<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
 											</div>
-                                          
-                                            <div class="form-row mb-3" id="">
+											@endforeach
+											{{-- <div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label class="my-1 mr-2">Quantity:</label>
+													<label class="my-1 mr-2">Finish Type</label>
                                                 </div>
 												
                                                 <div class="col-md-6">
-													<select class="w-100" id="mainQty">
-														<option selected value="250">250</option>
-														<option value="500">500</option>
-														<option value="1000">1,000</option>
-														<option value="2000">2,000</option>
-														<option value="5000">5,000</option>
-														<option value="10000">10,000</option>
-														<option value="20000">20,000</option>
-														<option value="30000">30,000</option>
-														<option value="40000">40,000</option>
-														<option value="50000">50,000</option>
+													<select class="w-100" id="finishType">
+														<option selected value="0">None</option>
+														<option value="1">Gloss</option>
+														<option value="1">Matt</option>
+														<option value="1">Full Gloss UV</option>
+														<option value="1">Velvet</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-md-3">
+													<label id="finishtypeAmount" class="text-danger font-weight-bold">$<span></span></label>
+											   </div>
                                             </div>
+											<div class="form-row mb-3" id="">
+												<div class="col-md-3">
+													<label class="my-1 mr-2">Rounderd Corners</label>
+												</div>
+												
+												<div class="col-md-6">
+													<select class="w-100" id="rounded">
+														<option selected value="0">No</option>
+														<option value="1">Yes</option>
+													</select>
+												</div>
+                                                <div class="col-md-3">
+													<label id="roundedAmount" class="text-danger font-weight-bold">$<span></span></label>
+											   </div>
+											</div> --}}
+											
                                         </form>
                                     </div>
 								</div>
@@ -221,11 +261,9 @@
 										<a href="/user/login" target="_blank" class="addtocart_btn custom_btn bg_default_orange">Checkout</a>
 										@endif --}}
 										<a href="javascript:void(0)" class="addtocart_btn custom_btn bg_default_orange" onclick="addCart({{auth()->check() ? 1 : 0}})">Checkout</a>
+										
 									</div>
 								</div>
-
-
-
 							</div>
 						</div>
 
@@ -247,26 +285,30 @@
 							<div class="tab-content wow fadeInUp2" data-wow-delay=".3s">
 								<div id="description_tab" class="tab-pane active">
 									<p class="mb_30">
-										A letterhead is the heading at the top of a sheet of letter paper. That heading usually consists of a name and an address, and a logo or corporate design, and sometimes a background pattern. The term "letterhead" is often used to refer to the whole sheet imprinted with such a heading. Many companies and individuals prefer to create a letterhead template in a word processor or other software application. That generally includes the same information as pre-printed stationery but at lower cost. Letterhead can then be printed on stationery or plain paper, as needed, on a local output device or sent electronically.
+										Custom business cards means sourcing your own graphics, positioning your own text, choosing your own colors, cardstock, and finishes, and making every single decision about how your final card should look & Your business card design is an essential part of your branding and should act as a visual extension of your brand design.
 									</p>
-									
-										<strong>Business Letterheads are Durable, Customizable, and Eco-Friendly</strong>
-										<p>Composing letters or exchanging official documents between companies is a practice you could use to market your brand. Utilizing letterhead allows you to influence positive first impressions from your recipients. Business letterheads&nbsp;feature a simple layout, logo or artwork, and primary company details to lend credibility and facilitate official correspondence. Communication on a letterhead reinforces a strong professional image and offers easy access to essential contact information.</p>
-										<p>Made from 70 lbs. uncoated paper, our&nbsp;business letterheads&nbsp;are flexible and durable to withstand writing and printing applications without wearing or tearing easily. The product is tactile and can hold up favorably in storage to serve your business for a long time.&nbsp;</p>
-										<p>We offer 3 letterhead sizes for customization purposes, and you can select between 50 and 5000 pack sizes. You may upload your artwork, design online, or send in specific instructions for our designers to modify your&nbsp;company letterheads.</p>
-										<p>The paper for these&nbsp;custom printed letterheads&nbsp;comes from sustainable resources and is recyclable, which may help you lower your carbon footprint. Employing environmentally friendly stationery for your business helps build a sustainable brand and promotes a socially responsible image in the community.</p>
-										<strong>Company Letterheads Offer Excellent Writability and Printability</strong>
-										<p>Writing on&nbsp;professional letterheads&nbsp;using pens and markers offers reliable legibility. You can quickly jot down corrections or add new information besides the official message on the letterhead body. These letterheads are ready to use.</p>
-										<p>This uncoated paper offers excellent printability and a premium-quality text and graphics appearance for the&nbsp;company letterheads.&nbsp;Enjoy smudge-free and fade-resistant prints for all your corporate correspondence letters and official documents.&nbsp;</p>
-										<strong>Custom Printed Letterheads are Easy to Order</strong>
-										<p>We offer simple and convenient shipping options to facilitate easy procurement of the&nbsp;business letterheads,&nbsp;depending on your budget and urgency. We also do doorstep delivery for convenience.</p>
-										<p>Shop for Letterheads for your business online at Amdaprints.</p>
-										
+									<strong>Standard Business Cards Come in Different Paper Types</strong>
+									<p class="mb_30">A unique business card will help your brand stand out in an increasingly virtual world while creating a lasting impression. We give you the option of printing standard business cards in different paper types and finish to create custom cards that match your brand’s unique style.</p>
+									<p class="mb_30">You can choose the standard 14 pt Cardstock Gloss paper for a better sheen, vivid colors, and printing business cards, postcards, hangtags, and pocket folders. If you’re looking for a non-glossy finish that’s easier to write on, we also give you the option of 14 pt Cardstock Matte paper for printing.</p>
+									<p class="mb_30">If you’re looking for a thicker card with a premium feel, you may choose the 16 pt Cardstock Matte paper or 17 pt Cardstock Uncoated paper. All four types of papers are sourced sustainably to reduce your carbon footprint and meet your environment-friendly brand goals.</p>
+									<p class="mb_30">At Amdaprints, our standard business cards come in both, horizontal and vertical orientations. You can select either of them depending on your requirements.</p>
+									<strong>Personalize your Business Cards With Name, Text, & Logo</strong>
+									<p class="mb_30">Our custom business cards, postcards, and hang tags can be ordered in different paper qualities to meet your budget and style requirements. You can personalize your cards with your name, text, logos, and creative graphic to match your needs with us.</p>
+									<p class="mb_30">What's more, you can select from a wide range of templates uploaded by our talented designers and edit them as per your needs. Furthermore, you can also hire one of our designers at a nominal charge or upload your own artwork altogether.</p>
+									<strong>Standard Business Cards Available in Different Pack Sizes</strong>
+									<p class="mb_30">At Amdaprints, our business cards come in different pack sizes to cater to all your requirements. They come in pack sizes of 50, 100, 200, 250, 300, 400, 500, 1000, 1500, 2000, 2500, 5000, and 10000.</p>
+									{{--  <p class="mb-0">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, 
+									</p>  --}}
 								</div>
 								<div id="additionalinfo_tab" class="tab-pane fade">
+							
 									<ul class="list-unstyled">
-										<li><i class="fas fa-caret-right text-danger mr-2"></i>Best choice for Letterhead, Envelopes and marketing materials that have sections for forms, Uncoated for excellent writability and printability, Paper from sustainable sources & Although modern technology makes letterheads very easy to imitate, they continue to be used as evidence of authenticity.</li>										
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>Your business is one of a kind – your business cards should be, too.</li>
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>Whether you’re making first impressions, rewarding regulars with a loyalty card or giving satisfied clients your contact info for next time, we’re here to help you look and feel ready to impress.</li>
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>And with our user-friendly upload and design tools, we make business card printing easy.</li>											
 									</ul>
+								
 								</div>
 								<div id="reviews_tab" class="tab-pane fade">
 									<p class="mb_30">
@@ -341,110 +383,125 @@
 		</main>
 		<!-- main body - end
 		================================================== -->
+
 @include('front-end.section.footer')
 @include('front-end.section.scripts')
 <script>
 	$(document).ready(function(){
-		$('#printsideAmount').hide();
+		$('[id^=property]').hide();
 	});
 </script>
 <script>
+
 	function addCart(loginStatus)
 	{
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-		var category = 'Office Stationary';
-		var route = $('input[name="route"]:checked').val();
-		var name = '<?php echo $product ?>';
-		var total = $('#finalTotal').html();
-		var size = $('#letterheadSize').find(":selected").text();
-		var qty = $('#mainQty').val();
-		var printSide = $('#printSide').find(":selected").text();
-		var paperType = $('#paperType').val();
-		var img = $('#image_1').find('img').attr('src');
-		$.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			var category = 'Business Cards';
+			var route = $('input[name="route"]:checked').val();
+			var name = '<?php echo $product ?>';
+			var total = $('#finalTotal').html();
+			var size = $('#cardSize').find(":selected").text();
+			var qty = $('#mainQty').val();
+			var printSide = $('#printSide').find(":selected").text();
+			var paperType = $('#paperType').find(":selected").text();
+			var rounded = $('#rounded').find(":selected").text();
+			var finishtype = $('#finishType').find(":selected").text();
+			var img = $('#image_1').find('img').attr('src');
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+			
             $.ajax({
-              type: "POST",
-              url: "/cart-add",
-              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,printside:printSide,papertype:paperType,route:route},
-            
-              success:function(response) {
-				if(route > 0)
-					{
-						location.replace('/designer/'+response.id);
-					} else {
-						location.replace('/uploadfile/'+response.id);
+				type: "POST",
+				url: "/cart-add",
+				data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,printside:printSide,papertype:paperType,
+					rounded:rounded,finishtype:finishtype,route:route},
+					
+					success:function(response) {
+						if(route > 0)
+						{
+							location.replace('/designer/'+response.id);
+						} else {
+							location.replace('/uploadfile/'+response.id);
+						}
+					},
+					error: function(error){
+						console.log(error)
 					}
-              },
-              error: function(error){
-                console.log(error)
-              }
-        });
-	} else {
-		$('#loginModal').modal('show');
-	}
-	}
+				});
+				
+			} else {
+				$('#loginModal').modal('show');
+			}
+		}
 </script>
 <script>
-	$('#letterheadSize').on('change',function(){
+	$('#cardSize').on('change',function(){
 
-		$('#printSide').val('0').niceSelect('update');
-		$('#printsideAmount').fadeOut().hide();
-		$('#mainQty').val(250).niceSelect('update');
+		$('#printSide, #rounded').val('0').niceSelect('update');
+		$('#printsideAmount,#roundedAmount').fadeOut().hide();
+		$('#finishType, #paperType').val(1).niceSelect('update');
 		$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-			var Size = $(this).val();
-            
+			var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var cardSize = $('#cardSize').val();
+			var paperType = $('#paperType').val();
+			var qty = $('#mainQty').val();
+
             $.ajax({
               type: "POST",
-              url: "/letterhead-size",
-              data: {size:Size},
+              url: "/custom-card-price",
+              data: {id:id,key:key,size:cardSize,paper:paperType,qty:qty},
             
               success:function(response) {
-                // console.log(response);  
+                console.log(response);  
 				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
+				$('#finalTotal').html(response.final.toFixed(2));  
+				$('input[name="base_price"]').val(response.final.toFixed(2));
               },
               error: function(error){
                 console.log(error)
               }
-        });
+        	});
 	});
 	$('#mainQty').on('change',function(){
-		$('#printSide').val('0').niceSelect('update');
-		$('#printsideAmount').fadeOut().hide();
-		
-			$.ajaxSetup({
+		$('#printSide, #rounded').val('0').niceSelect('update');
+		$('#printsideAmount,#roundedAmount').fadeOut().hide();
+		$('#finishType').val(0).niceSelect('update');
+		$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-			var Size = $('#letterheadSize').val();
-            var quantity = $(this).val();
+			var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var cardSize = $('#cardSize').val();
+			var paperType = $('#paperType').val();
+			var qty = $('#mainQty').val();
 
             $.ajax({
               type: "POST",
-              url: "/letterhead-qty",
-              data: {size:Size,qty:quantity},
+              url: "/custom-card-price",
+              data: {id:id,key:key,size:cardSize,paper:paperType,qty:qty},
             
               success:function(response) {
-                // console.log(response);  
+                console.log(response);  
 				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
+				$('#finalTotal').html(response.final.toFixed(2)); 
+				$('input[name="base_price"]').val(response.final.toFixed(2));  
               },
               error: function(error){
                 console.log(error)
               }
-        });
+        	});
 	});
 </script>
 
@@ -455,84 +512,114 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-			var Size = $('#letterheadSize').val();
-            
+			var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var cardSize = $('#cardSize').val();
+			var paperType = $('#paperType').val();
+			var qty = $('#mainQty').val();
+
             $.ajax({
               type: "POST",
-              url: "/letterhead-size",
-              data: {size:Size},
+              url: "/custom-card-price",
+              data: {id:id,key:key,size:cardSize,paper:paperType,qty:qty},
             
               success:function(response) {
-                // console.log(response);  
+                console.log(response);  
 				$('#total').html(response.total.toFixed(2));
 				$('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.final.toFixed(2));
               },
               error: function(error){
                 console.log(error)
               }
-        });
+        	});
+	});
 
-			// Print Side
-			$('#printSide').change(function(){
+			// Add paper type
+			$('#paperType').change(function(){
+				
+				$('#printSide, #rounded').val('0').niceSelect('update');
+				$('#printsideAmount,#roundedAmount').fadeOut().hide();
+				$('#finishType').val(0).niceSelect('update');
+				$('#printSide, #rounded').val('0').niceSelect('update');
 				var value = $(this).val();
-				if(value == 1)
-				{
 					
+				$.ajaxSetup({
+           		    headers: {
+           		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           		    }
+           		});
+
+				   	var id = $('input[name="product_id"]').val();
+					var key = $('input[name="product_key"]').val();
+					var cardSize = $('#cardSize').val();
+					var paperType = $('#paperType').val();
+					var qty = $('#mainQty').val();
+
+            		$.ajax({
+            		  type: "POST",
+            		  url: "/custom-card-price",
+            		  data: {id:id,key:key,size:cardSize,paper:paperType,qty:qty},
+					
+            		  success:function(response) {
+            		    console.log(response);  
+						$('#total').html(response.total.toFixed(2));
+						$('#finalTotal').html(response.final.toFixed(2));  
+						$('input[name="base_price"]').val(response.final.toFixed(2)); 
+            		  },
+            		  error: function(error){
+            		    console.log(error)
+            		  }
+        			});
+
+			});
+
+			// Property percentage Check
+			function propertyPricing($id,$key){
+				
 					$.ajaxSetup({
            			    headers: {
            			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
            			    }
            			});
-					var quantity = $('#mainQty').val();
-					var Size = $('#letterheadSize').val();
-					var printSide = $(this).val();
+					var id = $('input[name="product_id"]').val();
+					var product_key = $('input[name="product_key"]').val();
+					var property_key = $('input[name="property_key[]"]').map(function(){return $(this).val();}).get();
+					var percentageKey = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").val();}).get();
+					var cardSize = $('#cardSize').val();
+					var paperType = $('#paperType').val();
+					var qty = $('#mainQty').val();
+					var basePrice = $('input[name="base_price"]').val();
 					var total = $('#finalTotal').html();
+					// console.log(percentage);
+					// return false;
            			$.ajax({
            			  type: "POST",
-           			  url: "/letterhead-printside",
-           			  data: {size:Size,qty:quantity,total:total,printside:printSide},
+           			  url: "/custom-card-properties",
+           			  data: {id:id,product_key:product_key,property_key:property_key,percentageKey:percentageKey,size:cardSize,paper:paperType,qty:qty,basePrice:basePrice,total:total},
 					
            			  success:function(response) {
-						   	$('#printsideAmount span').html(response.printsideRate.toFixed(2));
-							$('#printsideAmount').fadeIn().show();
-							$('#total').html(response.total.toFixed(2));
-							$('#finalTotal').html(response.final.toFixed(2));   
+           			    console.log(response);  
+						   $('#total').html(response.total.toFixed(2));
+						   $('#finalTotal').html(response.final.toFixed(2));   
+						   $.each(response.percentageRates, function(key, value) {
+							if (value > 0) {	
+								$('#property_'+key+' span').html(value.toFixed(2));
+								$('#property_'+key).fadeIn().show();
+							} else {
+								$('#property_'+key+' span').html(value.toFixed(2));
+								$('#property_'+key).fadeOut().hide();
+							}
+						   })
            			  },
            			  error: function(error){
            			    console.log(error)
            			  }
            			});
 
-				} else {
-					
-					$.ajaxSetup({
-           			    headers: {
-           			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-           			    }
-           			});
-					var quantity = $('#mainQty').val();
-					var Size = $('#letterheadSize').val();
-					var printSide = $(this).val();
-					var total = $('#finalTotal').html();
-           			$.ajax({
-					  type: "POST",
-           			  url: "/letterhead-printside",
-           			  data: {size:Size,qty:quantity,total:total,printside:printSide},
-					
-           			  success:function(response) {
-						   $('#printsideAmount span').html(response.printsideRate.toFixed(2));
-							$('#printsideAmount').fadeOut().hide();
-							$('#total').html(response.total.toFixed(2));
-							$('#finalTotal').html(response.final.toFixed(2));   
-           			  },
-           			  error: function(error){
-           			    console.log(error)
-           			  }
-           			});
-				}
-			});
+			};
 			
-		});
 	</script>
+
 </body>
 </html>
