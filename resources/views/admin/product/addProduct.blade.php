@@ -137,12 +137,12 @@
                           @if($productData !== null)
                           @foreach($productData['size'][$productArrayKey] as $size)
                             <div class="form-group">
-                              <input type="text" name="size[]" placeholder='Example : 2" x 3.5"... ' class="form-control" value="{{$size}}">
+                              <input type="text" name="size[]" placeholder='Example : 2 x 3.5... ' class="form-control" value="{{$size}}">
                             </div>
                           @endforeach
                           @else
                           <div class="form-group">
-                            <input type="text" name="size[]" placeholder='Example : 2" x 3.5"... ' class="form-control" >
+                            <input type="text" name="size[]" placeholder='Example : 2 x 3.5... ' class="form-control" >
                           </div>
                           @endif
                         </div>

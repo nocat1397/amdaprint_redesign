@@ -445,10 +445,10 @@ class ProductController extends Controller
         $product = str_replace('-',' ',$productName);
         // return $product;
         switch ($category) {
-            case 'Business-Cards':
+            case 'business-cards':
                 return view('front-end.products.bCard.custom',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Banners':
+            case 'banners':
                 if(str_contains($product, 'Custom'))
                 {
                     return view('front-end.products.banners.custom',compact('product','category','categories','productKey','products'));
@@ -456,25 +456,25 @@ class ProductController extends Controller
                     return view('front-end.products.banners.other',compact('product','category','categories','productKey','products'));
                 }
                 break;
-            case 'Stand-&-Displays':
+            case 'stand-&-displays':
                 return view('front-end.products.stand-display.custom',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Folders':
+            case 'folders':
                 return view('front-end.products.stationary.folders.custom',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Envelope':
+            case 'envelope':
                 return view('front-end.products.stationary.envelope.custom',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Brochure':
+            case 'brochure':
                 return view('front-end.products.marketing.brochure',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Letter-Heads':
+            case 'letter-heads':
                 return view('front-end.products.stationary.letterhead',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Invitation-Cards':
+            case 'invitation-cards':
                 return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
                 break;
-            case 'Greetings-Cards':
+            case 'greetings-cards':
                 return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
                 break;
             default:
