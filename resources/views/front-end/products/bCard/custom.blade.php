@@ -5,10 +5,10 @@
         @include('front-end.section.styles')
 		<style>
 			#priceCard {
-				top: 14%;
+				top: 0%;
 			    z-index: 1000;
 			    width: 300px;
-			    right: 6%;
+			    right: 0%;
 			}
 			#details_form {
 			    height: auto;
@@ -54,45 +54,43 @@
 						<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
 							<div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_image clearfix">
-									<div class="tab-content">
-										<div id="image_1" class="tab-pane active">
-											<img src="/assets/images/details/shop/bCards/standard/custom/custom1.jpg" alt="image_not_found">
+									<div class="tab-content" id="nav-tabContent">
+										@if($images !== null && sizeof($images))
+										@foreach ($images as $key=>$image)
+										@if($image->product_id == $products['id'] && $image->product_index == $productKey)
+										<div id="image_{{$key}}" class="tab-pane fade {{$key < 1 ? 'show active' : ''}}" role="tabpanel" aria-labelledby="image_{{$key}}_img">
+											<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found">
 										</div>
-										<div id="image_2" class="tab-pane fade">
-											<img src="/assets/images/details/shop/bCards/standard/custom/custom2.jpg" alt="image_not_found">
+										@endif 
+										@endforeach
+										@else
+										<div id="image_1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="image_1_img">
+											<img src="/noImg.jpg" alt="image_not_found">
 										</div>
-										<div id="image_3" class="tab-pane fade">
-											<img src="/assets/images/details/shop/bCards/standard/custom/custom3.jpg" alt="image_not_found">
-										</div>
-										<div id="image_4" class="tab-pane fade">
-											<img src="/assets/images/details/shop/bCards/standard/custom/custom4.jpg" alt="image_not_found">
-										</div>
-										
+										@endif
 									</div>
-
-									<ul class="nav ul_li_block clearfix float-left owl-carousel productImg_slider" role="tablist">
-										<li>
-											<a class="active" data-toggle="tab" href="#image_1">
-												<img src="/assets/images/details/shop/bCards/standard/custom/custom1.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_2">
-												<img src="/assets/images/details/shop/bCards/standard/custom/custom2.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_3">
-												<img src="/assets/images/details/shop/bCards/standard/custom/custom3.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_4">
-												<img src="/assets/images/details/shop/bCards/standard/custom/custom4.jpg" alt="image_not_found">
-											</a>
-										</li>
-										
-									</ul>
+									<div style="width: -webkit-fill-available;overflow-x:hidden;" class="parent">
+										<ul class="nav ul_li_block clearfix float-left d-inline-flex child" role="tablist" id="nav-tab" style="width:max-content;cursor:pointer;pointer-events:auto;justify-content: center;min-width: -webkit-fill-available;">
+											@if($images !== null && sizeof($images))
+											@foreach ($images as $key=>$image)
+											@if($image->product_id == $products['id'] && $image->product_index == $productKey)
+											<li>
+												<a class="nav-item {{$key < 1 ? 'active' : ''}}" data-toggle="tab" id="#image_{{$key}}_img" href="#image_{{$key}}" role="tab" aria-controls="image_{{$key}}" aria-selected="true">
+													<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found" style="height:-webkit-fill-available;width:150px;object-fit:fill">
+												</a>
+											</li>
+											@endif 
+											@endforeach
+											@endif
+										</ul>
+									</div>
+									<div class="text-center">
+										<div class="text-inline">
+											<strong>Share :</strong>
+											<strong class="ml-3 mr-3"><i class="fab fa-facebook-f"></i></strong>
+											<strong><i class="fab fa-whatsapp"></i></strong>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
@@ -114,18 +112,13 @@
                                             <input type="hidden" name="base_price">
 											<div class="row mb-4">
 												
+												@foreach ($products['specification'][$productKey] as $specs)
 												<div class="bg-lights p-3 col-md-6">
 													<ul class="list-unstyled mb-0">
-														<li><i class="fas fa-caret-right text-danger mr-2"></i>The paper can be finished in gloss, matte, or uncoated.</li>
-														<li><i class="fas fa-caret-right text-danger mr-2"></i>Graphics, text, logos, and images can be added to personalize.</li>											
+														<li><i class="fas fa-caret-right text-danger mr-2"></i>{{$specs}}.</li>											
 													</ul>
 												</div>
-												<div class="bg-lights p-3 col-md-6">
-													<ul class="list-unstyled mb-0">
-														<li><i class="fas fa-caret-right text-danger mr-2"></i>Printing is available both on the front and on the back.</li>
-														<li><i class="fas fa-caret-right text-danger mr-2"></i>Packs are available in a variety of sizes.</li>											
-													</ul>
-												</div>
+												@endforeach
 											</div>
 											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
@@ -397,14 +390,20 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-			var category = 'Business Cards';
+			var category = '<?php echo $category ?>';
 			var route = $('input[name="route"]:checked').val();
 			var name = '<?php echo $product ?>';
 			var total = $('#finalTotal').html();
 			var size = $('#cardSize').find(":selected").text();
 			var qty = $('#mainQty').val();
-			var printSide = $('#printSide').find(":selected").text();
 			var paperType = $('#paperType').find(":selected").text();
+			var properties = '<?php echo json_encode($products["property"][$productKey]) ?>';
+			
+			properties.forEach(function(key,property) {
+				
+				var property = key;
+			});
+			var printSide = $('#printSide').find(":selected").text();
 			var rounded = $('#rounded').find(":selected").text();
 			var finishtype = $('#finishType').find(":selected").text();
 			var img = $('#image_1').find('img').attr('src');

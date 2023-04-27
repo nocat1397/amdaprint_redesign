@@ -131,7 +131,7 @@
     .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
       background-color: rgb(238, 238, 238); color: #443266 }
     .nice-select .option.selected {
-      font-weight: 500; }
+      font-weight: bold; }
     .nice-select .option.disabled {
       background-color: transparent;
       color: #999;

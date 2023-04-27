@@ -92,7 +92,7 @@
 
 		<!-- main body - start
 		================================================== -->
-		<main class="mt-0">
+		<main>
 
 
 			<!-- slider_section - start
@@ -148,14 +148,14 @@
 
 			<!-- main_section - start
 			================================================== -->
-			<section class="py-0 py-xl-5">
+			<section class="py-0 py-xl-5 counter_section">
 				<div class="container">
 					<div class="row g-4">
 						<!-- Counter item -->
 						<div class="col-sm-6 col-xl-4">
-							<div class="d-flex justify-content-evenly bg-whitesmoke align-items-center p-4  bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
+							<div class="d-flex justify-content-evenly bg-whitesmoke counter_sec_img align-items-center p-4 bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
 								<span class="display-6 lh-1 text-primary mb-0" style="font-size: 35px;">
-									<img src="/assets/images/New/icon1.png" alt="">
+									<img src="/assets/images/New/icon1.png" class="">
 								</span>
 								<div class="ms-4 h6 fw-normal mb-0">
 									<div class="d-flex">
@@ -167,9 +167,9 @@
 							</div>
 						</div>
 						<div class="col-sm-6 col-xl-4">
-							<div class="d-flex justify-content-evenly bg-whitesmoke align-items-center p-4  bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
+							<div class="d-flex justify-content-evenly bg-whitesmoke counter_sec_img align-items-center p-4  bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
 								<span class="display-6 lh-1 text-primary mb-0" style="font-size: 35px;">
-									<img src="/assets/images/New/icon2.png" alt="">
+									<img src="/assets/images/New/icon2.png" class="">
 								</span>
 								<div class="ms-4 h6 fw-normal mb-0">
 									<div class="d-flex">
@@ -181,9 +181,9 @@
 							</div>
 						</div>
 						<div class="col-sm-6 col-xl-4">
-							<div class="d-flex justify-content-evenly bg-whitesmoke align-items-center p-4  bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
+							<div class="d-flex justify-content-evenly bg-whitesmoke counter_sec_img align-items-center p-4  bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
 								<span class="display-6 lh-1 text-primary mb-0" style="font-size: 35px;">
-									<img src="/assets/images/New/icon3.png" alt="">
+									<img src="/assets/images/New/icon3.png" class="">
 								</span>
 								<div class="ms-4 h6 fw-normal mb-0">
 									<div class="d-flex">
@@ -202,13 +202,12 @@
 			================================================== -->
 
 
-			<section class="blog_section pt-5 clearfix" id="banners">
+			<section class="blog_section pt-3 clearfix" id="banners">
 				<div class="container">
-					<div class=" mt__20 mb_30 text-left">
+					<div class="mt_20 mb_30 text-left">
 						<h2 class="heading">Offering Custom Banners and Signs For Business/Home Needs</h2>
-						
 					</div>
-					<div class="row mb_80">
+					{{-- <div class="row mb_80">
 						<div class="col-md-2 mb-3 align-self-center">
 							<strong class="my-1 mr-2">Select Your Products</strong>
 						</div>
@@ -248,8 +247,8 @@
 							
 						</div>
 
-					</div>
-					<div class="row mt__30 mb_80 justify-content-center">
+					</div> --}}
+					<div class="row mt_50 mb_80 justify-content-center">
 						<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke ">
 								<!-- Image -->
@@ -525,7 +524,7 @@
 
 							<!-- shop_section - start
 			================================================== -->
-			<section class="shop_section sec_ptb_130 clearfix pt-5">
+			<section class="shop_section_first sec_ptb_130 clearfix pt-5">
 				<div class="container">
 					<div class=" mt__20 mb_30 text-left">
 						<h2 class="heading">Our Best Sellers</h2>
@@ -1465,7 +1464,7 @@
 				</div>
 			</section> --}}
 
-			<section class="sec_ptb_130">
+			<section class="sec_ptb_130 under_blog_section">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4">
@@ -1493,7 +1492,7 @@
 				</div>
 			</section>
 			
-			<section class="sec_ptb_130">
+			<section class="sec_ptb_130 subscribe_section">
 				<div class="container bg-purple p-5" style="border-radius:10px;">
 					<div class="row justify-content-center">
 						<div class="text-center">

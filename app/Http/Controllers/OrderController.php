@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Category;
 use App\Orderstatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -113,7 +114,8 @@ class OrderController extends Controller
     public function userOrders()
     {
         $orders = Order::where('user_id', Auth::user()->id)->get();
-        return view('front-end.purchaser.orders', compact('orders'));
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.purchaser.orders', compact('orders','categories'));
     }
     public function orderDetails($id) 
     {    

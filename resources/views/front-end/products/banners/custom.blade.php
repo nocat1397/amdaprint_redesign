@@ -5,10 +5,10 @@
         @include('front-end.section.styles')
 		<style>
 			#priceCard {
-				top: 14%;
+				top: 0%;
 			    z-index: 1000;
 			    width: 300px;
-			    right: 6%;
+			    right: 0%;
 			}
 		</style>
     </head>
@@ -50,41 +50,42 @@
 						<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
 							<div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_image clearfix">
-									<div class="tab-content">
-										<div id="image_1" class="tab-pane active">
-											<img src="/assets/images/details/shop/Banners/custom/1.jpg" alt="image_not_found">
+									<div class="tab-content" id="nav-tabContent">
+										@if($images !== null && sizeof($images))
+										@foreach ($images as $key=>$image)
+										@if($image->product_id == $products['id'] && $image->product_index == $productKey)
+										<div id="image_{{$key}}" class="tab-pane fade {{$key < 1 ? 'show active' : ''}}" role="tabpanel" aria-labelledby="image_{{$key}}_img">
+											<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found">
 										</div>
-										<div id="image_2" class="tab-pane fade">
-											<img src="/assets/images/details/shop/Banners/custom/2.jpg" alt="image_not_found">
+										@endif 
+										@endforeach
+										@else
+										<div id="image_1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="image_1_img">
+											<img src="/noImg.jpg" alt="image_not_found">
 										</div>
-										<div id="image_3" class="tab-pane fade">
-											<img src="/assets/images/details/shop/Banners/custom/3.jpg" alt="image_not_found">
-										</div>
+										@endif
 									</div>
-
-									<ul class="nav ul_li_block clearfix float-left owl-carousel productImg_slider" role="tablist">
-										<li>
-											<a class="active" data-toggle="tab" href="#image_1">
-												<img src="/assets/images/details/shop/Banners/custom/1.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_2">
-												<img src="/assets/images/details/shop/Banners/custom/2.jpg" alt="image_not_found">
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#image_3">
-												<img src="/assets/images/details/shop/Banners/custom/3.jpg" alt="image_not_found">
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="text-center">
-									<div class="text-inline">
-										<strong>Share :</strong>
-										<strong class="ml-3 mr-3"><i class="fab fa-facebook-f"></i></strong>
-										<strong><i class="fab fa-whatsapp"></i></strong>
+									<div style="width: -webkit-fill-available;overflow-x:hidden;" class="parent">
+										<ul class="nav ul_li_block clearfix float-left d-inline-flex child" role="tablist" id="nav-tab" style="width:max-content;cursor:pointer;pointer-events:auto;justify-content: center;min-width: -webkit-fill-available;">
+											@if($images !== null && sizeof($images))
+											@foreach ($images as $key=>$image)
+											@if($image->product_id == $products['id'] && $image->product_index == $productKey)
+											<li>
+												<a class="nav-item {{$key < 1 ? 'active' : ''}}" data-toggle="tab" id="#image_{{$key}}_img" href="#image_{{$key}}" role="tab" aria-controls="image_{{$key}}" aria-selected="true">
+													<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found" style="height:-webkit-fill-available;width:150px;object-fit:fill">
+												</a>
+											</li>
+											@endif 
+											@endforeach
+											@endif
+										</ul>
+									</div>
+									<div class="text-center">
+										<div class="text-inline">
+											<strong>Share :</strong>
+											<strong class="ml-3 mr-3"><i class="fab fa-facebook-f"></i></strong>
+											<strong><i class="fab fa-whatsapp"></i></strong>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -99,22 +100,17 @@
 										<li><i class="fas fa-star"></i></li>
 										<li><i class="fas fa-star-half"></i></li>
 									</ul>
-									<div class="row mb-4">
+									<div class="row mb-4 bg-lights">
 										<div class="col-md-12 bg-lights pt-3">
 											<strong>Convey Your Business Message with Custom Vinyl Banners</strong>
 										</div>
+										@foreach ($products['specification'][$productKey] as $specs)
 										<div class="bg-lights p-3 col-md-6">
 											<ul class="list-unstyled mb-0">
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Visuals are clear and sharp with our 720 DPI printing.</li>
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Banners are made from durable PVC material.</li>											
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>{{$specs}}.</li>											
 											</ul>
 										</div>
-										<div class="bg-lights p-3 col-md-6">
-											<ul class="list-unstyled mb-0">
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Create banners tailored to your company's needs.</li>
-												<li><i class="fas fa-caret-right text-danger mr-2"></i>Cleaning and preserving these banners is easy.</li>											
-											</ul>
-										</div>
+										@endforeach
 									</div>
 									{{-- <span class="price_text mb_30"><strong>₹89.00</strong> <del>₹100.00</del></span> --}}
 									<div id="details_form">
@@ -222,7 +218,7 @@
 							</div>
 						</div>
 
-						<hr>
+						<hr id="stop_here">
 
 						<div class="shop_description clearfix">
 							<ul class="nav description_tabnav ul_li wow fadeInUp2 clearfix" data-wow-delay=".1s" role="tablist">
@@ -512,13 +508,19 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-		if($('#bannerSize').val() == 0)
-		{
-			var bannerSize = $('#customOne').val()+' x '+$('#customTwo').val()+' Feet';
-		} else {
-			var bannerSize = $('#bannerSize').find(":selected").text();
-		}
-		var category = 'Banners';
+			if($('#bannerSize').val() == 0)
+			{
+
+				var one = $('#customOne').val();
+				var two = $('#customTwo').val();
+				var bannerSize = one+'x'+two;
+
+			} else {
+
+				var bannerSize = $('#bannerSize').val();
+
+			}
+		var category = '<?php echo $category ?>';
 		var route = $('input[name="route"]:checked').val();
 		var name = '<?php echo $product ?>';
 		var total = $('#total').html();

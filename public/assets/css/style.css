@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
+@import url('https://fonts.cdnfonts.com/css/helvetica-255');
 /* global area - start
 ==================================================================================================== */
 body {
@@ -14,7 +15,8 @@ body {
   overflow-x: hidden;
   font-style: normal;
   color: #757575;
-  font-family: "Hind", sans-serif;
+  /* font-family: "Hind", sans-serif; */
+  font-family: "Helvetica", sans-serif !important;
   background-color: #ffffff;
   text-rendering: optimizelegibility;
   -moz-osx-font-smoothing: grayscale;
@@ -1217,7 +1219,7 @@ button {
   background: #fff;
   right: 0px;
   z-index: 999;
-  /* position: absolute; */
+  position: absolute;
 }
 .sticky_header.stuck {
   position: fixed;
@@ -1415,14 +1417,14 @@ button {
   position: relative;
 }
 .cart_btn .cart_counter {
-  top: 0px;
-  right: 0px;
+  top: 3px;
+  right: 5px;
   height: 20px;
   color: #443266;
   font-size: 10px;
   min-width: 20px;
   border: 1px solid #443266;
-  line-height: 22px;
+  line-height: 20px;
   position: absolute;
   border-radius: 45px;
   background-color: #ffffff;
@@ -1570,7 +1572,7 @@ button {
 /* default header - start
 ================================================== */
 .header_default + main {
-  /* margin-top: 150px; */
+  margin-top: 180px;
 }
 .header_default.stuck .header_top {
   display: none;
@@ -1757,7 +1759,7 @@ button {
   display: none;
 }
 .mobilemenu_btns_group > li:not(:last-child) {
-  margin-right: 40px;
+  margin-right: 25px;
 }
 .mobilemenu_btns_group button {
   line-height: 1;
@@ -5674,13 +5676,6 @@ blockquote .blockquote_admin i {
 /* home pages - end
 ==================================================================================================== */
 /* ================================================== 
-*	Project Name 	:  Printem - HTML5 Template
-*	File 			:  Responsive CSS Base
-*	Version 		:  1.0.0
-*	Last change 	:  05 Octobar 2020
-*	Author 			:  BDevs (https://themeforest.net/user/bdevs)
-*	Developer:		:  Rakibul Islam Dewan
-*	css code for responsive layout To make Responsive
 
 ==================================================
 
@@ -6547,9 +6542,87 @@ blockquote .blockquote_admin i {
 4 - media screen and (max-width: 991px) - start
 ==================================================================================================== */
 @media screen and (max-width: 991px) {
+  .cart_btn .cart_counter {
+    top: 0px;
+    right: -5px;
+    height: 20px;
+    color: #443266;
+    font-size: 10px;
+    min-width: 20px;
+    border: 1px solid #443266;
+    line-height: 20px;
+    position: absolute;
+    border-radius: 45px;
+    background-color: #ffffff;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 1.15rem;
+  }
+  .counter_section {
+    padding-top: 1rem!important;
+  }
+  .counter_sec_img {
+    margin-bottom: 10px;
+  }
+  .counter_sec_img > span > img {
+    width: 75%;
+  }
+  .item_content {
+    border-right: unset!important;
+  }
+  .cta_section .hand_image {
+    right: -85px;
+  }
+  .cta_section .hand_image > img {
+    width: 66%;
+  }
+  .rating {
+    line-height: 45px;
+    font-size: 32px!important;
+  }
+  .testimonial_section {
+    padding: 65px 0 0 0!important;
+  }
+  .img-corner {
+    object-fit: none;
+    border-radius: unset!important;
+  }
+  .under_blog_section {
+    padding: 40px 0 0 0!important;
+  }
+  .icon-box {
+    margin-bottom: 10px;
+  }
+  .footer_widget_area, .footer_brand_area {
+    padding: 0!important;
+  }
+  .subscribe_section {
+    padding: 0!important;
+  }
+  .subscribe_section > div {
+    border-radius: 0!important;
+  }
+  .shop_section_first {
+    padding-bottom: 40px!important;
+  }
+  .parent {
+    overflow-x: auto!important;
+  }
   .carouselBg {
     background: url('/assets/images/banner/mobilebanner.jpg');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #443165;
+    background-position-y: 270px;
   }
   /* global - start */
   .sec_ptb_130 {
@@ -7031,7 +7104,7 @@ blockquote .blockquote_admin i {
   /* shop details - start */
   .shop_details .shop_container {
     max-width: 100%;
-    padding: 100px 0px;
+    padding: 0px 0px;
   }
 
   .shop_details .details_image {
@@ -8562,9 +8635,8 @@ blockquote .blockquote_admin i {
   border: 0.5px solid #443266;
 }
 #details_form {
-  height: 700px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: auto;
+  overflow: unset;
 }
 #details_form::-webkit-scrollbar-thumb {
   background: darkgray;
@@ -8651,13 +8723,13 @@ body::-webkit-scrollbar-thumb {
   color: #443266;
   transition: 0.5s ease-in-out;
 }
-#image_1 ,#image_2 ,#image_3 ,#image_4 ,#image_5 {
+#image_0,#image_1,#image_2,#image_3,#image_4,#image_5,#image_6,#image_7,#image_8,#image_9,#image_10 {
   text-align: center;
 }
-#image_1 img,#image_2 img,#image_3 img,#image_4 img,#image_5 img {
+#image_0 img,#image_1 img,#image_2 img,#image_3 img,#image_4 img,#image_5 img ,#image_6 img,#image_7 img,#image_8 img,#image_9 img,#image_10 img {
   height: 400px;
   width: -webkit-fill-available;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
 }
 

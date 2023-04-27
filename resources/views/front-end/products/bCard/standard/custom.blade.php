@@ -403,8 +403,13 @@
 			var total = $('#finalTotal').html();
 			var size = $('#cardSize').find(":selected").text();
 			var qty = $('#mainQty').val();
-			var printSide = $('#printSide').find(":selected").text();
 			var paperType = $('#paperType').find(":selected").text();
+			foreach ($products['property'][$productKey] as $key=>$property)
+			{
+				var $property = $key;
+			}
+			return false;
+			var printSide = $('#printSide').find(":selected").text();
 			var rounded = $('#rounded').find(":selected").text();
 			var finishtype = $('#finishType').find(":selected").text();
 			var img = $('#image_1').find('img').attr('src');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,12 +43,14 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::get('/redirect/google', 'SocialController@google_redirect'); // register using google
     Route::get('/callback/google', 'SocialController@google_callback'); // callback google url
     Route::get('/user/login', function(){
-        return view('login');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('login',compact('categories'));
     });
     Route::post('/login-user', 'UserController@login'); // callback google url
 
     Route::get('/user/register', function(){
-        return view('register');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('register',compact('categories'));
     });
     
     // Purchasers Routes Start
@@ -351,8 +354,8 @@ Route::domain(env('DOMAIN'))->group(function () {
 
 Route::domain(env('SUB_DOMAIN'))->group(function () {
     Auth::routes();
-    Route::group(['middleware'=>'authenticated'], function(){
-        Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::group(['middleware'=>'auth'], function(){
         
         Route::get('/pending-orders', 'OrderController@pending');
         Route::get('/accepted-orders', 'OrderController@accepted');
@@ -382,6 +385,9 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::post('/product-info-session', 'ProductController@infoSession');
         Route::post('/product-property-session', 'ProductController@propertySession');
         Route::post('/product-pricing-session', 'ProductController@pricingSession');
+        Route::post('/uploadProductImg', 'ProductController@uploadImg');
+        Route::get('/deleteImg/{id}', 'ProductController@deleteImg');
+        Route::post('/assign-subcat-product', 'ProductController@assignSubcat');
         
         //categories CRUD
         Route::get('/sub-categories/{id}', 'CategoryController@subCategories');

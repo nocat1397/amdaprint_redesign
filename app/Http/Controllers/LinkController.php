@@ -21,37 +21,45 @@ class LinkController extends Controller
         return view('front-end.home', compact('banners','coupons','categories'));
     }
     public function about() {
-        return view('front-end.about');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.about' ,compact('categories'));
     }
     public function contact() {
-        return view('front-end.contact');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.contact' ,compact('categories'));
     }
     public function terms() {
-        return view('front-end.terms');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.terms' ,compact('categories'));
     }
     public function privacy() {
-        return view('front-end.privacy');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.privacy' ,compact('categories'));
     }
     public function faq() {
-        return view('front-end.faq');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.faq' ,compact('categories'));
     }
     public function mycart() {
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $user = Auth::user();
         $carts = Cart::where('user_id',$user->id)->get();
         $amount = Cart::where('user_id',$user->id)->pluck('amount')->toArray();
         $total = array_sum($amount);
         // return array_sum($amount);
-        return view('front-end.purchaser.cart', compact('user','carts','total'));
+        return view('front-end.purchaser.cart', compact('user','carts','total','categories'));
     }
     
     public function fileUpload($id) {
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cart = Cart::find($id);
-        return view('front-end.purchaser.upload', compact('cart'));
+        return view('front-end.purchaser.upload', compact('cart','categories'));
     }
     public function designer($id) {
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cart = Cart::find($id);
         $desc = Designer::where('cart_id',$id)->first();
-        return view('front-end.purchaser.hireDesigner', compact('cart','desc'));
+        return view('front-end.purchaser.hireDesigner', compact('cart','desc','categories'));
     }
     public function banners()
     {

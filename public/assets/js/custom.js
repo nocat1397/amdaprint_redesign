@@ -112,18 +112,22 @@
       $('#search_body_collapse').removeClass("d-block");
     }
     var divHeight = $('.details_content').height();
-    if ($(this).scrollTop() > 250 && $(this).scrollTop() < divHeight-250) {
-      // alert(divHeight);
-      $('#priceCard').css('position','fixed');
-    } else {
-      $('#priceCard').css('position','unset');
-    }
-    var divHeightHome = $('.order-last').height();
-    if ($(this).scrollTop() > 350 && $(this).scrollTop() < divHeightHome-250) {
-      $('#homeSidebar').css('position','fixed');
-    } else {
-      $('#homeSidebar').css('position','unset');
-    }
+      if (!window.matchMedia('(max-width: 991px)').matches)
+      {
+        if ($(this).scrollTop() > 250 && $(this).scrollTop() < divHeight-(divHeight*5/100)) {
+          $('#priceCard').css({'position':'fixed','width':'300px','margin-top':'unset','top':'5%','right':'unset'});
+        } else {
+          $('#priceCard').css({'position':'unset','width':'300px','margin-top':'unset'});
+        }
+      } else {
+          $('#priceCard').css({'position':'unset','width':'auto','margin-top':'10%'});
+      }
+        var divHeightHome = $('.order-last').height();
+        if ($(this).scrollTop() > 350 && $(this).scrollTop() < divHeightHome-250) {
+          $('#homeSidebar').css('position','fixed');
+        } else {
+          $('#homeSidebar').css('position','unset');
+        }
   });
   // sticky header - end
   // --------------------------------------------------

@@ -43,7 +43,7 @@
                                         <button type="button" class="btn btn-outline-primary shadow" data-toggle="modal" data-target="#modal{{$order->id}}">Details</button>
                                         <!--{{$order->id}} Modal -->
                                 <div class="modal fade" id="modal{{$order->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
                                       <div class="modal-content">
     
                                         <div class="modal-body">

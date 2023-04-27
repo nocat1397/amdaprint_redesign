@@ -34,7 +34,7 @@ class HomeController extends Controller
             $decline = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'approved')->get()->count();
             return view('home',compact('total','new','accept','dispatch','deliver','decline'));
         } else {
-            return redirect(env('DOMAIN'));
+            return redirect('/home');
         }
     }
 }

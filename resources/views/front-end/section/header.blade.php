@@ -78,6 +78,7 @@
 										</ul>
 									</li>
 									@endif  --}}
+									<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="fa fa-truck"></i> Order Tracking</a></li>
 									<li class="pt-2 pb-2">
 										<a href="/dealer-registration" style="color:#373737;font-weight: 400; font-size:15px;"><i class="far fa-handshake"></i> Dealer Registration</a>
 										
@@ -92,8 +93,26 @@
 											<li><a href="/user/register">Win Awards</a></li>
 										</ul>
 									</li>
-									<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="fa fa-comments mr-2"></i>Chat Now</a></li>
-									<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="far fa-phone"></i> +1 (302) 200 0642</a></li>
+									@if(Auth::check())
+								<li class="has_child pt-2 pb-2">
+									<a href="#" class="text-capitalize text-dark"><i class="fa fa-user-circle"></i> {{Auth::user()->name}}</a>
+									<ul class="submenu">
+										<li><a href="/my-orders">Your Orders</a></li>
+										<li><a href="javaascript:void(0)">Whishlist</a></li>
+										<li><a href="/logout">Logout</a></li>
+									</ul>
+								</li>
+								@else
+								<li class="has_child pt-2 pb-2">
+									<a href="#" style="color:#373737;font-weight: 400; font-size:15px;">Account</a>
+									<ul class="submenu">
+										<li class="p-3"><a href="/user/login" class="addtocart_btn custom_btn bg_default_orange text-dark">Login</a></li>
+										<li class="text-center"><strong class="text-dark">Don't Have An Account?</strong></li>
+										<li class="p-3"><a href="/user/register" class="addtocart_btn custom_btn bg_default_orange text-dark">Register</a></li>
+									</ul>
+								</li>
+								@endif
+									
 									<li class="has_child pt-2 pb-2">
 										<a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><img src="/img/icon/us.png" height="25" width="25"></a>
 										<ul class="submenu" style="min-width: auto;width:max-content;padding:10px 10px">
@@ -140,27 +159,10 @@
 						</div>
 						<div class="col-lg-4 ">
 							<ul class="header_contact_info main_menu ul_li_right clearfix">
-								<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="fa fa-truck"></i> Order Tracking</a></li>
-								@if(Auth::check())
-								<li class="has_child pt-2 pb-2">
-									<a href="#" class="text-capitalize text-dark"><i class="fa fa-user-circle"></i> {{Auth::user()->name}}</a>
-									<ul class="submenu">
-										<li><a href="/my-orders">Your Orders</a></li>
-										<li><a href="javaascript:void(0)">Whishlist</a></li>
-										<li><a href="/logout">Logout</a></li>
-									</ul>
-								</li>
-								@else
-								<li class="has_child pt-2 pb-2">
-									<a href="#" style="color:#373737;font-weight: 400; font-size:15px;">Account</a>
-									<ul class="submenu">
-										<li class="p-3"><a href="/user/login" class="addtocart_btn custom_btn bg_default_orange text-dark">Login</a></li>
-										<li class="text-center"><strong class="text-dark">Don't Have An Account?</strong></li>
-										<li class="p-3"><a href="/user/register" class="addtocart_btn custom_btn bg_default_orange text-dark">Register</a></li>
-									</ul>
-								</li>
-								@endif
 								
+								
+								<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="fa fa-comments mr-2"></i>Chat Now</a></li>
+								<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="far fa-phone"></i>+1 (302) 200 0642</a></li>
 								<li>
 									@if(Auth::check())
 									<a href="/my-cart" class="cart_btn action_btn search_btn bg_default_purple">
@@ -175,30 +177,27 @@
 				</div>
 			</div>
 
-		<div class="container">
 			<div class="header_bottom justify-content-center">
-				<div class="">
+				<div class="maxw_1420 container">
 					<div class="row align-items-center">
 
 						<div class="col-lg-1">
 							<div class="brand_logo d-flex d-md-none d-lg-none">
 								<a href="/">
-									<img  src="/assets/images/logo/logo.png" style="width:80%" srcset="/assets/images/logo/logo.png 2x" alt="logo_not_found">
+									<img  src="/assets/images/New/logo.png" style="width:100%" srcset="/assets/images/New/logo.png 2x" alt="logo_not_found">
 								</a>
 
 								<ul class="mobilemenu_btns_group ul_li_right clearfix">
 									<li>
 										@if(Auth::check())
-										<a href="/my-cart" class="search_btn">
-											<i class="fal fa-shopping-cart"></i>
+										<a href="/my-cart" class="cart_btn action_btn search_btn bg_default_purple">
+											<i class="fal fa-shopping-bag"></i>
 											<small class="cart_counter" id="cartCount">0</small>
 										</a>
 										@else 
-										<a href="/user/login">
-											<button class="search_btn">
-												<i class="fal fa-shopping-cart text-danger"></i>
-												<small class="cart_counter" id="cartCount">0</small>
-											</button>
+										<a href="/user/login" class="cart_btn action_btn search_btn bg_default_purple">
+											<i class="fal fa-shopping-bag"></i>
+											<small class="cart_counter" id="cartCount">0</small>
 										</a>
 										@endif
 									</li>
@@ -247,7 +246,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+
 
 			<div id="search_body_collapse" class="search_body_collapse collapse">
 				<div class="search_body">
@@ -261,10 +260,10 @@
 					</div>
 				</div>
 			</div>
+			{{-- <div id="productList">
+			</div> --}}
 		</header>
 		<!-- header_section - end
 		================================================== -->
-		<div id="productList">
-		</div>
 
         

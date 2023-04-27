@@ -19,6 +19,8 @@ use App\Http\Requests\UploadImageRequest;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Rating as RatingResource;
+use App\ProductImage;
+use App\ProductSubCategory;
 
 class ProductController extends Controller
 {
@@ -57,8 +59,10 @@ class ProductController extends Controller
     {
         \Session::forget(['showProductData','productData','productDataLabels']);
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
-        // return $categories;
-        return view('admin.product.showProducts', compact('categories'));
+        $images = ProductImage::all();
+        $subcats = ProductSubCategory::where('product_id', 6)->where('product_index', 0)->where('category_id', 3)->where('subcategory_id', 1)->first();
+        
+        return view('admin.product.showProducts', compact('categories','images','subcats'));
     }
     public function showCatProduct($id,$name)
     {
@@ -443,45 +447,85 @@ class ProductController extends Controller
         $products = $cat->product;
         $productKey = array_search($productName,$products['name']);
         $product = str_replace('-',' ',$productName);
+        $images = ProductImage::where('product_id',$products['id'])->where('product_index',$productKey)->get();
         // return $product;
         switch ($category) {
             case 'business-cards':
-                return view('front-end.products.bCard.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.bCard.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'banners':
                 if(str_contains($product, 'Custom'))
                 {
-                    return view('front-end.products.banners.custom',compact('product','category','categories','productKey','products'));
+                    return view('front-end.products.banners.custom',compact('product','category','categories','productKey','products','images'));
                 } else {
-                    return view('front-end.products.banners.other',compact('product','category','categories','productKey','products'));
+                    return view('front-end.products.banners.other',compact('product','category','categories','productKey','products','images'));
                 }
                 break;
             case 'stand-&-displays':
-                return view('front-end.products.stand-display.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.stand-display.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'folders':
-                return view('front-end.products.stationary.folders.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.stationary.folders.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'envelope':
-                return view('front-end.products.stationary.envelope.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.stationary.envelope.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'brochure':
-                return view('front-end.products.marketing.brochure',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.marketing.brochure',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'letter-heads':
-                return view('front-end.products.stationary.letterhead',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.stationary.letterhead',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'invitation-cards':
-                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             case 'greetings-cards':
-                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products'));
+                return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products','images'));
                 break;
             default:
 
                 break;
         }
     } 
+    public function uploadImg(Request $request)
+    {
+        if($files = $request->file('images'))
+        {
+            foreach ($files as $key => $file) {
+                $name=$file->getClientOriginalName();
+                $file->move('products/'.$request->product_id.'/'.$request->product_index.'/', $name);   
+                $img = new ProductImage;
+                $img->product_id = $request->product_id;
+                $img->product_index = $request->product_index;
+                $img->name = $name;
+                $img->save();
+            }
+            return redirect()->back()->with('message','Images Uploaded.');
+        }
+    }
+    public function deleteImg($id)
+    {
+        $img = ProductImage::find($id);
+        $img->delete();
+        return redirect()->back();
+    }
+    public function assignSubcat(Request $request)
+    {
+        $exist = ProductSubCategory::where('category_id',$request->category_id)->where('product_id',$request->product_id)->where('product_index',$request->product_index)->first();
+        if($exist != null)
+        {
+            $exist->update(['subcategory_id'=>$request->subcategory_id]);
+            $exist->save();
+        } else {
+            $subcat = new ProductSubCategory;
+            $subcat->subcategory_id = $request->subcategory_id;
+            $subcat->category_id = $request->category_id;
+            $subcat->product_id = $request->product_id;
+            $subcat->product_index = $request->product_index;
+            $subcat->save();
+        }
+        return redirect()->back();
+    }
     public function front()
     {
         $products = Product::with('images')->get();

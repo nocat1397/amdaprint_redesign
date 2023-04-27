@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dealer;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,11 +16,13 @@ class DealerController extends Controller
     }
     public function front()
     {
-        return view('front-end.dealer.index');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.dealer.index', compact('categories'));
     }
     public function register()
     {
-        return view('front-end.dealer.registration');
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.dealer.registration', compact('categories'));
     }
     public function store(Request $request)
     {
