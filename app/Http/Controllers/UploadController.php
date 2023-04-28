@@ -30,13 +30,15 @@ class UploadController extends Controller
             $desc = Designer::find($request->id);
             $desc->update(['description'=>$request->desc]);
             $desc->save();
+            return response(1);
         } else {
             $desc = new Designer;
             $desc->user_id = $request->user_id;
             $desc->cart_id = $request->cart_id;
             $desc->description = $request->desc;
             $desc->save();
+            return response(1);
         }
-        return redirect()->back();
+        return response(0);
     }
 }

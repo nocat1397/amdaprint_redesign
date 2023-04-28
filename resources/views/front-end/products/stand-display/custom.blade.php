@@ -146,6 +146,7 @@
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
+													<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
 													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
                                                 </div>
 
@@ -299,16 +300,15 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-		var category = 'Frames';
-		var name = '<?php echo $product ?>';
-		var total = $('#total').html();
-		var size = $('#bannerSize').find(":selected").text();
-		var qty = $('#mainQty').val();
-		var frame = $('#frame').find(":selected").text();
-		var color = $('#color').find(":selected").text();
-		var banner = $('#banner').find(":selected").text();
-		var img = $('#image_1').find('img').attr('src');
-		$.ajaxSetup({
+			var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
+			var name = '<?php echo $product ?>';
+			var total = $('#total').html();
+			var size = $('#bannerSize').find(":selected").text();
+			var qty = $('#mainQty').val();
+			var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+			var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
+			var img = $('#image_1').find('img').attr('src');
+			$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
@@ -317,7 +317,7 @@
             $.ajax({
               type: "POST",
               url: "/cart-add",
-              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,banner:banner,frame:frame,color:color},
+              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues},
             
               success:function(response) {
 				location.replace('/uploadfile/'+response.id);

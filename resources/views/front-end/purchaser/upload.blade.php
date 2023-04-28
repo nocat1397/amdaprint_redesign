@@ -14,6 +14,7 @@
 </head>
 <body>
     @include('front-end.section.header')
+    <main>
     <section class="details_section shop_details sec_ptb_130 pt-130 bg_gray clearfix" id="upload">
         <div class="">
             <div class="container text-center">
@@ -33,14 +34,14 @@
                                     @csrf
                                     <input type="hidden" name="cart_id" value="{{$cart->id}}" id="upload_cart_id">
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id ?? ''}}" id="upload_user_id">
-                                    <div class="input-group">
+                                    <div class="form-group">
                                         <div class="custom-file">
                                           <input type="file" class="custom-file-input" id="inputGroupFile02" name="file">
                                           <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                         </div>
-                                        <div class="input-group-append">
-                                          <button class="custom_btn bg_default_yellow shadow" id="uploadClick">Upload <i class="pl-2 fa fa-upload"></i></button>
-                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                      <button class="custom_btn bg_default_yellow shadow" id="uploadClick">Upload <i class="pl-2 fa fa-upload"></i></button>
                                     </div>
                                 </form>
                                 <p class="filePathName pt-2"></p>
@@ -118,8 +119,25 @@
                 <div class="row">
                     
                     <div class="col-md-8">
-                        <div class="card bg-gray border border-1">
-                            <div class="card-body table-responsive border border-0 p-0">
+                        <div class="card bg-gray border border-1 mb-5">
+                            <div class="card-header bg_default_orange d-md-none d-lg-none d-sm-none d-block">
+                                <strong class="text-light"><span class="float-left">Details</span> <button class="float-right addtocart_btn custom_btn bg_default_yellow shippingBack" type="button"><i class="pr-3 fa fa-arrow-left"></i> Back</button></strong>
+                            </div>
+                            <div class="card-body table-responsive border border-0 p-0 d-md-none d-lg-none d-sm-none d-block">
+                                <table class="table table-stripped text-center">
+                                    <tbody>
+                                        @foreach($cart->name as $key=>$name)
+                                        @if($name !== 'route' && $name !== 'img')
+                                        <tr>
+                                         <th class="text-capitalize">{{$name}}</th> 
+                                        <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-body table-responsive border border-0 p-0 d-md-block d-lg-block d-sm-block d-none">
                                 <table class="table table-hover text-left mb-0 table-lg" style="width: 100%">
                                     <thead class="bg_default_blue text-light">
                                         <tr>
@@ -137,7 +155,7 @@
                                             <input type="hidden" name="category" value="{{$cart->data[$key]}}">
                                             @endif
                                             @endforeach
-                                            <td class="text-capitalize btn-group" style="vertical-align: middle">
+                                            <td class="text-capitalize btn-group" style="align-items: center">
                                             @foreach ($cart->name as $key=>$name)
                                             @if($key == 5)
                                             <div>
@@ -147,12 +165,10 @@
                                             @endforeach
                                             @foreach ($cart->name as $key=>$name)
                                             @if($key == 1)
-                                            <div class="mt-2">
-                                                <strong class="pl-2">
+                                            <div class="p-2">
+                                                <strong class="">
                                                     {{$cart->data[1]}}
                                                 </strong>
-                                                <br>
-                                               
                                                 {{--  <button type="button" class="btn btn-sm btn-transparent" data-toggle="modal" data-target="#details">Details ></button>  --}}
                                             </div>
                                             @endif
@@ -177,26 +193,27 @@
                                     </tbody>
                                   
                                 </table>
-                                <hr class="mt-1 mb-3">
                                 <div class="col-md-12 text-justify">
+                                    <hr class="mt-1 mb-3">
                                     <div>
                                         <h5>Product Description :</h5>
                                     </div>
+                                    <hr class="mt-1 mb-3">
                                     <div class="pb-3">
                                         @foreach($cart->name as $key=>$name)
-                                                @if($name !== 'route' && $name !== 'img')
-                                               <strong class="text-capitalize"> {{$name}}:</strong>
-                                                @if($name == 'amount') $ @endif{{$cart->data[$key]}}
-                                                @endif
-                                                @endforeach
+                                        @if($name !== 'route' && $name !== 'img')
+                                        <strong class="text-capitalize" style="color:#443266"> {{$name}}:</strong>
+                                        @if($name == 'amount') $ @endif{{$cart->data[$key]}}
+                                        @endif
+                                        @endforeach
                                     </div>
                                     
                                 </div>
                             </div>
                             
                         </div>
-                        <div class="btn-inline mt-3">
-                            <button class="addtocart_btn custom_btn bg_default_orange float-left" type="button" id="shippingBack"><i class="pr-3 fa fa-arrow-left"></i> Back</button>
+                        <div class="btn-inline mt-3 d-md-block d-lg-block d-sm-block d-none">
+                            <button class="addtocart_btn custom_btn bg_default_orange float-left shippingBack" type="button"><i class="pr-3 fa fa-arrow-left"></i> Back</button>
                             {{-- <button class="addtocart_btn custom_btn bg_default_yellow float-right" type="submit" id="shippingNext">Proceed to Checkout <i class="fa fa-arrow-right pl-2"></i></button> --}}
                         </div>
                     <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -211,17 +228,17 @@
                                         <tbody>
                                             <thead>
                                                 <tr>
-                                                    @foreach($cart->name as $key=>$name)
-                                                    @if($name !== 'route' && $name !== 'img')
-                                                    <th class="text-capitalize">{{$name}}</th>
-                                                    {{--  <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>  --}}
-                                                    @endif
-                                                    @endforeach
+                                                @foreach($cart->name as $key=>$name)
+                                                @if($name !== 'route' && $name !== 'img')
+                                                <th class="text-capitalize">{{$name}}</th>
+                                                {{--  <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>  --}}
+                                                @endif
+                                                @endforeach
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    @foreach($cart->name as $key=>$name)
+                                                @foreach($cart->name as $key=>$name)
                                                 @if($name !== 'route' && $name !== 'img')
                                                 {{--  <th class="text-capitalize">{{$name}}</th>  --}}
                                                 <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>
@@ -265,8 +282,8 @@
                             </div> --}}
                             
                             {{-- <hr class="mt-2 mb-2"> --}}
-                            <div class="card-header border text-left shadow">
-                                <strong class="text-dark">
+                            <div class="card-header border text-left shadow bg_default_orange">
+                                <strong class="text-light">
                                     Shipping Method
                                 </strong>
                             </div>
@@ -275,14 +292,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="shipping" value="19.57" id="shipping1" checked>
                                     <div class="form-row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping1">    
                                                 <strong class="font-weight-none">Priority</strong>
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
-                                        <div class="col-md-4 text-right">
+                                        {{-- <div class="col-md-4">
+                                        </div> --}}
+                                        <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
                                                 <strong class="font-weight-bold text-dark">$19.57</strong>
                                             </label>
@@ -292,14 +309,13 @@
                                   <div class="form-check">
                                     <input class="form-check-input" type="radio" name="shipping" value="17.08" id="shipping2">
                                     <div class="form-row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping2">    
                                                 <strong class="text-">Express</strong>
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
-                                        <div class="col-md-4 text-right">
+
+                                        <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
                                                 <strong class="font-weight-bold text-dark">$17.08</strong>
                                             </label>
@@ -309,14 +325,12 @@
                                   <div class="form-check">
                                     <input class="form-check-input" type="radio" name="shipping" value="14.82" id="shipping3">
                                     <div class="form-row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping3">    
                                                 <strong class="text-">Standard Ground</strong>
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
-                                        <div class="col-md-4 text-right">
+                                        <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
                                                 <strong class="font-weight-bold text-dark">$14.82</strong>
                                             </label>
@@ -326,14 +340,12 @@
                                   <div class="form-check">
                                     <input class="form-check-input" type="radio" name="shipping" value="7.58" id="shipping4">
                                     <div class="form-row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping4">    
                                                 <strong class="text-">Super Saver</strong>
                                             </label>
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
-                                        <div class="col-md-4 text-right">
+                                        <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
                                                 <strong class="font-weight-bold text-dark">$7.58</strong>
                                             </label>
@@ -350,7 +362,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" name="coupon" placeholder="Enter Coupon Code" class="form-control" id="couponCode">
                                     <div class="input-group-append pl-3">
-                                        <button class="addtocart_btn custom_btn bg_default_orange w-100" type="button" id="couponCheck">Apply</button>
+                                        <button class="addtocart_btn custom_btn bg_default_yellow w-100" type="button" id="couponCheck">Apply</button>
                                     </div>
                                 </div>
                             </div>
@@ -364,26 +376,26 @@
 
                             @if($name !== 'route')
                             @if($key == 2)
-                            <div class="col-md-6 text-dark font-weight-bold text-left text-capitalize">Subtotal:</div>
-                            <div class="col-md-6 text-dark text-right">@if($name == 'amount') <strong>$</strong> @endif{{$cart->data[$key]}}</div>
+                            <div class="col-md-6 col-sm-6 col-6 text-dark font-weight-bold text-left text-capitalize">Subtotal:</div>
+                            <div class="col-md-6 col-sm-6 col-6 text-dark text-right">@if($name == 'amount') <strong>$</strong> @endif{{$cart->data[$key]}}</div>
                             @endif
                             @endif
                             
                             @endforeach
-                            <div class="col-md-6 text-dark font-weight-bold text-left text-capitalize">Shipping Charge:</div>
-                            <div class="col-md-6 text-dark text-right"><strong>$</strong> <span class="totalShipping">19.57</span></div>
-                            <div class="col-md-6 text-left discount d-none">
+                            <div class="col-md-6 col-sm-6 col-6 text-dark font-weight-bold text-left text-capitalize">Shipping Charge:</div>
+                            <div class="col-md-6 col-sm-6 col-6 text-dark text-right"><strong>$</strong> <span class="totalShipping">19.57</span></div>
+                            <div class="col-md-6 col-sm-6 col-6 text-left discount d-none">
                                 <strong class="text-dark">Discount :</strong>
                             </div>
-                            <div class="col-md-6 text-right discount d-none" id="couponDiscount">
+                            <div class="col-md-6 col-sm-6 col-6 text-right discount d-none" id="couponDiscount">
                             </div>
                         </div>
                     <hr class="mt-2 mb-2">
                     <div class="row">
-                        <div class="col-md-6 text-left">
+                        <div class="col-md-6 col-sm-6 col-6 text-left">
                             <h5 class="text-dark">Total :</strong>
                         </div>
-                        <div class="col-md-6 text-right">
+                        <div class="col-md-6 col-sm-6 col-6 text-right">
                             <h5 class="font-weight-bold text-dark">$ <span class="grandTotal">{{$cart->amount}}</span></h5>
                         </div>
                     </div>
@@ -461,15 +473,17 @@
                                         <div class="col-md-6">
                                             <label for="">Country<span class="text-danger">*</span></label>
                                             <div class="form-group">
-                                                <select class="w-100" required name="country" aria-label="country" disabled>
+                                                <select class="w-100 mb-3" required name="country" aria-label="country" disabled>
                                                     <option value="United States" selected>United States</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label for="">Phone Number<span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control w-50" name="phone" value="{{Auth::user()->mobile ?? ''}}" required>
+                                        <div class="col-md-6">
+                                            <label for="">Phone Number<span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control" name="phone" value="{{Auth::user()->mobile ?? ''}}" required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <input type="hidden" name="cart_id" value="{{$cart->id}}">
@@ -486,6 +500,7 @@
             </div>
         </div>
     </section>
+</main>
     {{-- <section class="details_section shop_details sec_ptb_130 pt-130 bg_gray clearfix" id="uploadCheckout">
         <div class="">
             <div class="container text-center">
@@ -832,7 +847,7 @@
             $('#uploadCheckout2').fadeIn();
             window.scrollTo({ top: 50, left: 100, behavior: 'smooth' });
         });
-        $('#shippingBack').click(function(){
+        $('.shippingBack').click(function(){
             $('#uploadCheckout').fadeOut();
             $('#uploadCheckout2').fadeOut();
             $('#upload').fadeIn();
@@ -950,7 +965,7 @@
                         swal({
                             title: "File Uploaded!",
                             type: "success",  
-                            timer: 3000,
+                            timer: 1500,
                             showCancelButton: false,
                             showConfirmButton: false
                         }); 
@@ -959,7 +974,7 @@
                         swal({
                             title: "File not uploaded!",
                             type: "error",  
-                            timer: 3000,
+                            timer: 1500,
                             text: 'Something went wrong!',
                             showCancelButton: false,
                             showConfirmButton: false
@@ -975,11 +990,11 @@
         
     </script>
     <script>
-        $('#inputGroupFile02').on('change',function(){
+        $('#inputGroupFile02').on('change',function(e){
             //get the file name
-            var fileName = $(this).val();
+            var fileName = e.target.files[0].name;
             //replace the "Choose a file" label
-            $('.filePathName').html(fileName).addClass('font-weight-bold text-danger');
+            $('.filePathName').html('<span class="text-dark">File Selected : </span>'+fileName).addClass('font-weight-bold text-danger');
         })
     </script>
 </body>

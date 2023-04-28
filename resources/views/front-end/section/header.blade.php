@@ -40,7 +40,7 @@
 			<div class="header_top clearfix pr-5 pl-5">
 				<div class="maxw-1920 container">
 					<div class="row align-items-center">
-						<div class="col-lg-4 main_menu">
+						<div class="col-lg-5 main_menu">
 							<ul class="header_items_list ul_li clearfix">
 								<li style="color:#373737;font-weight: 700; font-size:15px;">Get 20% off on your first order.</li>
 								<li style="color:#373737;font-weight: 700; font-size:15px;">Use Code : FirstOrder </li>
@@ -57,7 +57,7 @@
 								{{-- <li><i class="far fa-phone"></i> +1 (302) 200 0642</li> --}}
 						</div>
 
-						<div class="col-lg-8 main_menu">
+						<div class="col-lg-7 main_menu">
 							<ul class="header_contact_info ul_li_right clearfix">
 								{{--  @if(Auth::check())
 									<li class="has_child pt-2 pb-2">

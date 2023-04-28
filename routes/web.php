@@ -52,28 +52,29 @@ Route::domain(env('DOMAIN'))->group(function () {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         return view('register',compact('categories'));
     });
-    
-    // Purchasers Routes Start
-    Route::post('/cart-add', 'CartController@store');
-    Route::get('/cart-count', 'CartController@cartCount');
-    Route::get('/my-cart', 'LinkController@mycart');
-    Route::get('/cart-remove/{id}', 'CartController@destroy');
-
-    Route::post('/upload', 'UploadController@store');
-    Route::post('/usa-find', 'CountryController@usaCheck');
-
-    Route::get('/uploadfile/{id}', 'LinkController@fileUpload');
-    Route::get('/designer/{id}', 'LinkController@designer');
-    
-    Route::post('/desc-store', 'UploadController@descStore');
-
-    Route::get('/payment', 'PaymentController@index');
-    Route::post('/charge', 'PaymentController@charge');
-    Route::get('/success', 'PaymentController@success');
-    Route::get('/error', 'PaymentController@error');
-
-    Route::get('/my-orders', 'OrderController@userOrders');
-    // Purchasers Routes End
+    Route::group(['middleware'=>'auth'], function(){
+        // Purchasers Routes Start
+        Route::post('/cart-add', 'CartController@store');
+        Route::get('/cart-count', 'CartController@cartCount');
+        Route::get('/my-cart', 'LinkController@mycart');
+        Route::get('/cart-remove/{id}', 'CartController@destroy');
+        
+        Route::post('/upload', 'UploadController@store');
+        Route::post('/usa-find', 'CountryController@usaCheck');
+        
+        Route::get('/uploadfile/{id}', 'LinkController@fileUpload');
+        Route::get('/designer/{id}', 'LinkController@designer');
+        
+        Route::post('/desc-store', 'UploadController@descStore');
+        
+        Route::get('/payment', 'PaymentController@index');
+        Route::post('/charge', 'PaymentController@charge');
+        Route::get('/success', 'PaymentController@success');
+        Route::get('/error', 'PaymentController@error');
+        
+        Route::get('/my-orders', 'OrderController@userOrders');
+        // Purchasers Routes End
+    });
 
     Route::get('/product-details', 'ProductController@fetchProducts');
     Route::post('/registerUser', 'UserController@user');

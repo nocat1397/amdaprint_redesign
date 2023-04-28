@@ -36,13 +36,23 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
+        $except = $request->except(['propertyNames','propertyValues']);
+        $inputs = $except;
         foreach ($inputs as $key => $value) {
             $names[] = $key; 
+        }
+        foreach ($request->propertyNames as $value) 
+        {
+            $property = array_push($names,$value);
         }
         foreach ($inputs as $key => $value) {
             $data[] = $value; 
         }
+        foreach ($request->propertyValues as $pValue) 
+        {
+            $propertyValues = array_push($data,$pValue);
+        }
+
         $cart = new Cart;
         $cart->user_id = Auth::user()->id;
         $cart->product = $request->name;

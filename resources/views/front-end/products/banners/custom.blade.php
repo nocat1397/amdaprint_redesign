@@ -159,6 +159,7 @@
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
+													<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
 													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
                                                 </div>
 
@@ -520,54 +521,16 @@
 				var bannerSize = $('#bannerSize').val();
 
 			}
-		var category = '<?php echo $category ?>';
+		var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
 		var route = $('input[name="route"]:checked').val();
 		var name = '<?php echo $product ?>';
 		var total = $('#total').html();
 		var size = bannerSize;
 		var qty = $('#mainQty').val();
-		var hanging = $('#hanging').find(":selected").text();
-		var wind = $('#wind').find(":selected").text();
-		var twoside = $('#twoSide').find(":selected").text();
-		var UVprime = $('#uvPrim').find(":selected").text();
-		var lamination = $('#lamination').find(":selected").text();
+		var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+		var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
 		var img = $('#image_1').find('img').attr('src');
 
-		if ($('#accessories').val() > 0) {
-			// alert($('#accessories').val());
-			// return false;
-			if($('#zip') > 0)
-			{
-				var zip = 'Pack of 4';
-			} else {
-				var zip = 'No'
-			}
-			if($('#bungee').val() > 0)
-			{
-				var bungee = '10 inches (Pack of 4)';
-			} else {
-				var bungee = 'No'
-			}
-			if($('#nylon').val() > 0)
-			{
-				var nylon = $('#nylonSize').find(":selected").text();
-			} else {
-				var nylon = 'No'
-			}
-			if($('#glass').val() > 0)
-			{
-				var glass = '2 inches (Pack of 4)';
-			} else {
-				var glass = 'No'
-			}
-			if($('#clips').val() > 0)
-			{
-				var clips = 'Pack of 4';
-			} else {
-				var clips = 'No'
-			}
-			
-
 			$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -577,9 +540,7 @@
             $.ajax({
               	type: "POST",
               	url: "/cart-add",
-              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,hanging:hanging,windFlaps:wind,
-						twoSided:twoside,premium:UVprime,lamination:lamination,zip:zip,bungees:bungee,
-						nylonRope:nylon,glassHooks:glass,bannerClips:clips,route:route},
+              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
 				
               	success:function(response) {
 					if(route > 0)
@@ -593,33 +554,6 @@
               	  console.log(error)
               	}
         	});
-		} else {
-
-			$.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-              	type: "POST",
-              	url: "/cart-add",
-              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,hanging:hanging,windFlaps:wind,
-						twoSided:twoside,premium:UVprime,lamination:lamination,route:route},
-				
-              	success:function(response) {
-					if(route > 0)
-					{
-						location.replace('/designer/'+response.id);
-					} else {
-						location.replace('/uploadfile/'+response.id);
-					}
-              	},
-              	error: function(error){
-              	  console.log(error)
-              	}
-        	});
-		}
 	} else {
 		$('#loginModal').modal('show');
 	}

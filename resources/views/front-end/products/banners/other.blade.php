@@ -148,6 +148,7 @@
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
+													<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
 													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
                                                 </div>
 
@@ -465,13 +466,14 @@
 		} else {
 			var bannerSize = $('#bannerSize').find(":selected").text();
 		}
-		var category = 'Banners';
+		var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
 		var route = $('input[name="route"]:checked').val();
 		var name = '<?php echo $product ?>';
 		var total = $('#total').html();
 		var size = bannerSize;
 		var qty = $('#mainQty').val();
-		var UVprime = $('#uvPrim').find(":selected").text();
+		var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+		var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
 		var img = $('#image_1').find('img').attr('src');
 
 			$.ajaxSetup({
@@ -483,7 +485,7 @@
             $.ajax({
               	type: "POST",
               	url: "/cart-add",
-              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,premium:UVprime,route:route},
+              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
 				
               	success:function(response) {
 					if(route > 0)

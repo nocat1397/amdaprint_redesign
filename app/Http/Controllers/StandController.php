@@ -58,7 +58,8 @@ class StandController extends Controller
         }
 
         $percentageTotal = array_sum($array1);
-        $standRate = $percentageTotal+$baseRate;
+        $qty = $request->qty;
+        $standRate = $percentageTotal+($baseRate*$qty);
         $finalTotal = ($standRate*100)/50;
         return response()->json(['baseRate'=>$baseRate,'percentageRates'=>$array1, 'total'=>$standRate,'final'=>$finalTotal]);
         

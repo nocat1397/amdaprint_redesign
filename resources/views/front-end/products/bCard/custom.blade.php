@@ -166,6 +166,7 @@
 											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
 													<input type="hidden" name="property_key[]" value="{{$key}}">
+													<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
 													<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
 												</div>
 												
@@ -390,22 +391,15 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-			var category = '<?php echo $category ?>';
+			var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
 			var route = $('input[name="route"]:checked').val();
 			var name = '<?php echo $product ?>';
 			var total = $('#finalTotal').html();
 			var size = $('#cardSize').find(":selected").text();
 			var qty = $('#mainQty').val();
 			var paperType = $('#paperType').find(":selected").text();
-			var properties = '<?php echo json_encode($products["property"][$productKey]) ?>';
-			
-			properties.forEach(function(key,property) {
-				
-				var property = key;
-			});
-			var printSide = $('#printSide').find(":selected").text();
-			var rounded = $('#rounded').find(":selected").text();
-			var finishtype = $('#finishType').find(":selected").text();
+			var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+			var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
 			var img = $('#image_1').find('img').attr('src');
 			$.ajaxSetup({
 				headers: {
@@ -416,10 +410,12 @@
             $.ajax({
 				type: "POST",
 				url: "/cart-add",
-				data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,printside:printSide,papertype:paperType,
-					rounded:rounded,finishtype:finishtype,route:route},
+				data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,papertype:paperType,
+					propertyNames:propertyNames,propertyValues:propertyValues,route:route},
 					
 					success:function(response) {
+						console.log(response);
+						// return false;
 						if(route > 0)
 						{
 							location.replace('/designer/'+response.id);
