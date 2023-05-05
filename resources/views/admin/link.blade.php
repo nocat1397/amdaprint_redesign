@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin panel</title>
-  
+    <link rel="shortcut icon" href="/assets/images/logo/logo2.png">
     <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/eb7753515e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
