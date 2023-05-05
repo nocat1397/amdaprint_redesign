@@ -344,7 +344,8 @@
 <script>
 	$('#bannerSize').on('change',function(){
 		$('[id^=propertiesPer]')[0].selectedIndex = 0;
-		$('[id^=propertiesPer]').niceSelect('update');
+		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+		$('[id^=propertiesPer_]').niceSelect('update');
 		$('[id^=property]').fadeOut().hide();
 		
 		if($(this).val() == 0)
@@ -435,6 +436,7 @@
 			}
             var id = $('input[name="product_id"]').val();
 			var key = $('input[name="product_key"]').val();
+			
 			var qty = $(this).val();
             
             $.ajax({
@@ -445,9 +447,10 @@
               success:function(response) {
                 console.log(response);  
 				// return false;
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
+				// $('#total').html(response.total.toFixed(2));
+				// $('#finalTotal').html(response.final.toFixed(2));   
 				$('input[name="base_price"]').val(response.baseRate);
+				propertyPricing(id,key);
               },
               error: function(error){
                 console.log(error)

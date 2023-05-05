@@ -174,7 +174,7 @@
 												</div>
 												
 												<div class="col-md-6">
-													<select class="w-100" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
+													<select class="w-100" id="propertiesPer_{{$key}}" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
 														@if (isset($products['property_data'][$productKey][$key]))
 														@foreach ($products['property_data'][$productKey][$key] as $dataKey=>$data)
 														<option value="{{$dataKey}}">{{$data}}</option>
@@ -437,9 +437,10 @@
 <script>
 	$('#cardSize').on('change',function(){
 
-		$('#printSide, #rounded').val('0').niceSelect('update');
-		$('#printsideAmount,#roundedAmount').fadeOut().hide();
-		$('#finishType, #paperType').val(1).niceSelect('update');
+		$('[id^=propertiesPer]')[0].selectedIndex = 0;
+		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+		$('[id^=propertiesPer_]').niceSelect('update');
+		$('[id^=property]').fadeOut().hide();
 		$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -468,9 +469,7 @@
         	});
 	});
 	$('#mainQty').on('change',function(){
-		$('#printSide, #rounded').val('0').niceSelect('update');
-		$('#printsideAmount,#roundedAmount').fadeOut().hide();
-		$('#finishType').val(0).niceSelect('update');
+
 		$.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -489,9 +488,10 @@
             
               success:function(response) {
                 console.log(response);  
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2)); 
+				// $('#total').html(response.total.toFixed(2));
+				// $('#finalTotal').html(response.final.toFixed(2));
 				$('input[name="base_price"]').val(response.final.toFixed(2));  
+				propertyPricing(id,key); 
               },
               error: function(error){
                 console.log(error)
@@ -533,10 +533,7 @@
 			// Add paper type
 			$('#paperType').change(function(){
 				
-				$('#printSide, #rounded').val('0').niceSelect('update');
-				$('#printsideAmount,#roundedAmount').fadeOut().hide();
-				$('#finishType').val(0).niceSelect('update');
-				$('#printSide, #rounded').val('0').niceSelect('update');
+				
 				var value = $(this).val();
 					
 				$.ajaxSetup({
@@ -558,9 +555,10 @@
 					
             		  success:function(response) {
             		    console.log(response);  
-						$('#total').html(response.total.toFixed(2));
-						$('#finalTotal').html(response.final.toFixed(2));  
+						// $('#total').html(response.total.toFixed(2));
+						// $('#finalTotal').html(response.final.toFixed(2));  
 						$('input[name="base_price"]').val(response.final.toFixed(2)); 
+						propertyPricing(id,key);
             		  },
             		  error: function(error){
             		    console.log(error)

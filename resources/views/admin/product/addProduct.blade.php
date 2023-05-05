@@ -237,8 +237,8 @@
                               <div class="col-md-8">
                                 <label for="">Action :</label>
                                 <select name="action{{$key}}[]" class="form-control">
-                                  <option {{$productData['property_action'][$productArrayKey][$key][$pKey] == 1 ? 'selected' : ''}} value="1">Percentage</option>
-                                  <option {{$productData['property_action'][$productArrayKey][$key][$pKey] == 0 ? 'selected' : ''}} value="0">Fix Value</option>
+                                  <option @if(isset($productData['property_action'][$productArrayKey][$key][$pKey]) && $productData['property_action'][$productArrayKey][$key][$pKey] == 1){{$productData['property_action'][$productArrayKey][$key][$pKey] == 1 ? 'selected' : ''}}@endif value="1">Percentage</option>
+                                  <option @if(isset($productData['property_action'][$productArrayKey][$key][$pKey]) && $productData['property_action'][$productArrayKey][$key][$pKey] == 0){{$productData['property_action'][$productArrayKey][$key][$pKey] == 0 ? 'selected' : ''}}@endif value="0">Fix Value</option>
                                 </select>
                               </div>
                               <div class="col-md-4">

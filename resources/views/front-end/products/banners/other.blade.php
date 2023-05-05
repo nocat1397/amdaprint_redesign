@@ -351,10 +351,11 @@
 </script>
 <script>
 	$('#bannerSize').on('change',function(){
-		$('[id^=propertiesPer]')[0].selectedIndex = 0;
-		$('[id^=propertiesPer]').niceSelect('update');
+		$('[id^=propertiesPer_]')[0].selectedIndex = 0;
+		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+		$('[id^=propertiesPer_]').niceSelect('update');
+		
 		$('[id^=property]').fadeOut().hide();
-			$('.customSize').fadeOut();
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -403,9 +404,10 @@
               success:function(response) {
                 console.log(response);  
 				// return false;
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
+				// $('#total').html(response.total.toFixed(2));
+				// $('#finalTotal').html(response.final.toFixed(2));   
 				$('input[name="base_price"]').val(response.baseRate);
+				propertyPricing(id,key);
               },
               error: function(error){
                 console.log(error)
