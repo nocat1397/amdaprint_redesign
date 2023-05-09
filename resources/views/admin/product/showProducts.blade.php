@@ -191,6 +191,7 @@
                               </div>
                             </div>
                           </div>
+                          
                           <!-- Sub Category Modal -->
                           <div class="modal fade" id="subcategory{{$key}}{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -209,7 +210,7 @@
                                     <input type="hidden" name="category_id" value="{{$category->id}}">
                                     @forelse ($category->subcategories as $subcat)
                                     <div class="form-group">
-                                      <input type="radio" name="subcategory_id" required value="{{$subcat->id}}" {{$collection = $subcats->where('product_id', $category->product['id'])->where('product_index', $index)->where('category_id', $category->id)->where('subcategory_id', $subcat->id)->value('subcategory_id') == $subcat->id ? 'checked' : ''}}> <span>{{str_replace('-',' ',$subcat->name)}}</span>
+                                      <input type="radio" name="subcategory_id" required value="{{$subcat->id}}" @if($subcats !== null && $category->subcategories !== null && sizeof($category->subcategories)) {{$collection = $subcats->where('product_id', $category->product['id'])->where('product_index', $index)->where('category_id', $category->id)->where('subcategory_id', $subcat->id)->value('subcategory_id') == $subcat->id ? 'checked' : ''}} @endif> <span>{{str_replace('-',' ',$subcat->name)}}</span>
                                     </div>
                                     @empty 
                                     <div class="form-group text-center">
@@ -229,6 +230,7 @@
                               </div>
                             </div>
                           </div>
+                          
                           @endforeach
                         </td>
                       </tr>

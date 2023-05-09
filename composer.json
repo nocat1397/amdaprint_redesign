@@ -18,8 +18,8 @@
         "laravel/ui": "^2.4",
         "laravelcollective/html": "^6.2",
         "league/omnipay": "^3.2",
-        "mpclarkson/freshdesk-php-sdk": "dev-master",
-        "omnipay/paypal": "^3.0"
+        "omnipay/paypal": "^3.0",
+        "stripe/stripe-php": "^10.12"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
