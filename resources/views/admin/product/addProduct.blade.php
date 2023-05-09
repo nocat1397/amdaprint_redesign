@@ -579,18 +579,19 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
     $('select[name="category_id"]').click(function(){
-      var catName = $(this).find(':selected').text();
-      if(catName == 'Banners')
+      var catName = $(this).val();
+      /* alert(catName); */
+      if(catName == 1)
       {
         $('.paperTypeDiv').slideUp();
         $('.qtyDiv').slideUp();
       }
-      if(catName == 'Stand & Displays')
+      if(catName == 2)
       {
         $('.paperTypeDiv').slideUp();
         $('.qtyDiv').slideDown();
       }
-      if(catName == 'Business Cards' || catName == 'Envelope' || catName == 'Letter Heads' || catName == 'Folders' || catName == 'Brochure' || catName == 'Invitation Cards' || catName == 'Greetings Cards')
+      if(catName == 3 || catName == 4 || catName == 5 || catName == 6 || catName == 7 || catName == 8 || catName == 9)
       {
         $('.paperTypeDiv').slideDown();
         $('.qtyDiv').slideDown();
@@ -670,21 +671,21 @@
 </script>
 <script>
   $(document).ready(function() {
-    var catName = $('select[name="category_id"]').find(':selected').text();
+    var catName = $('select[name="category_id"]').val();
     var catName2 =  $('input[name="cat_name"]').val();
     var finalCatName = catName || catName2;
     // alert(finalCatN  ame);
-    if(finalCatName == 'Banners')
+    if(finalCatName == 1)
       {
         $('.paperTypeDiv').hide();
         $('.qtyDiv').hide();
       }
-      if(finalCatName == 'Stand & Displays')
+      if(finalCatName == 2)
       {
         $('.paperTypeDiv').hide();
         $('.qtyDiv').slideDown();
       }
-      if(finalCatName == 'Business Cards' || finalCatName == 'Envelope' || finalCatName == 'Letter Heads' || finalCatName == 'Folders' || finalCatName == 'Brochure' || finalCatName == 'Invitation Cards' || finalCatName == 'Greetings Cards')
+      if(finalCatName == 3 || finalCatName == 4 || finalCatName == 5 || finalCatName == 6 || finalCatName == 7 || finalCatName == 8 || finalCatName == 9)
       {
         $('.paperTypeDiv').slideDown();
         $('.qtyDiv').slideDown();
