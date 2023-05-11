@@ -19,7 +19,7 @@
                             <input type="hidden" name="id" value="{{$desc->id ?? ''}}">
                             <h5 class="text-dark">Describe the design you desire <span class="text-danger">*</span></h5>
                             <div class="form-group">
-                                <textarea class="form-control" cols="30" rows="5" name="desc">{{$desc->description ?? ''}}</textarea>
+                                <textarea class="form-control" cols="30" rows="5" name="desc" required>{{$desc->description ?? ''}}</textarea>
                             </div>
                             <div class="form-group text-center">
                                 <button class="addtocart_btn custom_btn bg_default_orange" id="designDescBtn">Submit</button>
@@ -486,7 +486,7 @@
             $('input[name="amount"]').val(total.toFixed(2));
         });
         $('#shippingBtn').click(function(){
-            if(!$('textarea[name="desc"]').html()){
+            if(!$('textarea[name="desc"]').val()){
                 $('textarea[name="desc"]').addClass('is-invalid');
                 window.scrollTo({ top: 50, left: 100, behavior: 'smooth' });
             } else {
@@ -554,36 +554,42 @@
                 }
             });
             e.preventDefault();
-            $.ajax({
-				type: "POST",
-				url: "/desc-store",
-				data: $('#designDesc').serialize(),
-				
-				success:function(response) {
-                    if(response > 0)
-                    {
-                        swal({
-                            title: "Description Added!",
-                            type: "success",  
-                            timer: 1500,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        }); 
-                        $('#shippingBtn').click();
-                    } else {
-                        swal({
-                            title: "Something went wrong!",
-                            type: "error",  
-                            timer: 1500,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        });
+            if(!$('textarea[name="desc"]').val())
+            {
+                $('textarea[name="desc"]').addClass('is-invalid');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/desc-store",
+                    data: $('#designDesc').serialize(),
+                    
+                    success:function(response) {
+                        if(response > 0)
+                        {
+                            swal({
+                                title: "Description Added!",
+                                type: "success",  
+                                timer: 1500,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            }); 
+                            $('textarea[name="desc"]').removeClass('is-invalid');
+                            $('#shippingBtn').click();
+                        } else {
+                            swal({
+                                title: "Something went wrong!",
+                                type: "error",  
+                                timer: 1500,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                        }
+                    },
+                    error: function(error){
+                        console.log(error)
                     }
-				},
-				error: function(error){
-					console.log(error)
-				}
-            });
+                });
+            }
         });
         $('#couponCheck').one('click',function(){
             $.ajaxSetup({

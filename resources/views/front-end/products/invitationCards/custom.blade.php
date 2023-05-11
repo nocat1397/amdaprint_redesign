@@ -5,10 +5,10 @@
         @include('front-end.section.styles')
 		<style>
 			#priceCard {
-				top: 14%;
+				top: 0%;
 			    z-index: 1000;
 			    width: 300px;
-			    right: 6%;
+			    right: 0%;
 			}
 			#details_form {
 			    height: auto;

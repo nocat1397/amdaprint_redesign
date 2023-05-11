@@ -362,7 +362,7 @@
 				var key = $('input[name="product_key"]').val();
 				var one = $('#customOne').val();
 				var two = $('#customTwo').val();
-				var bannerSize = one+'x'+two;
+				var bannerSize = one+ 'x' +two;
 				// console.log(bannerSize);
 				// return false;
 				var qty = $('#mainQty').val();
@@ -427,7 +427,7 @@
 
 				var one = $('#customOne').val();
 				var two = $('#customTwo').val();
-				var bannerSize = one+'x'+two;
+				var bannerSize = one+' x '+two;
 
 			} else {
 
@@ -473,7 +473,7 @@
 				{
 					var one = $('#customOne').val();
 					var two = $('#customTwo').val();
-					var bannerSize = one+'x'+two;
+					var bannerSize = one+' x '+two;
 				} else {
 					var bannerSize = $('#bannerSize').val();
 				}
@@ -517,7 +517,7 @@
 
 				var one = $('#customOne').val();
 				var two = $('#customTwo').val();
-				var bannerSize = one+'x'+two;
+				var bannerSize = one+' x '+two;
 
 			} else {
 

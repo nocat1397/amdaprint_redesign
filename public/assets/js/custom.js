@@ -115,12 +115,12 @@
       if (!window.matchMedia('(max-width: 991px)').matches)
       {
         if ($(this).scrollTop() > 250 && $(this).scrollTop() < divHeight-(divHeight*5/100)) {
-          $('#priceCard').css({'position':'fixed','width':'300px','margin-top':'unset','top':'5%','right':'unset'});
+          $('#priceCard').css({'position':'fixed','width':'300px','margin-top':'unset','top':'6%','right':'unset','transition': 'all 0.3s ease-in-out'});
         } else {
-          $('#priceCard').css({'position':'unset','width':'300px','margin-top':'unset'});
+          $('#priceCard').css({'position':'unset','width':'300px','margin-top':'unset','transition': 'all 0.3s ease-in-out'});
         }
       } else {
-          $('#priceCard').css({'position':'unset','width':'auto','margin-top':'10%'});
+          $('#priceCard').css({'position':'unset','width':'auto','margin-top':'10%','transition': 'all 0.3s ease-in-out'});
       }
         var divHeightHome = $('.order-last').height();
         if ($(this).scrollTop() > 350 && $(this).scrollTop() < divHeightHome-250) {

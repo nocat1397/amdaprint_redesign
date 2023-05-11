@@ -11,8 +11,8 @@ class BannerController extends Controller
     public function bannerPrice(Request $request)
     {
         $size = $request->size;
-        $cal1 = strtok($size,'x');
-        $cal2 = substr($size, strpos($size, "x") + 1);
+        $cal1 = strtok($size,' x ');
+        $cal2 = substr($size, strpos($size, " x ") + 1);
         $totalSize = $cal1*$cal2;
         $qty = $request->qty;
         if ($totalSize < 100) {
@@ -57,8 +57,8 @@ class BannerController extends Controller
         $total = $request->total;
 
         $size = $request->size;
-        $cal1 = strtok($size,'x');
-        $cal2 = substr($size, strpos($size, "x") + 1);
+        $cal1 = strtok($size,' x ');
+        $cal2 = substr($size, strpos($size, " x ") + 1);
         $totalSize = $cal1*$cal2;
 
         foreach ($propertyKeys as $key=>$property) {

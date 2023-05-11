@@ -672,7 +672,7 @@
 <script>
   $(document).ready(function() {
     var catName = $('select[name="category_id"]').val();
-    var catName2 =  $('input[name="cat_name"]').val();
+    var catName2 =  $('input[name="category_id"]').val();
     var finalCatName = catName || catName2;
     // alert(finalCatN  ame);
     if(finalCatName == 1)
@@ -699,7 +699,7 @@
       e.preventDefault();
       var catId = $('select[name="category_id"]').val() ?? $('input[name="category_id"]').val();
       var catName = $('select[name="category_id"]').find(':selected').text();
-      var catName2 =  $('input[name="cat_name"]').val();
+      var catName2 =  $('input[name="category_id"]').val();
       var finalCatName = catName || catName2;
       var name = $("input[name='productName']").val();
       var desc = $("textarea[name='productDesc']").val();

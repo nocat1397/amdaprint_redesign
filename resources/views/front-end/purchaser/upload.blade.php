@@ -490,11 +490,11 @@
                                         <input type="hidden" name="amount" value="{{$cart->amount}}">
                                         <button class="addtocart_btn custom_btn bg-dark" type="button" id="shippingBack2"><i class="fa fa-arrow-left pr-2"></i> Back</button>
                                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ config('sk_test_51MXMCfEqOJ5Zky6jyTFPz4otIlZHMFn0pVJoI6n4NYybLgU0NR30Fid7wZY2OhYuEbYXDwm9yDrckLabBkaYO9e600RZYUZXgx') }}"
-                                            data-amount=""
-                                            data-name="Laravel Stripe Tutorial"
+                                            data-key="{{ config('services.stripe.public_key') }}"
+                                            data-amount="{{$cart->amount*100}}"
+                                            data-name="Amda Prints"
                                             data-description="Payment"
-                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                            data-image="{{env('DOMAIN')}}/assets/images/logo/logo2.png"
                                             data-locale="auto"
                                             data-currency="usd">
                                         </script>

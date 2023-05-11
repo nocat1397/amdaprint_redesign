@@ -5,8 +5,10 @@
         @include('front-end.section.styles')
 		<style>
 			#priceCard {
-				top: 12%;
+				top: 0%;
 				z-index: 1000;
+				width: 300px;
+				right: 0%;
 			}
 			#details_form {
 			    height: auto;
@@ -50,7 +52,7 @@
 					<div class="container-fluid">
 
 						<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
-							<div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
+							<div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_image clearfix">
 									<div class="tab-content" id="nav-tabContent">
 										@if($images !== null && sizeof($images))
@@ -171,10 +173,28 @@
                                     </div>
 								</div>
 							</div>
-                            <div class="col-md-2 col-lg-2">
+                            <div class="col-md-2 col-lg-3">
 								<div class="card shadow text-center border boder-0" id="priceCard">
 									<div class="card-body">
-										<span class="price_text mb_30"><strong class="text-danger">$<span id="total"></span></strong> <del>$<span id="finalTotal"></span> </del></span>
+										<h5 class="price_text mb_30"><strong class="text-danger">$<span id="total"></span></strong> <del>$<span id="finalTotal"></span> </del></h5>
+										<form>
+											<div class="text-left">
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="route" value="0" id="route1" checked>
+													<label class="form-check-label" for="route1">
+														<strong class="text-dark">Upload Artwork</strong>
+													</label>
+													<p class="text-muted">Upload your designs and get the design proofing done</p>
+												  </div>
+												  <div class="form-check">
+													<input class="form-check-input" type="radio" name="route" value="1" id="route2">
+													<label class="form-check-label" for="route2">
+														<strong class="text-dark">Hire a Designer @ $9.99</strong>
+													</label>
+													<p class="text-muted">Let a professional Designer create your design @ $9.99</p>
+												  </div>
+											</div>
+										</form>
 									</div>
 									<div class="card-footer">
 										{{-- @if(Auth::check())
@@ -302,6 +322,7 @@
 		if (loginStatus > 0) {
 			var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
 			var name = '<?php echo $product ?>';
+			var route = $('input[name="route"]:checked').val();
 			var total = $('#total').html();
 			var size = $('#bannerSize').find(":selected").text();
 			var qty = $('#mainQty').val();
@@ -317,10 +338,15 @@
             $.ajax({
               type: "POST",
               url: "/cart-add",
-              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues},
+              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
             
               success:function(response) {
-				location.replace('/uploadfile/'+response.id);
+				if(route > 0)
+					{
+						location.replace('/designer/'+response.id);
+					} else {
+						location.replace('/uploadfile/'+response.id);
+					}
               },
               error: function(error){
                 console.log(error)
