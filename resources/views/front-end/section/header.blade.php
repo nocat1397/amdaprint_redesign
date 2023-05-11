@@ -217,7 +217,7 @@
 										<a href="javascript:void(0)">{{str_replace('-',' ',$category->name)}}</a>
 										<ul class="submenu">
 											@foreach ($category->product['name'] as $key=>$product)
-											<li><a href="/{{strtolower($category->name)}}/{{$product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
+											<li><a href="/{{strtolower($category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
 											@endforeach
 										</ul>
 									</li>

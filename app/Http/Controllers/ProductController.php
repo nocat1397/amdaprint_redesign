@@ -71,9 +71,14 @@ class ProductController extends Controller
         // return \Session::all();
         $category = Category::find($id);
         $productData = Product::where('category_id',$id)->first();
-        $productArrayKey = array_search(str_replace(' ','-',$name),$productData->name);
-        // return $productData->category;;
-        // return $productData['pricing'][$productArrayKey];
+        if(str_contains($name,'hash-'))
+        {
+            $replacedProductName = str_replace('hash-','#',$name);
+        } else {
+            $replacedProductName = $name;
+        }
+        $productArrayKey = array_search(str_replace(' ','-',$replacedProductName),$productData->name);
+
         session()->put('showProductData',$productData['name'][$productArrayKey]);
         return view('admin.product.addProduct', compact('category','productData','productArrayKey'));
     }
@@ -444,9 +449,15 @@ class ProductController extends Controller
     {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cat = Category::where('name',$category)->with('product')->first();
+        if(str_contains($productName,'hash-'))
+        {
+            $replacedProductName = str_replace('hash-','#',$productName);
+        } else {
+            $replacedProductName = $productName;
+        }
         $products = $cat->product;
-        $productKey = array_search($productName,$products['name']);
-        $product = str_replace('-',' ',$productName);
+        $productKey = array_search($replacedProductName,$products['name']);
+        $product = str_replace('-',' ',$replacedProductName);
         $images = ProductImage::where('product_id',$products['id'])->where('product_index',$productKey)->get();
         // return $cat->id;
         switch ($cat->id) {
