@@ -350,6 +350,7 @@
 		
 		if($(this).val() == 0)
 		{
+			$('#customOne,#customTwo').val('');
 			$('.customSize').fadeIn();
 			$('#customOne,#customTwo').on('keyup', function(){
 
@@ -362,7 +363,7 @@
 				var key = $('input[name="product_key"]').val();
 				var one = $('#customOne').val();
 				var two = $('#customTwo').val();
-				var bannerSize = one+ 'x' +two;
+				var bannerSize = one+' x '+two;
 				// console.log(bannerSize);
 				// return false;
 				var qty = $('#mainQty').val();
