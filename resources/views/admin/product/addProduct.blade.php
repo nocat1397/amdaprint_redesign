@@ -75,6 +75,7 @@
                 <form id="productInfoForm">
                   <div class="alert alert-primary shadow text-center"><h5 class="font-weight-bold">Basic Product Information</h5></div>
                   <div class="form-row mb-2">
+                    <input type="hidden" name="productArrayKey" value="{{$productArrayKey ?? 'none'}}">
                     <div class="col-md-6">  
                       @if (session('showProductData') !== null)
                       <label for="">Category</label>
@@ -207,6 +208,7 @@
                     <div class="alert alert-warning shadow text-center"><h5 class="font-weight-bold">Product Properties (if any)</h5></div>
                     <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                     <input type="hidden" name="label_session" value="{{session('productDataLabels')['category_id'] ?? ''}}">
+                    <input type="hidden" name="productArrayKey" value="{{$productArrayKey ?? 'none'}}">
                     <div class="col-md-12">
                      <div class="form-row" id="properties">
                       @if(isset($productData['property'][$productArrayKey]))
@@ -315,6 +317,7 @@
                         <div class="col-md-12 text-center">
                           <div class="alert alert-success shadow text-center"><h5 class="font-weight-bold">Add Product Price</h5></div>
                         </div>
+                        <input type="hidden" name="productArrayKey" value="{{$productArrayKey ?? 'none'}}">
                         <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
                           @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category_id != 1)
@@ -700,6 +703,7 @@
       var catId = $('select[name="category_id"]').val() ?? $('input[name="category_id"]').val();
       var catName = $('select[name="category_id"]').find(':selected').text();
       var catName2 =  $('input[name="category_id"]').val();
+      var productArrayKey =  $('input[name="productArrayKey"]').val();
       var finalCatName = catName || catName2;
       var name = $("input[name='productName']").val();
       var desc = $("textarea[name='productDesc']").val();
@@ -719,7 +723,7 @@
         $.ajax({
           type: "POST",
           url: "/product-info-session",
-          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,paperType:paperType,qty:qty},
+          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,paperType:paperType,qty:qty,productArrayKey:productArrayKey},
           
           success:function(response) {
             console.log(response);
@@ -742,7 +746,7 @@
         $.ajax({
           type: "POST",
           url: "/product-info-session",
-          data: {catId:catId,name:name,desc:desc,specs:specs,size:size},
+          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,productArrayKey:productArrayKey},
           
           success:function(response) {
             console.log(response);
@@ -764,7 +768,7 @@
         $.ajax({
           type: "POST",
           url: "/product-info-session",
-          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,qty:qty},
+          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,qty:qty,productArrayKey:productArrayKey},
           
           success:function(response) {
             console.log(response);
@@ -800,6 +804,7 @@
           
           success:function(response) {
             console.log(response);
+            
             if(response < 1)
             {
               $('#properties').load(location.href + ' #properties .col-md-3');
@@ -834,6 +839,7 @@
           
           success:function(response) {
             console.log(response);
+            /* return false; */
             if(response > 0)
             {
               location.reload();

@@ -64,23 +64,30 @@ class ProductController extends Controller
         
         return view('admin.product.showProducts', compact('categories','images','subcats'));
     }
-    public function showCatProduct($id,$name)
+    public function showCatProduct($id,$index)
     {
         // return session()->get('productDataLabels');
         \Session::forget(['showProductData','productData']);
         // return \Session::all();
         $category = Category::find($id);
         $productData = Product::where('category_id',$id)->first();
-        if(str_contains($name,'hash-'))
+        // if(str_contains($name,'hash-'))
+        // {
+        //     $replacedProductName = str_replace('hash-','#',$name);
+        // } else {
+        //     $replacedProductName = $name;
+        // }
+        // $productArrayKey = array_search(str_replace(' ','-',$replacedProductName),$productData->name);
+        // return $productData->name;
+        if(array_key_exists($index,$productData->name))
         {
-            $replacedProductName = str_replace('hash-','#',$name);
+            $productArrayKey = $index;
+            session()->put('showProductData',$productData['name'][$productArrayKey]);
+            return view('admin.product.addProduct', compact('category','productData','productArrayKey'));
         } else {
-            $replacedProductName = $name;
+            return redirect()->back();
         }
-        $productArrayKey = array_search(str_replace(' ','-',$replacedProductName),$productData->name);
 
-        session()->put('showProductData',$productData['name'][$productArrayKey]);
-        return view('admin.product.addProduct', compact('category','productData','productArrayKey'));
     }
     public function infoSession(Request $request)
     {
@@ -89,12 +96,13 @@ class ProductController extends Controller
         session()->put('productData',$request->all());
         $product = Product::where('category_id',$request->catId)->first();
         $productName = Str::title($request->name);
-        // return $product;
-        if($product !== null)
+        if($product != null)
         {
             // $keyFind = array_search(str_replace(' ','-',session('productData')['name'] ?? session('showProductData')),$product->name);
-            $keyFind = array_search(str_replace(' ','-',$productName ?? session('showProductData')),$product->name);
-            if($keyFind !== false)
+            // $keyFind = array_search(str_replace(' ','-',$productName ?? session('showProductData')),$product->name);  /// latest last applied
+            $keyFind = $request->productArrayKey;
+            // return $keyFind;
+            if($keyFind !== 'none' && array_key_exists($keyFind,$product->name))
             {
                 // return $keyFind;
                 $names = $product->name;
@@ -189,12 +197,13 @@ class ProductController extends Controller
         $productData = session('productData');
         $inputs = $request->except('category_id','labels');
         $product = Product::where('category_id',(int)$request->category_id)->first();
-        // return $request;
+        // return $request;    
         if($product !== null)
         {
             $names = $product->name;
-            $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
-            
+            // $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
+            $keyFind = $request->productArrayKey;
+
             $properties = $product->property;
             $propertyData = $product->property_data;
             $propertyAction = $product->property_action;
@@ -358,7 +367,8 @@ class ProductController extends Controller
         if($product !== null)
         {
             $names = $product->name;
-            $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
+            // $keyFind = array_search(Str::title(str_replace(' ','-',session('productData')['name'] ?? session('showProductData'))),$product->name);
+            $keyFind = $request->productArrayKey;
             $allPricings = $product->pricing;
             
             
