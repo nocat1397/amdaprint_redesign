@@ -100,6 +100,8 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::post('/custom-banner-properties', 'BannerController@bannerProperty');
     //////////Stand & displays & Frames /////////
     Route::post('/custom-stand-price', 'StandController@standPrice');
+    Route::post('/custom-bstand-price', 'StandController@bstandPrice');
+    Route::post('/custom-banner-stand-price', 'StandController@bannerStandPrice');
     Route::post('/custom-stand-properties', 'StandController@standProperty');
 
 

@@ -381,7 +381,7 @@ class ProductController extends Controller
                 {    
                     $priceFilter = array_filter($request->pricing);
                     foreach ($priceFilter as $key => $pricing) {
-                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : (isset($request->banner_pricing) ? array($request->pricingSize[$key],$request->pricingQty[$key],$pricing,$request->banner_pricing[$key]) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing));
                     }
                     $pricings = $product->pricing;
                     
@@ -391,7 +391,7 @@ class ProductController extends Controller
                 } else {
                     $priceFilter = array_filter($request->pricing);
                     foreach ($priceFilter as $key => $pricing) {
-                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : (isset($request->banner_pricing) ? array($request->pricingSize[$key],$request->pricingQty[$key],$pricing,$request->banner_pricing[$key]) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing));
                     }
                     $pricings = $product->pricing;
                     
@@ -402,7 +402,7 @@ class ProductController extends Controller
             } else {
                 $priceFilter = array_filter($request->pricing);
                     foreach ($priceFilter as $key => $pricing) {
-                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing);
+                        $pricingArray[] = isset($request->pricingPaperType) ? array($request->pricingSize[$key],$request->pricingPaperType[$key],$request->pricingQty[$key],$pricing) : (isset($request->banner_pricing) ? array($request->pricingSize[$key],$request->pricingQty[$key],$pricing,$request->banner_pricing[$key]) : array($request->pricingSize[$key],$request->pricingQty[$key],$pricing));
                     }
                 $pricingsArray[] = $pricingArray;
                 $product->update(['pricing'=>$pricingsArray]);

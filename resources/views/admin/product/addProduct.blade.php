@@ -394,8 +394,14 @@
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label for="">Amount :</label>
+                              <label for="">Stand Amount :</label>
                               <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]" value="{{$pricing[2]}}">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Banner Amount :</label>
+                              <input type="text" class="form-control" placeholder="Enter Amount" name="banner_pricing[]" value="{{$pricing[3] ?? 0}}">
                             </div>
                           </div>
                           @endif
@@ -453,12 +459,27 @@
                                 </select>
                               </div>
                             </div>
+                            @if($productData !== null && $productData->category_id == 2)
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="">Stand Amount :</label>
+                                <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]">
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="">Banner Amount :</label>
+                                <input type="text" class="form-control" placeholder="Enter Amount" name="banner_pricing[]" value="0">
+                              </div>
+                            </div>
+                            @else
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label for="">Amount :</label>
                                 <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]">
                               </div>
                             </div>
+                            @endif
                         </div>
                       </div>
                       <div class="col-md-12" id="pricingClone">

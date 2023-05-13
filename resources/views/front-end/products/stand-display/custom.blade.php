@@ -143,8 +143,69 @@
                                                     <input class="input_number w-100" type="number" value="1" id="mainQty" min="1">
                                                 </div>
                                             </div>
+											@if($products['pricing'][$productKey][0][3] > 0)
                                             <hr class="mt-5 mb-5">
+											<div class="form-row mb-3">
+												<div class="col-md-3">
+													<label class="my-1 mr-2 text-capitalize">Add Stand</label>
+												</div>
+
+												<div class="col-md-6">
+													<select class="w-100" onchange="standPricing(this)" id="stand">
+														<option value="1">Yes</option>
+														<option value="0">No</option>
+													</select>
+												</div>
+											   <div class="col-md-3">
+												<label id="property_" class="text-danger font-weight-bold">$<span></span></label>
+											   </div>
+											</div>
+											<div class="form-row mb-3">
+												<div class="col-md-3">
+													<label class="my-1 mr-2 text-capitalize">Add Banner</label>
+												</div>
+
+												<div class="col-md-6">
+													<select class="w-100" onchange="bannerPricing(this)" id="banner">
+														<option value="0">No</option>
+														<option value="1">Yes</option>
+													</select>
+												</div>
+											   <div class="col-md-3">
+												<label id="property_" class="text-danger font-weight-bold">$<span></span></label>
+											   </div>
+											</div>
+											<div class="d-none" id="bannerProperties">
+												@foreach ($products['property'][$productKey] as $key=>$property)
+												@if($property !== 'none')
+												<div class="form-row mb-3">
+													<div class="col-md-3">
+														<input type="hidden" name="property_key[]" value="{{$key}}">
+														<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
+														<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
+													</div>
+													
+													<div class="col-md-6">
+														<select class="w-100" id="propertiesPer_{{$key}}" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
+															@if (isset($products['property_data'][$productKey][$key]))
+															@foreach ($products['property_data'][$productKey][$key] as $dataKey=>$data)
+															<option value="{{$dataKey}}">{{$data}}</option>
+															@endforeach
+															@else 
+															<option>No Data</option>
+															@endif
+														</select>
+													</div>
+													<div class="col-md-3">
+														<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
+													</div>
+												</div>
+												@endif
+												@endforeach
+											</div>
+											@else 
 											@foreach ($products['property'][$productKey] as $key=>$property)
+											@if($property !== 'none')
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
@@ -167,8 +228,10 @@
 												<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
                                             </div>
+											@endif
 											@endforeach
 
+											@endif
                                         </form>
                                     </div>
 								</div>
@@ -320,38 +383,73 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-			var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
-			var name = '<?php echo $product ?>';
-			var route = $('input[name="route"]:checked').val();
-			var total = $('#total').html();
-			var size = $('#bannerSize').find(":selected").text();
-			var qty = $('#mainQty').val();
-			var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
-			var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
-			var img = $('#image_1').find('img').attr('src');
-			$.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-              type: "POST",
-              url: "/cart-add",
-              data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
-            
-              success:function(response) {
-				if(route > 0)
-					{
-						location.replace('/designer/'+response.id);
-					} else {
-						location.replace('/uploadfile/'+response.id);
+			if('{{$products['property'][$productKey][0]}}' !== 'none')
+			{
+				var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
+				var name = '<?php echo $product ?>';
+				var route = $('input[name="route"]:checked').val();
+				var total = $('#total').html();
+				var size = $('#bannerSize').find(":selected").text();
+				var qty = $('#mainQty').val();
+				var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+				var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
+				var img = $('#image_1').find('img').attr('src');
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					}
-              },
-              error: function(error){
-                console.log(error)
-              }
-        });
+				});
+				
+				$.ajax({
+					type: "POST",
+					url: "/cart-add",
+					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
+					
+					success:function(response) {
+						if(route > 0)
+						{
+							location.replace('/designer/'+response.id);
+						} else {
+							location.replace('/uploadfile/'+response.id);
+						}
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			} else {
+				var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
+				var name = '<?php echo $product ?>';
+				var route = $('input[name="route"]:checked').val();
+				var total = $('#total').html();
+				var size = $('#bannerSize').find(":selected").text();
+				var qty = $('#mainQty').val();
+				
+				var img = $('#image_1').find('img').attr('src');
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				
+				$.ajax({
+					type: "POST",
+					url: "/cart-add",
+					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,route:route},
+					
+					success:function(response) {
+						if(route > 0)
+						{
+							location.replace('/designer/'+response.id);
+						} else {
+							location.replace('/uploadfile/'+response.id);
+						}
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			}
 	} else {
 		$('#loginModal').modal('show');
 	}
@@ -364,11 +462,59 @@
 	});
 </script>
 <script>
+	function bannerPricing(selected){
+		var val = selected.value;
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		if(val < 1)
+		{
+			$('[id=stand]').val($('[id=stand] option:first').val());
+			$('[id=stand]').niceSelect('update');
+			$('#bannerProperties').addClass('d-none');
+			$('[id^=propertiesPer]')[0].selectedIndex = 0;
+			$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+			$('[id^=propertiesPer_]').niceSelect('update');
+			standPrice();
+
+		} else {
+			$('#bannerProperties').removeClass('d-none');
+			if($('#banner').val() > 0)
+			{
+				bannerStandPrice();
+			} else {
+				bannerPrice();
+			}
+		}
+	}
+	function standPricing(selected){
+		var val = selected.value;
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		if(val < 1)
+		{
+			$('[id=banner]').val($('[id=banner] option:last').val());
+			$('[id=banner]').niceSelect('update');
+			$('#bannerProperties').removeClass('d-none');
+			bannerPrice();
+		} else {
+			if($('#banner').val() > 0)
+			{
+				bannerStandPrice();
+			} else {
+				standPrice();
+			}
+		}
+	}
+</script>
+<script>
 	$('#bannerSize').on('change',function(){
-		$('[id^=propertiesPer]')[0].selectedIndex = 0;
-		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
-		$('[id^=propertiesPer_]').niceSelect('update');
-		$('[id^=property]').fadeOut().hide();
+		if('{{$products['property'][$productKey][0]}}' !== 'none')
+		{
+			$('[id^=propertiesPer]')[0].selectedIndex = 0;
+			$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+			$('[id^=propertiesPer_]').niceSelect('update');
+			$('[id^=property]').fadeOut().hide();
+		}
 		
 			$.ajaxSetup({
 				headers: {
@@ -379,23 +525,55 @@
 			var key = $('input[name="product_key"]').val();
 			var bannerSize = $('#bannerSize').val();
 			var qty = $('#mainQty').val();
-            
-            $.ajax({
-              type: "POST",
-              url: "/custom-stand-price",
-              data: {id:id,key:key,size:bannerSize,qty:qty},
-            
-              success:function(response) {
-                console.log(response);  
-				// return false;
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
-				$('input[name="base_price"]').val(response.baseRate);
-              },
-              error: function(error){
-                console.log(error)
-              }
-            });
+            if({{$products['pricing'][$productKey][0][3]}} > 0)
+			{
+				if($('#banner').val() > 0 && $('#stand').val() < 1)
+				{
+					var route = '/custom-bstand-price';
+				}
+				if($('#stand').val() > 0 && $('#banner').val() < 1)
+				{
+					var route = '/custom-stand-price';
+				}
+				if($('#banner').val() > 0 && $('#stand').val() > 0)
+				{
+					var route = '/custom-banner-stand-price';
+				}
+
+				$.ajax({
+					type: "POST",
+					url: route,
+					data: {id:id,key:key,size:bannerSize,qty:qty},
+					
+					success:function(response) {
+						console.log(response);  
+						// return false;
+						$('#total').html(response.total.toFixed(2));
+						$('#finalTotal').html(response.final.toFixed(2));   
+						$('input[name="base_price"]').val(response.baseRate);
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "/custom-stand-price",
+					data: {id:id,key:key,size:bannerSize,qty:qty},
+					
+					success:function(response) {
+						console.log(response);  
+						// return false;
+						$('#total').html(response.total.toFixed(2));
+						$('#finalTotal').html(response.final.toFixed(2));   
+						$('input[name="base_price"]').val(response.baseRate);
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			}
 			
 	});
 	$('#mainQty').on('change keyup',function(){
@@ -411,24 +589,60 @@
             var id = $('input[name="product_id"]').val();
 			var key = $('input[name="product_key"]').val();
 			var qty = $(this).val();
-            
-            $.ajax({
-              type: "POST",
-              url: "/custom-stand-price",
-              data: {id:id,key:key,size:bannerSize,qty:qty},
-            
-              success:function(response) {
-                console.log(response);  
-				// return false;
-				// $('#total').html(response.total.toFixed(2));
-				// $('#finalTotal').html(response.final.toFixed(2));  
-				$('input[name="base_price"]').val(response.baseRate);
-				propertyPricing(id,key); 
-              },
-              error: function(error){
-                console.log(error)
-              }
-            });
+            if({{$products['pricing'][$productKey][0][3]}} > 0)
+			{
+				if($('#banner').val() > 0 && $('#stand').val() < 1)
+				{
+					var route = '/custom-bstand-price';
+				}
+				if($('#stand').val() > 0 && $('#banner').val() < 1)
+				{
+					var route = '/custom-stand-price';
+				}
+				if($('#banner').val() > 0 && $('#stand').val() > 0)
+				{
+					var route = '/custom-banner-stand-price';
+				}
+				$.ajax({
+					type: "POST",
+					url: route,
+					data: {id:id,key:key,size:bannerSize,qty:qty},
+					
+					success:function(response) {
+						console.log(response);  
+						// return false;
+						// $('#total').html(response.total.toFixed(2));
+						// $('#finalTotal').html(response.final.toFixed(2));  
+						$('input[name="base_price"]').val(response.baseRate);
+						propertyPricing(id,key); 
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "/custom-stand-price",
+					data: {id:id,key:key,size:bannerSize,qty:qty},
+					
+					success:function(response) {
+						console.log(response);  
+						// return false;
+						$('input[name="base_price"]').val(response.baseRate);
+						if('{{$products['property'][$productKey][0]}}' !== 'none')
+						{
+							propertyPricing(id,key); 
+						} else {
+							$('#total').html(response.total.toFixed(2));
+							$('#finalTotal').html(response.final.toFixed(2));  
+						}
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+			}
 	});
 	// Property percentage Check
 	function propertyPricing($id,$key){
@@ -448,6 +662,7 @@
 				var qty = $('#mainQty').val();
 				var basePrice = $('input[name="base_price"]').val();
 				var total = $('#total').html();
+
 				   $.ajax({
 					 type: "POST",
 					 url: "/custom-stand-properties",
@@ -504,6 +719,99 @@
 		  }
 		});
 	});
+</script>
+<script>
+	function bannerPrice()
+	{
+		// alert('banner');
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		var bannerSize = $('#bannerSize').val();
+		var qty = $('#mainQty').val();
+		
+		$.ajax({
+		  type: "POST",
+		  url: "/custom-bstand-price",
+		  data: {id:id,key:key,size:bannerSize,qty:qty},
+		
+		  success:function(response) {
+			console.log(response);  
+			// return false;
+			$('#total').html(response.total.toFixed(2));
+			$('#finalTotal').html(response.final.toFixed(2));   
+			$('input[name="base_price"]').val(response.baseRate);
+			propertyPricing(id,key);
+		  },
+		  error: function(error){
+			console.log(error)
+		  }
+		});
+	}
+	function standPrice()
+	{
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		var bannerSize = $('#bannerSize').val();
+		var qty = $('#mainQty').val();
+		
+		$.ajax({
+		  type: "POST",
+		  url: "/custom-stand-price",
+		  data: {id:id,key:key,size:bannerSize,qty:qty},
+		
+		  success:function(response) {
+			console.log(response);  
+			// return false;
+			$('#total').html(response.total.toFixed(2));
+			$('#finalTotal').html(response.final.toFixed(2));   
+			$('input[name="base_price"]').val(response.baseRate);
+			propertyPricing(id,key);
+		  },
+		  error: function(error){
+			console.log(error)
+		  }
+		});
+	}
+	function bannerStandPrice()
+	{
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var id = $('input[name="product_id"]').val();
+		var key = $('input[name="product_key"]').val();
+		var bannerSize = $('#bannerSize').val();
+		var qty = $('#mainQty').val();
+		
+		$.ajax({
+		  type: "POST",
+		  url: "/custom-banner-stand-price",
+		  data: {id:id,key:key,size:bannerSize,qty:qty},
+		
+		  success:function(response) {
+			console.log(response);  
+			// return false;
+			$('#total').html(response.total.toFixed(2));
+			$('#finalTotal').html(response.final.toFixed(2));   
+			$('input[name="base_price"]').val(response.baseRate);
+			propertyPricing(id,key);
+		  },
+		  error: function(error){
+			console.log(error)
+		  }
+		});
+	}
 </script>
 
 </body>
