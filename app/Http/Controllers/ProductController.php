@@ -60,8 +60,8 @@ class ProductController extends Controller
         \Session::forget(['showProductData','productData','productDataLabels']);
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $images = ProductImage::all();
-        $subcats = ProductSubCategory::where('product_id', 6)->where('product_index', 0)->where('category_id', 3)->where('subcategory_id', 1)->first();
-        
+        $subcats = ProductSubCategory::first();
+        // return $subcats->where('product_id', 6)->where('product_index', 1)->where('category_id', 3)->where('subcategory_id', 3)->value('subcategory_id');
         return view('admin.product.showProducts', compact('categories','images','subcats'));
     }
     public function showCatProduct($id,$index)
