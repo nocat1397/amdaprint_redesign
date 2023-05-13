@@ -211,7 +211,7 @@
                                     <input type="hidden" name="category_id" value="{{$category->id}}">
                                     @forelse ($category->subcategories as $subcat)
                                     <div class="form-group">
-                                      <input type="radio" name="subcategory_id" required value="{{$subcat->id}}" @if($subcats !== null && $category->subcategories !== null && sizeof($category->subcategories)) {{$collection = $subcats->where('product_id', $category->product['id'])->where('product_index', $index)->where('category_id', $category->id)->where('subcategory_id', $subcat->id)->value('subcategory_id') == $subcat->id ? 'checked' : ''}} @endif> <span>{{str_replace('-',' ',$subcat->name)}}</span>
+                                      <input type="radio" name="subcategory_id" data-subcat_id="{{$collection = $subcats->where('product_id', $category->product['id'])->where('product_index', $index)->where('category_id', $category->id)->where('subcategory_id', $subcat->id)->value('subcategory_id')}}" required value="{{$subcat->id}}" @if($subcats !== null && $category->subcategories !== null && sizeof($category->subcategories)) {{$collection = $subcats->where('product_id', $category->product['id'])->where('product_index', $index)->where('category_id', $category->id)->where('subcategory_id', $subcat->id)->value('subcategory_id') == $subcat->id ? 'checked' : ''}} @endif> <span>{{str_replace('-',' ',$subcat->name)}}</span>
                                     </div>
                                     @empty 
                                     <div class="form-group text-center">
