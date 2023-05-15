@@ -565,6 +565,7 @@ class ProductController extends Controller
         $property_percentages = $product->property_percentage;
 
         $name = Str::title(str_replace(' ','-',$request->name));
+        
         $namePush = array_push($names,$name);
         $descPush = array_push($descs,$descs[$index]);
         $specPush = array_push($specs,$specs[$index]);

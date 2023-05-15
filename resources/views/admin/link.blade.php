@@ -70,5 +70,8 @@
             color: #fff;
             background-color: #e31e24;
         }
+        .content-wrapper > .content {
+          margin-bottom: 3rem!important;
+        }
     </style>
   </head>

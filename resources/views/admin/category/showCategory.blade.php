@@ -91,10 +91,10 @@
     <div class="content">
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <div class="col-md-12 p-0">
+            <div class="col-md-12">
               <div class="card shadow">
                 <div class="card-body table-responsive p-0">
-                  <table class="table" id="sort" style="width: 100%">
+                  <table class="table table-hover" id="sort" style="width: 100%">
                     @if (\Session::has('danger'))
 		                	<div class="alert alert-light catAdd">
                           <h6>{!! \Session::get('danger') !!}</h6>

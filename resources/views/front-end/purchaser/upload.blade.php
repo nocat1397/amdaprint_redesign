@@ -488,16 +488,9 @@
                                     <div class="form-group">
                                         <input type="hidden" name="cart_id" value="{{$cart->id}}">
                                         <input type="hidden" name="amount" value="{{$cart->amount}}">
+                                        {{-- <input type="hidden" name="sessionId" value="{{ $sessionId }}"> --}}
                                         <button class="addtocart_btn custom_btn bg-dark" type="button" id="shippingBack2"><i class="fa fa-arrow-left pr-2"></i> Back</button>
-                                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ config('services.stripe.public_key') }}"
-                                            data-amount="{{$cart->amount*100}}"
-                                            data-name="Amda Prints"
-                                            data-description="Payment"
-                                            data-image="/assets/images/logo/logo2.png"
-                                            data-locale="auto"
-                                            data-currency="usd">
-                                        </script>
+                                        <script src="https://js.stripe.com/v3/"></script>
                                         <button class="addtocart_btn custom_btn bg_default_orange float-right" type="submit">Proceed to Pay <i class="fa fa-arrow-right pl-2"></i></button>
                                     </div>
                                 </form>
