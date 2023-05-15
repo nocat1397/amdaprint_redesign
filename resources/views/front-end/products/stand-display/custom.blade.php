@@ -157,7 +157,7 @@
 													</select>
 												</div>
 											   <div class="col-md-3">
-												<label id="property_" class="text-danger font-weight-bold">$<span></span></label>
+												<label id="bstandVal_s" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
 											</div>
 											<div class="form-row mb-3">
@@ -172,7 +172,7 @@
 													</select>
 												</div>
 											   <div class="col-md-3">
-												<label id="property_" class="text-danger font-weight-bold">$<span></span></label>
+												<label id="bstandVal_b" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
 											</div>
 											<div class="d-none" id="bannerProperties">
@@ -458,6 +458,7 @@
 <script>
 	$(document).ready(function(){
 		$('[id^=property]').hide();
+		$('[id^=bstandVal]').hide();
 		$('.customSize').hide();
 	});
 </script>
@@ -478,7 +479,7 @@
 
 		} else {
 			$('#bannerProperties').removeClass('d-none');
-			if($('#banner').val() > 0)
+			if($('#stand').val() > 0)
 			{
 				bannerStandPrice();
 			} else {
@@ -744,6 +745,10 @@
 			// return false;
 			$('#total').html(response.total.toFixed(2));
 			$('#finalTotal').html(response.final.toFixed(2));   
+			$('#bstandVal_b span').html(response.bannerVal.toFixed(2));   
+			$('#bstandVal_b').fadeIn().show();   
+			$('#bstandVal_s span').html('');
+			$('#bstandVal_s').fadeIn().hide();    
 			$('input[name="base_price"]').val(response.baseRate);
 			propertyPricing(id,key);
 		  },
@@ -773,7 +778,11 @@
 			console.log(response);  
 			// return false;
 			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));   
+			$('#finalTotal').html(response.final.toFixed(2));  
+			$('#bstandVal_s span').html(response.standVal.toFixed(2));   
+			$('#bstandVal_s').fadeIn().show();   
+			$('#bstandVal_b span').html(''); 
+			$('#bstandVal_b').fadeIn().hide(); 
 			$('input[name="base_price"]').val(response.baseRate);
 			propertyPricing(id,key);
 		  },
@@ -803,7 +812,11 @@
 			console.log(response);  
 			// return false;
 			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));   
+			$('#finalTotal').html(response.final.toFixed(2));
+			$('#bstandVal_b span').html(response.bannerVal.toFixed(2));   
+			$('#bstandVal_s span').html(response.standVal.toFixed(2)); 
+			$('#bstandVal_b').fadeIn().show();
+			$('#bstandVal_s').fadeIn().show();  
 			$('input[name="base_price"]').val(response.baseRate);
 			propertyPricing(id,key);
 		  },

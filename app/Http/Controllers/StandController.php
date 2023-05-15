@@ -23,8 +23,9 @@ class StandController extends Controller
         // return $priceFind;
         $price = array_values(array_filter(array_map('floatval',$priceFind)));
         $standRate = $price[0]*$qty;
+        $standVal = (float)$price[0];
         $finalTotal = ($standRate*100)/50;
-        return response()->json(['total'=>$standRate,'final'=>$finalTotal,'baseRate'=>$price[0]]);
+        return response()->json(['total'=>$standRate,'final'=>$finalTotal,'baseRate'=>$price[0], 'standVal'=>$standVal]);
         
     }
     public function bstandPrice(Request $request)
@@ -41,8 +42,9 @@ class StandController extends Controller
         // return $priceFind;
         $price = array_values(array_filter(array_map('floatval',$priceFind)));
         $standRate = $price[0]*$qty;
+        $bannerVal = (float)$price[0];
         $finalTotal = ($standRate*100)/50;
-        return response()->json(['total'=>$standRate,'final'=>$finalTotal,'baseRate'=>$price[0]]);
+        return response()->json(['total'=>$standRate,'final'=>$finalTotal,'baseRate'=>$price[0], 'bannerVal'=>$bannerVal]);
         
     }
     public function bannerStandPrice(Request $request)
@@ -57,8 +59,8 @@ class StandController extends Controller
             $priceFind[] = $this->compareBannerStandPriceArrays($check,$priceArray);
         }
         $price = array_values(array_filter($priceFind));
-        $standVal = $price[0][0];
-        $bannerVal = $price[0][1];
+        $standVal = (float)$price[0][0];
+        $bannerVal = (float)$price[0][1];
         $totalVal = array_sum($price[0]);
         // return array_sum($price[0]);
         $standRate = $totalVal*$qty;
