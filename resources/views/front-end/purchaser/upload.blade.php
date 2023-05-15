@@ -494,7 +494,7 @@
                                             data-amount="{{$cart->amount*100}}"
                                             data-name="Amda Prints"
                                             data-description="Payment"
-                                            data-image="{{env('DOMAIN')}}/assets/images/logo/logo2.png"
+                                            data-image="/assets/images/logo/logo2.png"
                                             data-locale="auto"
                                             data-currency="usd">
                                         </script>

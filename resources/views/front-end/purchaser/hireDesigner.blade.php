@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
     @include('front-end.section.styles')
+    <style>
+        #couponCode::placeholder {
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .spinner-border {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     @include('front-end.section.header')

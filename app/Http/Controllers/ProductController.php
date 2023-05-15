@@ -547,6 +547,40 @@ class ProductController extends Controller
         }
         return redirect()->back();
     }
+    public function cloneProduct(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        $index = $request->product_index;
+
+        $names = $product->name;
+        $descs = $product->desc;
+        $specs = $product->specification;
+        $sizes = $product->size;
+        $paper_types = $product->paper_type;
+        $qtys = $product->qty;
+        $pricings = $product->pricing;
+        $properties = $product->property;
+        $property_datas = $product->property_data;
+        $property_actions = $product->property_action;
+        $property_percentages = $product->property_percentage;
+
+        $name = Str::title(str_replace(' ','-',$request->name));
+        $namePush = array_push($names,$name);
+        $descPush = array_push($descs,$descs[$index]);
+        $specPush = array_push($specs,$specs[$index]);
+        $sizesPush = array_push($sizes,$sizes[$index]);
+        $paper_typesPush = array_push($paper_types,$paper_types[$index]);
+        $qtysPush = array_push($qtys,$qtys[$index]);
+        $pricingsPush = array_push($pricings,$pricings[$index]);
+        $propertiesPush = array_push($properties,$properties[$index]);
+        $property_datasPush = array_push($property_datas,$property_datas[$index]);
+        $property_actionsPush = array_push($property_actions,$property_actions[$index]);
+        $property_percentagesPush = array_push($property_percentages,$property_percentages[$index]);
+
+        $product->update(['name'=>$names,'desc'=>$descs,'specification'=>$specs,'size'=>$sizes,'paper_type'=> $paper_types,'qty'=>$qtys,'pricing'=>$pricings,'property'=> $properties,'property_data'=> $property_datas,'property_action'=>$property_actions,'property_percentage'=>$property_percentages]);
+        $product->save();
+        return redirect()->back();
+    }
     public function front()
     {
         $products = Product::with('images')->get();
