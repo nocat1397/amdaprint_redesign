@@ -216,9 +216,26 @@
 									<li class="has_child">
 										<a href="javascript:void(0)">{{str_replace('-',' ',$category->name)}}</a>
 										<ul class="submenu">
+											@if(sizeof($category->productSubCategories))
+											@foreach ($category->subcategories as $subcategory)
+											@if($category->productSubCategories->where('subcategory_id',$subcategory->id)->first())
+											<li class="has_child">
+												<a href="javascript:void(0)">{{ucwords(str_replace('-',' ',$subcategory->name))}}</a>
+												<ul class="submenu">
+													@foreach ($category->product['name'] as $key=>$product)
+													@if($category->productSubCategories->where('product_index','=',$key)->where('subcategory_id','=',$subcategory->id)->first())
+													<li><a href="/{{strtolower($category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
+													@endif
+													@endforeach
+												</ul>
+											</li>
+											@endif
+											@endforeach
+											@else
 											@foreach ($category->product['name'] as $key=>$product)
 											<li><a href="/{{strtolower($category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
 											@endforeach
+											@endif
 										</ul>
 									</li>
 									@endforeach
