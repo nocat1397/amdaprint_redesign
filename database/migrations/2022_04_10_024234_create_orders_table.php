@@ -20,8 +20,8 @@ class CreateOrdersTable extends Migration
             $table->string('quantity')->nullable();
             $table->longText('name')->nullable();
             $table->longText('data')->nullable();
-            $table->string('payment_id')->nullable();
-            $table->string('payer_id')->nullable();
+            $table->longText('session_id')->nullable();
+            $table->longText('payment_intent')->nullable();
             $table->string('payer_email')->nullable();
             $table->string('amount')->nullable();
             $table->string('currency')->nullable();

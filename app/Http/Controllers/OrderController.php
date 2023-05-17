@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Category;
+use Stripe\Stripe;
 use App\Orderstatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -156,7 +157,15 @@ class OrderController extends Controller
         // exit;
         $status = Orderstatus::find($s_id);
         $order = Order::find($o_id);
-        $order->update(['orderstatus_id'=>$s_id]);
+        if($s_id == 6)
+        {
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+            $refund = \Stripe\Refund::create(['payment_intent' => $order->payment_intent]);
+            $order->update(['orderstatus_id'=>$s_id,'charge_id'=>$refund->charge,'refund_id'=>$refund->id,'refund_amount'=>$order->amount,'transaction_id'=>$refund->balance_transaction,'refund_status'=>$refund->status]);
+        } else {
+            $order->update(['orderstatus_id'=>$s_id]);
+        }
         $order->save();
         $details = [
             'title' => 'Order '.$status->name,

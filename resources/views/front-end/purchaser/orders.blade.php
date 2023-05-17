@@ -87,10 +87,12 @@
                                                         <div class="card-body">
                                                             <table class="table table-striped">
                                                                 @foreach ($order->name as $key=>$name)
+                                                                @if($name !== 'img')
                                                                 <tr>
                                                                     <td class="text-capitalize font-weight-bold">{{$name}} :</td>
                                                                     <td>@if($name == 'amount') $ @endif {{$order->data[$key]}}</td>
                                                                 </tr>
+                                                                @endif
                                                                 @endforeach
                                                             </table>
                                                         </div>

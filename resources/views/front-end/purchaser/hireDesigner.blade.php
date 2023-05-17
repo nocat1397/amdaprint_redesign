@@ -358,7 +358,7 @@
                                 <h5 class="text-white">Shipping & Billing Address</h5>
                             </div>
                             <div class="card-body text-left">
-                                <form action="/charge" method="POST">
+                                <form action="/charge" method="POST" data-stripe-publishable-key="{{ env('STRIPE_PUBLIC_KEY') }}">
                                     @csrf
                                     <input type="hidden" name="route" value="0">
                                     <input type="hidden" name="discountAmount" value="0">
@@ -428,7 +428,7 @@
                                         <input type="hidden" name="cart_id" value="{{$cart->id}}">
                                         <input type="hidden" name="amount" value="{{$cart->amount}}">
                                         <button class="addtocart_btn custom_btn bg-dark" type="button" id="shippingBack2"><i class="fa fa-arrow-left pr-2"></i> Back</button>
-                                        <button class="addtocart_btn custom_btn bg_default_orange float-right" type="submit">Proceed to Pay <i class="fa fa-arrow-right pl-2"></i></button>
+                                        <button class="addtocart_btn custom_btn bg_default_orange float-right" id="card-button" type="submit">Proceed to Pay <i class="fa fa-arrow-right pl-2"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -442,6 +442,7 @@
 </main>
     @include('front-end.section.footer')
     @include('front-end.section.scripts')
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         $('#zipcode').on('input',(function() {
             $.ajaxSetup({

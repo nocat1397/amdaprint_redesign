@@ -19,7 +19,12 @@ class Order extends Model
         'currency',
         'payment_status',
         'discount',
-        'orderstatus_id'
+        'orderstatus_id',
+        'charge_id',
+        'refund_id',
+        'refund_amount',
+        'transaction_id',
+        'refund_status'
     ];
 
     protected $casts = [

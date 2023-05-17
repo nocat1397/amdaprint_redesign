@@ -17,13 +17,13 @@ class PaymentController extends Controller
 {
     private $gateway;
    
-    public function __construct()
-    {
-        $this->gateway = Omnipay::create('PayPal_Rest');
-        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-        $this->gateway->setTestMode(true); //set it to 'false' when go live
-    }
+    // public function __construct()
+    // {
+    //     $this->gateway = Omnipay::create('PayPal_Rest');
+    //     $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
+    //     $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
+    //     $this->gateway->setTestMode(true); //set it to 'false' when go live
+    // }
    
     /**
      * Initiate a payment on PayPal.
@@ -32,6 +32,10 @@ class PaymentController extends Controller
      */
     public function charge(Request $request)
     {
+        $cart = Cart::find($request->cart_id);
+        $join = strtok(request()->url(), 'amda');
+        $image = $join.env('DOMAIN').$cart->data[5];
+        // return $image;
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         // Create a PaymentIntent with amount and currency
         $checkout_session = \Stripe\Checkout\Session::create([
@@ -39,7 +43,8 @@ class PaymentController extends Controller
                 'price_data' => [
                   'currency' => 'usd',
                   'product_data' => [
-                    'name' => 'xyz',
+                    'name' => $cart->product,
+                    'images' => [$image],
                   ],
                   'unit_amount' => $request->amount*100,
                 ],
@@ -49,7 +54,7 @@ class PaymentController extends Controller
             'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => route('checkout.error', [], true),
           ]);
-          
+
             $ship = new Shipping;
             $ship->cart_id = $request->cart_id;
             $ship->fname = $request->fname;

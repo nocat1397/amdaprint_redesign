@@ -488,7 +488,6 @@
                                     <div class="form-group">
                                         <input type="hidden" name="cart_id" value="{{$cart->id}}">
                                         <input type="hidden" name="amount" value="{{$cart->amount}}">
-                                        {{-- <input type="hidden" name="sessionId" value="{{ $sessionId }}"> --}}
                                         <button class="addtocart_btn custom_btn bg-dark" type="button" id="shippingBack2"><i class="fa fa-arrow-left pr-2"></i> Back</button>
                                         
                                         <button class="addtocart_btn custom_btn bg_default_orange float-right" id="card-button" type="submit">Proceed to Pay <i class="fa fa-arrow-right pl-2"></i></button>
