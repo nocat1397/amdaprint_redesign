@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
-use App\Designer;
 use App\Order;
-use App\Shipping;
-use Omnipay\Omnipay;
 use App\Upload;
+use App\Designer;
+use App\Shipping;
+use Stripe\Stripe;
+use Omnipay\Omnipay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PaymentController extends Controller
 {
@@ -30,7 +32,24 @@ class PaymentController extends Controller
      */
     public function charge(Request $request)
     {
-        // return $request;
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        // Create a PaymentIntent with amount and currency
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'line_items' => [[
+                'price_data' => [
+                  'currency' => 'usd',
+                  'product_data' => [
+                    'name' => 'xyz',
+                  ],
+                  'unit_amount' => $request->amount*100,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => route('checkout.error', [], true),
+          ]);
+          
             $ship = new Shipping;
             $ship->cart_id = $request->cart_id;
             $ship->fname = $request->fname;
@@ -43,26 +62,16 @@ class PaymentController extends Controller
             $ship->country = $request->country;
             $ship->phone = $request->phone;
             $ship->save();
+
+            $order = new Order;
+            $order->amount = $request->amount;
+            $order->session_id = $checkout_session->id;
+            $order->save();
         
         session()->put('cart_id',$request->cart_id);
         session()->put('discount',$request->couponUsed);
-            try {
-                $response = $this->gateway->purchase(array(
-                    'amount' => $request->input('amount'),
-                    'currency' => env('PAYPAL_CURRENCY'),
-                    'returnUrl' => url('success'),
-                    'cancelUrl' => url('error'),
-                ))->send();
-                if ($response->isRedirect()) {
-                    // return $response;
-                    $response->redirect(); // this will automatically forward the customer
-                } else {
-                    // not successful
-                    return $response->getMessage();
-                }
-            } catch(Exception $e) {
-                return $e->getMessage();
-            }
+            
+        return redirect($checkout_session->url);
     }
    
     /**
@@ -72,65 +81,63 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
-        // Once the transaction has been approved, we need to complete it.
-        if ($request->input('paymentId') && $request->input('PayerID'))
-        {
-            $transaction = $this->gateway->completePurchase(array(
-                'payer_id'             => $request->input('PayerID'),
-                'transactionReference' => $request->input('paymentId'),
-            ));
-            $response = $transaction->send();
-           
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $sessionId = $request->get('session_id');
+        try {
+            $session = \Stripe\Checkout\Session::retrieve($sessionId);
+            // return $session;
+            // exit;
+            if (!$session) {
+                throw new NotFoundHttpException();
+            }
+            $order = Order::where('session_id', $session->id)->first();
+            if (!$order) {
+                throw new NotFoundHttpException();
+            }
             $cart = Cart::find(session('cart_id'));
-            if ($response->isSuccessful() && $cart !== null)
+            if ($cart !== null)
             {
                 // The customer has successfully paid.
-                $arr_body = $response->getData();
                 // Insert transaction data into the database
-                $payment = new Order;
-                $payment->user_id = Auth::user()->id;
-                $payment->product = $cart->product;
-                $payment->name = $cart->name;
-                $payment->data = $cart->data;
-                $payment->quantity = $cart->quantity;
-                $payment->payment_id = $arr_body['id'];
-                $payment->payer_id = $arr_body['payer']['payer_info']['payer_id'];
-                $payment->payer_email = $arr_body['payer']['payer_info']['email'];
-                $payment->amount = $arr_body['transactions'][0]['amount']['total'];
-                $payment->currency = env('PAYPAL_CURRENCY');
-                $payment->payment_status = $arr_body['state'];
-                $payment->discount = session('discount');
-                $payment->orderstatus_id = 1;
-                $payment->save();
-                
-                $upload = Upload::where('cart_id',$cart->id)->first();
+                $order->user_id = Auth::user()->id;
+                $order->product = $cart->product;
+                $order->name = $cart->name;
+                $order->data = $cart->data;
+                $order->quantity = $cart->quantity;
+                $order->payment_intent = $session->payment_intent;
+                $order->payer_email = $session->customer_details['email'];
+                $order->payment_status = $session->payment_status;
+                $order->currency = $session->currency;
+                $order->discount = session('discount');
+                $order->orderstatus_id = 1;
+                $order->save();
+            }
+            $upload = Upload::where('cart_id',$cart->id)->first();
                 if($upload !== null)
                 {
-                    $upload->update(['cart_id'=>null,'order_id'=>$payment->id]);
+                    $upload->update(['cart_id'=>null,'order_id'=>$order->id]);
                     $upload->save();
                 }
 
                 $designer = Designer::where('cart_id',$cart->id)->first();
                 if($designer !== null)
                 {
-                    $designer->update(['cart_id'=>null,'order_id'=>$payment->id]);
+                    $designer->update(['cart_id'=>null,'order_id'=>$order->id]);
                     $designer->save();
                 }
 
                 $shipping = Shipping::where('cart_id',$cart->id)->first();
                 if($shipping !== null)
                 {
-                    $shipping->update(['cart_id'=>null,'order_id'=>$payment->id]);
+                    $shipping->update(['cart_id'=>null,'order_id'=>$order->id]);
                     $shipping->save();
                 }
                 $cart->delete();
-                return redirect('/')->with('message','Payment is successful. Your transaction id is: '. $arr_body['id']);
-            } else {
-                return $response->getMessage();
-            }
-        } else {
-            return 'Transaction is declined';
+                return redirect('/')->with('message','Payment is successful. Your Payment id is: '. $session->payment_intent);
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException();
         }
+        
     }
    
     /**

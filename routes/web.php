@@ -69,8 +69,8 @@ Route::domain(env('DOMAIN'))->group(function () {
         
         Route::get('/payment', 'PaymentController@index');
         Route::post('/charge', 'PaymentController@charge');
-        Route::get('/success', 'PaymentController@success');
-        Route::get('/error', 'PaymentController@error');
+        Route::get('/success', 'PaymentController@success')->name('checkout.success');
+        Route::get('/error', 'PaymentController@error')->name('checkout.error');
         
         Route::get('/my-orders', 'OrderController@userOrders');
         // Purchasers Routes End

@@ -11,28 +11,28 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     public function pending() {
-        $orders = Order::where('orderstatus_id', 1)->where('payment_status', '=', 'approved')->get()->reverse();
+        $orders = Order::where('orderstatus_id', 1)->where('payment_status', '=', 'paid')->get()->reverse();
         return view('admin.order.pendingOrders', compact('orders'));
         
     }
     public function accepted() {
-        $orders = Order::where('orderstatus_id', 2)->where('payment_status', '=', 'approved')->get()->reverse();
+        $orders = Order::where('orderstatus_id', 2)->where('payment_status', '=', 'paid')->get()->reverse();
         return view('admin.order.completedOrders', compact('orders'));
     }
     public function dispatched() {
-        $orders = Order::where('orderstatus_id', 3)->where('payment_status', '=', 'approved')->get()->reverse();        
+        $orders = Order::where('orderstatus_id', 3)->where('payment_status', '=', 'paid')->get()->reverse();        
         return view('admin.order.dispatchOrders', compact('orders'));
     }
     public function delivered() {
-        $orders = Order::where('orderstatus_id', 4)->where('payment_status', '=', 'approved')->get()->reverse();
+        $orders = Order::where('orderstatus_id', 4)->where('payment_status', '=', 'paid')->get()->reverse();
         return view('admin.order.deliveredOrders', compact('orders'));
     }
     public function cancelled() {
-        $orders = Order::where('orderstatus_id', 5)->orWhere('orderstatus_id', 6)->orWhere('orderstatus_id', 7)->orWhere('orderstatus_id', 8)->where('payment_status', '=', 'approved')->get()->reverse();
+        $orders = Order::where('orderstatus_id', 5)->orWhere('orderstatus_id', 6)->orWhere('orderstatus_id', 7)->orWhere('orderstatus_id', 8)->where('payment_status', '=', 'paid')->get()->reverse();
         return view('admin.order.customerCancelled', compact('orders'));
     }
     public function declined() {
-        $orders = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'approved')->get()->reverse();
+        $orders = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'paid')->get()->reverse();
         return view('admin.order.declinedOrders', compact('orders'));
     }
     /**

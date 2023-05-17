@@ -267,11 +267,11 @@ section {
                   <table class="table table-hover" style="width: 100%">
                     <tr>
                       <th>Id :</th>
-                      <td>{{$order->payer_id}}</td>
+                      <td>{{$order->id}}</td>
                     </tr>
                     <tr>
                       <th>Payment Id :</th>
-                      <td>{{$order->payment_id}}</td>
+                      <td>{{$order->payment_intent}}</td>
                     </tr>
                     <tr>
                       <th>Payment Status :</th>
@@ -345,10 +345,12 @@ section {
                       </tr>
                     </thead> --}}
                     @foreach ($order->name as $key=>$name)
+                    @if($name !== 'img')
                     <tr>
                       <td class="text-capitalize font-weight-bold">{{$name}} :</td>
                       <td>@if($name == 'amount') $ @endif {{$order->data[$key]}}</td>
                     </tr>
+                    @endif
                     @endforeach
                   </table>
 
