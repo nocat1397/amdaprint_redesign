@@ -898,6 +898,7 @@ class ProductController extends Controller
     public function samplekit() 
     {
         $product = str_replace('-',' ','FREE-sample-kit');
-        return view('front-end.samplekit',compact('product'));
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.samplekit',compact('product','categories'));
     }
 }
