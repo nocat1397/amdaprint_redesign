@@ -24,7 +24,7 @@ class SocialController extends Controller
        $users = User::where(['email' => $userSocial->getEmail()])->first();        
        if($users) {
            Auth::login($users);
-           return redirect('/home');
+           return redirect('/');
        } else{
            $user = User::create([
                'name'=> (explode(' ',$userSocial->name)[0] ? explode(' ',$userSocial->name)[0] : '').' '.(explode(' ',$userSocial->name)[1] ? explode(' ',$userSocial->name)[1] : ''),
@@ -32,7 +32,7 @@ class SocialController extends Controller
                'password'=>Hash::make($userSocial->getEmail())
            ]);
 
-        return redirect('/success');
+        return redirect('/');
        }
    }
    public function google_redirect()
@@ -47,7 +47,7 @@ class SocialController extends Controller
        $users = User::where(['email' => $userSocial->getEmail()])->first();        
        if($users) {
            Auth::login($users);
-           return redirect('/home');
+           return redirect('/');
        } else{
            $user = User::create([
                'name'=> (explode(' ',$userSocial->name)[0] ? explode(' ',$userSocial->name)[0] : '').' '.(explode(' ',$userSocial->name)[1] ? explode(' ',$userSocial->name)[1] : ''),
@@ -55,7 +55,7 @@ class SocialController extends Controller
                'password' => Hash::make($userSocial->getEmail())
            ]);
 
-        return redirect('/success');
+        return redirect('/');
        }
    }
 }
