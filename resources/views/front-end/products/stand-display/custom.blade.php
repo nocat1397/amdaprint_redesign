@@ -232,6 +232,27 @@
 											@endforeach
 
 											@endif
+											<br>
+											<div class="form-row align-items-center">
+												<div class="col-md-3">
+													<label class="">Pantone (PMS) Color Match (Optional) <i class="fa fa-question-square d-md-none d-lg-none d-sm-block d-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="We recommend giving PMS to best match your color needs. We use a pantone+solid coated library. If selected PMS is not printable, near match print color will be considered."></i></label>
+												</div>
+												<div class="col-md-6">
+													<input class="w-100" type="text" id="pentone">
+												</div>
+												<div class="col-md-3 d-md-block d-lg-block d-sm-none d-none">
+													<i class="fa fa-question-square" data-bs-toggle="tooltip" data-bs-placement="bottom" title="We recommend giving PMS to best match your color needs. We use a pantone+solid coated library. If selected PMS is not printable, near match print color will be considered."></i>
+												</div>
+											</div>
+											<br>
+											<div class="form-row align-items-center">
+                                                <div class="col-md-3">
+                                                    <label class="">Specific Instructions (optional)</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <textarea class="w-100" type="text" id="instruction"></textarea>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
 								</div>
@@ -391,6 +412,8 @@
 				var total = $('#total').html();
 				var size = $('#bannerSize').find(":selected").text();
 				var qty = $('#mainQty').val();
+				var instruction = $('#instruction').val();
+				var pentone = $('#pentone').val();
 				var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
 				var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
 				var img = $('#image_1').find('img').attr('src');
@@ -403,7 +426,7 @@
 				$.ajax({
 					type: "POST",
 					url: "/cart-add",
-					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route},
+					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
 					
 					success:function(response) {
 						if(route > 0)

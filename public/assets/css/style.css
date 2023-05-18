@@ -8634,6 +8634,20 @@ blockquote .blockquote_admin i {
   outline: none;
   border: 0.5px solid #443266;
 }
+.productForm textarea {
+  border: solid 1px lightgray;
+  padding-left: 18px;
+  padding-right: 30px;
+  border-radius: 10px;
+  height: auto;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.productForm textarea:focus {
+  outline: none;
+  border: 0.5px solid #443266;
+}
 #details_form {
   height: auto;
   overflow: unset;

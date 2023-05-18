@@ -60,7 +60,6 @@
                                             @foreach ($cart->name as $key=>$name)
                                             @if($name !== 'route' && $name !== 'img')
                                             <th class="text-capitalize">{{$name}}</th>
-                                            {{--  <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>  --}}
                                             @endif
                                             @endforeach
                                         </tr>
@@ -69,8 +68,7 @@
                                         <tr>
                                             @foreach ($cart->name as $key=>$name)
                                             @if($name !== 'route' && $name !== 'img')
-                                            {{--  <td class="text-capitalize">{{$name}}</td>  --}}
-                                            <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>
+                                            <td>@if($name == 'amount') $ @endif{{$cart->data[$key] !== null ? $cart->data[$key] : 'No'}}</td>
                                             @endif
                                             @endforeach
                                         </tr>
@@ -129,8 +127,8 @@
                                         @foreach($cart->name as $key=>$name)
                                         @if($name !== 'route' && $name !== 'img')
                                         <tr>
-                                         <th class="text-capitalize">{{$name}}</th> 
-                                        <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>
+                                         <th class="text-capitalize">{{$name}} :</th> 
+                                        <td>@if($name == 'amount') $ @endif{{$cart->data[$key] !== null ? $cart->data[$key] : 'No'}}</td>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -203,7 +201,7 @@
                                         @foreach($cart->name as $key=>$name)
                                         @if($name !== 'route' && $name !== 'img')
                                         <strong class="text-capitalize" style="color:#443266"> {{$name}}:</strong>
-                                        @if($name == 'amount') $ @endif{{$cart->data[$key]}}
+                                        @if($name == 'amount') $ @endif{{$cart->data[$key] !== null ? $cart->data[$key] : 'No'}}
                                         @endif
                                         @endforeach
                                     </div>
@@ -241,7 +239,7 @@
                                                 @foreach($cart->name as $key=>$name)
                                                 @if($name !== 'route' && $name !== 'img')
                                                 {{--  <th class="text-capitalize">{{$name}}</th>  --}}
-                                                <td>@if($name == 'amount') $ @endif{{$cart->data[$key]}}</td>
+                                                <td>@if($name == 'amount') $ @endif{{$cart->data[$key] !== null ? $cart->data[$key] : 'No'}}</td>
                                                 @endif
                                                 @endforeach
                                             </tr>

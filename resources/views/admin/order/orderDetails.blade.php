@@ -345,10 +345,10 @@ section {
                       </tr>
                     </thead> --}}
                     @foreach ($order->name as $key=>$name)
-                    @if($name !== 'img')
+                    @if($name !== 'img' && $name !== 'route')
                     <tr>
                       <td class="text-capitalize font-weight-bold">{{$name}} :</td>
-                      <td>@if($name == 'amount') $ @endif {{$order->data[$key]}}</td>
+                      <td>@if($name == 'amount') $ @endif {{$order->data[$key] !== null ? $order->data[$key] : 'No'}}</td>
                     </tr>
                     @endif
                     @endforeach
