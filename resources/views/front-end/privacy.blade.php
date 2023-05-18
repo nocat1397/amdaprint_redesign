@@ -21,13 +21,13 @@
 				<div class="container">
 					<div class="row align-items-center justify-content-lg-between">
 						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 wow fadeInLeft" data-wow-delay=".1s">
-							<h1 class="page_title mb-0">About Us</h1>
+							<h1 class="page_title mb-0">Privacy Policy</h1>
 						</div>
 
 						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 wow fadeInRight" data-wow-delay=".1s">
 							<ul class="breadcrumb_nav ul_li_right clearfix">
 								<li><a href="/">Home</a></li>
-								<li>About Us</li>
+								<li>privacy policy</li>
 							</ul>
 						</div>
 					</div>

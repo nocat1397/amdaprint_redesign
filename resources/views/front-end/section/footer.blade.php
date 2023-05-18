@@ -80,8 +80,8 @@
 									<li><a href="/terms-and-condition">Message from CEO</a></li>
 									<li><a href="/privacy-policy">About Us</a></li>
 									<li><a href="/faq">Contact us</a></li>
-									<li><a href="/faq">Privacy Policy</a></li>
-									<li><a href="/faq">Terms of Use</a></li>
+									<li><a href="/privacy-policy">Privacy Policy</a></li>
+									<li><a href="/terms-and-condition">Terms of Use</a></li>
 									<li><a href="/faq">Affiliate Program</a></li>
 									<li><a href="/faq">Areas of Service</a></li>
 									
@@ -92,8 +92,8 @@
 							<div class="widget footer_useful_links">
 								<h3 class="footer_widget_title text-secondary">Help Station</h3>
 								<ul class="ul_li_block clearfix">
-									<li><a href="/terms-and-condition">FAQs</a></li>
-									<li><a href="/privacy-policy">Return Policy</a></li>
+									<li><a href="/faq">FAQs</a></li>
+									<li><a href="/return-policy">Return Policy</a></li>
 									<li><a href="/faq">Free Design Proofs</a></li>
 									<li><a href="/faq">Shipping</a></li>
 									<li><a href="/faq">Sample Kit</a></li>
