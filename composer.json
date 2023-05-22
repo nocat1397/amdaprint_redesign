@@ -19,8 +19,7 @@
         "laravelcollective/html": "^6.2",
         "league/omnipay": "^3.2",
         "omnipay/paypal": "^3.0",
-        "stripe/stripe-php": "^10.12",
-        "cartalyst/stripe-laravel": "7.0.*"
+        "stripe/stripe-php": "^10.12"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
@@ -32,7 +31,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {
