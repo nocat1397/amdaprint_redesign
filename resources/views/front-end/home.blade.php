@@ -338,7 +338,7 @@
 							</div>
 						</div>
 						<div class="col-md-12 text-center mt-4">
-							<a href="#" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
+							<a href="/product/" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
 						</div>
 
 					</div>
@@ -536,88 +536,23 @@
 						<div class="col-lg-12 col-md-12 order-last">
 							
 
-							<div class="row  justify-content-center">
+							<div class="row justify-content-center">
+								@foreach ($categories as $key=>$category)
 								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".1s">
 									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/custom-business-card">
-											<img src="/assets/images/New/custom-flag.png" alt="image_not_found">
+										<a class="item_image" href="/product/{{strtolower($category->name)}}">
+											@if (sizeof($category->product->productImages))
+											<img src="/products/{{$category->product->id}}/0/{{$category->product->productImages[0]['name']}}">
+											@else 
+											<img src="/noImg.jpg" alt="image_not_found">
+											@endif
 										</a>
 										<div class="item_content">
-											<h3 class="item_title">Custom Business Card</h3>
+											<h3 class="item_title">{{str_replace('-',' ',$category->name)}}</h3>
 										</div>
 									</div>
 								</div>
-
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/slim-business-card">
-											<img src="/assets/images/New/vinyl-banner.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Vinyl Banner</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/s-r-display.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Step & Repead Display</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/canopy.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Canopy Tents</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/window.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Window Signs</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/tablecover-display.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Table Covers & Displays</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/popup.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Pop-Up Banner Displays</h3>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".3s">
-									<div class="product_card text-center">
-										<a class="item_image" target="_blank" href="/business-cards/standard-business-cards/square-business-card">
-											<img src="/assets/images/New/banner-stand.png" alt="image_not_found">
-										</a>
-										<div class="item_content">
-											<h3 class="item_title">Banner Stands</h3>
-										</div>
-									</div>
-								</div>
+								@endforeach
 							</div>
 						</div>
 					</div>

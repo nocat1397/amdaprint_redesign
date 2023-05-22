@@ -29,7 +29,7 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::get('/terms-and-condition', 'LinkController@terms')->name('Terms');
     Route::get('/privacy-policy', 'LinkController@privacy')->name('Privacy');
     Route::get('/faq', 'LinkController@faq')->name('FAQ');
-    Route::get('/products', 'ProductController@products');
+    Route::get('/product/{category}', 'ProductController@products');
     Route::get('/product-details', 'ProductController@fetchProducts');
     Route::get('/orderDetails/{id}', 'OrderController@frontOrderDetails');
     Route::post('/couponCheck', 'LinkController@couponCheck');

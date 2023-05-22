@@ -7,7 +7,7 @@ use App\Order;
 use App\Upload;
 use App\Designer;
 use App\Shipping;
-use Stripe\Stripe;
+use Stripe;
 use Omnipay\Omnipay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

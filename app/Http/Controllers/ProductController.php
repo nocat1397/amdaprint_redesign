@@ -587,9 +587,13 @@ class ProductController extends Controller
         $products = Product::with('images')->get();
         return response($products);
     }
-    public function products() 
+    public function products($category) 
     {
-        return view('front-end.products.products');
+        $cat = Category::where('name','Like','%'.$category.'%')->first();
+        $products = Product::where('category_id',$cat->id)->first();
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        // return $products->productImages;
+        return view('front-end.products.products',compact('categories','products','cat'));
     }
     public function fetchProducts() 
     {

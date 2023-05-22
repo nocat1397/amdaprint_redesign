@@ -1418,7 +1418,7 @@ button {
 }
 .cart_btn .cart_counter {
   top: 3px;
-  right: 5px;
+  right: 0px;
   height: 20px;
   color: #443266;
   font-size: 10px;
@@ -6543,17 +6543,17 @@ blockquote .blockquote_admin i {
 ==================================================================================================== */
 @media screen and (max-width: 991px) {
   .cart_btn .cart_counter {
-    top: 0px;
-    right: -5px;
-    height: 20px;
+    top: 5px;
+    right: -4px;
+    height: 18px;
     color: #443266;
     font-size: 10px;
-    min-width: 20px;
+    min-width: 18px;
     border: 1px solid #443266;
     line-height: 20px;
     position: absolute;
     border-radius: 45px;
-    background-color: #ffffff;
+    background-color: #0000;
   }
   h2 {
     font-size: 1.2rem;
