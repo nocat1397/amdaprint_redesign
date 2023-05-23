@@ -249,8 +249,8 @@
 
 					</div> --}}
 					<div class="row mt_50 mb_80 justify-content-center">
-						<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
+						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
+							<div class="card bg-whitesmoke">
 								<!-- Image -->
 								<img src="/assets/images/details/shop/Banners/eco-friendly/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
 								<!-- Card body -->
@@ -258,7 +258,7 @@
 									
 									<!-- Title -->
 									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Eco Frindly Banner</a></h5>
-									
+{{-- 									
 									<!-- Rating star -->
 									<ul class="list-inline mb-0">
 										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
@@ -272,14 +272,14 @@
 										<li class="list-inline-item  ms-2 h6">Starts at:</li>
 								
 										<li class="list-inline-item me-0  fw-light mb-0">$1.50</li>
-									</ul>
+									</ul> --}}
 									<a href="/banners/vinyl-eco-friendly-banner" class="btn_2">View Details</a>
 								</div>
 								
 							</div>
 						</div>
 						
-						<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
+						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke ">
 								<!-- Image -->
 								<img src="/assets/images/details/shop/Banners/backlit/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
@@ -289,26 +289,13 @@
 									<!-- Title -->
 									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Backlit Banner</a></h5>
 									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0">$2.83</li>
-									</ul>
+									
 									<a href="/banners/backlit-banner" class="btn_2">View Details</a>
 								</div>
 								
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
+						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke ">
 								<!-- Image -->
 								<img src="/assets/images/details/shop/Banners/mesh/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
@@ -318,20 +305,23 @@
 									<!-- Title -->
 									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Mesh Banner</a></h5>
 									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
+									
+									<a href="/banners/vinyl-mesh-banner" class="btn_2">View Details</a>
+								</div>
 								
-										<li class="list-inline-item me-0  fw-light mb-0">$1.76</li>
-									</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
+							<div class="card bg-whitesmoke ">
+								<!-- Image -->
+								<img src="/assets/images/details/shop/Banners/mesh/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
+								<!-- Card body -->
+								<div class="card-body">
+									
+									<!-- Title -->
+									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Mesh Banner</a></h5>
+									
+									
 									<a href="/banners/vinyl-mesh-banner" class="btn_2">View Details</a>
 								</div>
 								
@@ -538,7 +528,7 @@
 
 							<div class="row justify-content-center">
 								@foreach ($categories as $key=>$category)
-								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 business-card hide-content" data-wow-delay=".1s">
+								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 business-card hide-content" data-wow-delay=".1s">
 									<div class="product_card text-center">
 										<a class="item_image" href="/product/{{strtolower($category->name)}}">
 											@if (sizeof($category->product->productImages))

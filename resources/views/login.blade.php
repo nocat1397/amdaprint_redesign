@@ -209,7 +209,7 @@
                               </div>
                             </div>
                           </div>
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center align-items-center">
                             <div class="col-md-4">
                                 <div class="card shadow">
                                     <div class="card-header bg_default_blue text-center">
