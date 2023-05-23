@@ -126,9 +126,10 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 @if(Auth::check())
 <script>
     $(document).ready(function() {
+        cartCount();
         setInterval(() => {
             cartCount();
-        }, 5000); 
+        }, 2000); 
     });
     function cartCount() {
         
@@ -145,7 +146,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                 $('#cartCount').html(response);
             },
             error: function(error){
-                console.log(error)
+                // console.log(error)
             }
         });
 
