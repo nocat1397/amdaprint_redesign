@@ -49,9 +49,9 @@
 									<div class="product_card text-center">
 										<a class="item_image" href="/{{strtolower($products->category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}">
 											@if(sizeof($products->productImages) && $image = $products->productImages->where('product_index',$key)->first())
-											<img src="/products/{{$products->id}}/{{$key}}/{{$image->name}}" alt="image_not_found">
+											<img src="/products/{{$products->id}}/{{$key}}/{{$image->name}}" alt="image_not_found" style="object-fit:cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found">
+											<img src="/noImg.jpg" alt="image_not_found" style="object-fit:cover">
 											@endif
 										</a>
 										<div class="item_content">

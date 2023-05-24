@@ -202,7 +202,7 @@
 			================================================== -->
 
 
-			<section class="blog_section pt-3 clearfix" id="banners">
+			<section class="blog_section pt-3 clearfix">
 				<div class="container">
 					<div class="mt_20 mb_30 text-left">
 						<h2 class="heading">Offering Custom Banners and Signs For Business/Home Needs</h2>
@@ -248,18 +248,25 @@
 						</div>
 
 					</div> --}}
+					@if ($sec1 !== null)
 					<div class="row mt_50 mb_80 justify-content-center">
+						@foreach ($sec1->product->name as $key=>$name)
+						@if($key <= 3)	
 						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke">
 								<!-- Image -->
-								<img src="/assets/images/details/shop/Banners/eco-friendly/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
+								@if(sizeof($sec1->product->productImages) && $image = $sec1->product->productImages->where('product_index',$key)->first())
+								<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+								@else 
+								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+								@endif
 								<!-- Card body -->
 								<div class="card-body">
 									
 									<!-- Title -->
-									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Eco Frindly Banner</a></h5>
+									<h5 class="card-title fw-normal"><a href="/{{$sec1->product->category->name}}/{{$name}}" class="text-secondary">{{str_replace('-',' ',$name)}}</a></h5>
 {{-- 									
-									<!-- Rating star -->
+	<!-- Rating star -->
 									<ul class="list-inline mb-0">
 										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
 										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
@@ -273,202 +280,57 @@
 								
 										<li class="list-inline-item me-0  fw-light mb-0">$1.50</li>
 									</ul> --}}
-									<a href="/banners/vinyl-eco-friendly-banner" class="btn_2">View Details</a>
+									<a href="/{{$sec1->product->category->name}}/{{$name}}" class="btn_2">View Details</a>
 								</div>
 								
 							</div>
+						</div>
+						@endif
+						@endforeach
+						<div class="col-md-12 text-center mt-4">
+							<a href="/product/{{$sec1->product->category->name}}" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
 						</div>
 						
-						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/Banners/backlit/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Backlit Banner</a></h5>
-									
-									
-									<a href="/banners/backlit-banner" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/Banners/mesh/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Mesh Banner</a></h5>
-									
-									
-									<a href="/banners/vinyl-mesh-banner" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/Banners/mesh/1.jpg" class="card-img-top" style="width: auto; height: 40vh;" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title  fw-normal"><a href="#" class="text-secondary">Vinly Mesh Banner</a></h5>
-									
-									
-									<a href="/banners/vinyl-mesh-banner" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-						<div class="col-md-12 text-center mt-4">
-							<a href="/product/" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
-						</div>
-
 					</div>
+					@endif
 
 					
 
 				</div>
 			</section>
 
-			
+			@if ($sec2 !== null)
 			<section class="blog_section clearfix">
 				<div class="container">
 					<div class=" mt__20 mb_80 text-left">
 						<h2 class="heading">Most Loved Products</h2>
 					</div>
 					<div class="product_slider owl-carousel owl-theme mb_80">
+						@foreach ($sec2->product->name as $key=>$name)
 						<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke ">
 								<!-- Image -->
-								<img src="/assets/images/details/shop/bCards/textured/cotton/cotton1.jpg" class="card-img-top" alt="course image">
+								@if(sizeof($sec2->product->productImages) && $image = $sec2->product->productImages->where('product_index',$key)->first())
+								<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+								@else 
+								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+								@endif
 								<!-- Card body -->
 								<div class="card-body">
 									
 									<!-- Title -->
-									<h5 class="card-title mb-1 fw-normal"><a href="#" class="text-secondary">Cotton Business Card</a></h5>
+									<h5 class="card-title mb-1 fw-normal"><a href="/{{$sec2->product->category->name}}/{{$name}}" class="text-secondary">{{str_replace('-',' ',$name)}}</a></h5>
 									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0"><strong>$25.50</strong></li>
-									</ul>
-									<a href="/business-cards/textured-business-cards/cotton-business-card" class="btn_2">View Details</a>
+									<a href="/{{$sec2->product->category->name}}/{{$name}}" class="btn_2">View Details</a>
 								</div>
 								
 							</div>
 						</div>
-						
-						<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/bCards/textured/rendezovus/1.jpg" class="card-img-top" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title mb-1 fw-normal"><a href="#" class="text-secondary">Rendezvous Business Card</a></h5>
-									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0"><strong>$25.50</strong></li>
-									</ul>
-									<a href="/business-cards/textured-business-cards/rendezvous-business-card" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-						<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/bCards/diecut/diecut1.jpg" class="card-img-top" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title mb-1 fw-normal"><a href="#" class="text-secondary">Custom Shape Business Card</a></h5>
-									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0"><strong>$25.50</strong></li>
-									</ul>
-									<a href="/business-cards/die-cut-business-cards/custom-shape-business-card" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-						<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								<img src="/assets/images/details/shop/bCards/textured/linen/linen1.jpg" class="card-img-top" alt="course image">
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title mb-1 fw-normal"><a href="#" class="text-secondary">Linen Business Card</a></h5>
-									
-									<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0"><strong>$25.50 </strong></li>
-									</ul>
-									<a href="/business-cards/textured-business-cards/linen-business-card" class="btn_2">View Details</a>
-								</div>
-								
-							</div>
-						</div>
-
+						@endforeach
 					</div>
-
-					
-
 				</div>
 			</section>
+			@endif 
 
 			<section class="bg_purple">
 				<div class="container">
@@ -557,7 +419,7 @@
 								Fully customizable banners
 							</h5>
 							<h2 class="text-uppercase mb-3 text-light">Make Today a Banner Day</h2>
-							<a href="#banners" class="btn bg-light pr-4 pl-4">Shop Now</a>
+							<a href="/product/banners" class="btn bg-light pr-4 pl-4">Shop Now</a>
 						</div>
 						<div class="col-md-6 pr-0 pl-0">
 							<img src="assets/images/New/banner4.png" class="img-corner" style="border-radius: 0 10px 10px 0;" alt="">
@@ -565,7 +427,7 @@
 					</div>
 				</div>
 			</section>
-	
+			@if ($sec3 !== null)
 			<section class="shop_section sec_ptb_130 clearfix pt-5">
 				<div class="container">
 					<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
@@ -577,107 +439,35 @@
 							
 
 							<div class="product_slider owl-carousel owl-theme">
+								@foreach ($sec3->product->name as $key=>$name)
 								<div class="item business-card hide-content" data-wow-delay=".1s">
 									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/10/1.jpg" alt="image_not_found">
+										<a class="item_image" href="/{{$sec3->product->category->name}}/{{$name}}">
+											@if(sizeof($sec3->product->productImages) && $image = $sec3->product->productImages->where('product_index',$key)->first())
+											<img src="/products/{{$sec3->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+											@else 
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+											@endif
 										</a>
 										{{--  <span class="span_size">10x10</span>  --}}
 										<div class="item_content text-left">
-											<h3 class="item_title">#10 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">229.00</span> </del><strong class="text-dark">$<span id="finalTotal">114.50</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/10-envelope" class="btn-3">Customize > </a>
+											<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
+											<a href="/{{$sec3->product->category->name}}/{{$name}}" class="text-secondary">View Details</a>
 										</div>
 									</div>
 								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/A6/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">A6 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">211.00</span> </del><strong class="text-dark">$<span id="finalTotal">105.50</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/a6-envelope" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/9x12/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">9 x 12 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">759.00</span> </del><strong class="text-dark">$<span id="finalTotal">379.50</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/9x12-envelope" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/9/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">#9 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">197.00</span> </del><strong class="text-dark">$<span id="finalTotal">98.50</span></strong> </span>
-											<br><a href="#" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/A2/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">A2 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">213.40</span> </del><strong class="text-dark">$<span id="finalTotal">106.70</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/a2-envelope" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/A7/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">A7 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">235.20</span> </del><strong class="text-dark">$<span id="finalTotal">117.60</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/a7-envelope" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/envelope/6x9/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">6 x 9 Envelops</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">290.76</span> </del><strong class="text-dark">$<span id="finalTotal">145.38</span></strong> </span>
-											<br><a href="/office-stationary/envelopes/6x9-envelope" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								{{--  <div class="col-md-12 text-center mt-4">
-									<a href="/office-stationary/envelopes/9-envelope" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
-								</div>  --}}
+								@endforeach
+								
 							</div>
+							<div class="col-md-12 text-center mt-4">
+							   <a href="/product/{{$sec3->product->category->name}}" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
+						   </div> 
 						</div>
 					</div>
 				</div>
 			</section>
-
-
+			@endif
+			@if ($sec4 !== null)
 			<section class="shop_section sec_ptb_130 bg_grey clearfix pt-5">
 				<div class="container">
 					<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
@@ -689,94 +479,33 @@
 							
 
 							<div class="product_slider2 owl-carousel owl-theme">
+								@foreach ($sec4->product->name as $key=>$name)
 								<div class="item business-card hide-content" data-wow-delay=".1s">
 									<div class="product_card">
 										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/rollup/1.jpg" alt="image_not_found">
+											@if(sizeof($sec4->product->productImages) && $image = $sec4->product->productImages->where('product_index',$key)->first())
+											<img src="/products/{{$sec4->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+											@else 
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+											@endif
 										</a>
 										{{--  <span class="span_size">10x10</span>  --}}
 										<div class="item_content text-left">
-											<h3 class="item_title">Rollup Banner Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">148.36</span> </del><strong class="text-dark">$<span id="finalTotal">74.18</span></strong> </span>
-											<br><a href="/stand-display/rollup-banner-stand" class="btn-3">Customize > </a>
+											<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
+											<a href="/{{$sec4->product->category->name}}/{{$name}}" class="text-secondary">View Details</a>
 										</div>
 									</div>
 								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/deluxeSingleside/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">Deluxe Wide Base Single Sided Banner Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">269.64</span> </del><strong class="text-dark">$<span id="finalTotal">134.82</span></strong> </span>
-											<br><a href="/stand-display/deluxe-wide-base-single-sided-banner-stand" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/deluxeDoubleside/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">Deluxe Wide Base Double Sided Banner Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">413.53</span> </del><strong class="text-dark">$<span id="finalTotal">206.78</span></strong> </span>
-											<br><a href="/stand-display/deluxe-wide-base-double-sided-banner-stand" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/static/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">Static X Banner Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">119.98</span> </del><strong class="text-dark">$<span id="finalTotal">59.99</span></strong> </span>
-											<br><a href="/stand-display/static-x-banner-stand" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/multifunctional/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">Multifunctional X Banner Adjustable Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">145.48</span> </del><strong class="text-dark">$<span id="finalTotal">72.74</span></strong> </span>
-											<br><a href="/stand-display/multifunctional-x-banner-adjustable-stand" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								<div class="item business-card hide-content" data-wow-delay=".1s">
-									<div class="product_card">
-										<a class="item_image" target="_blank" href="#">
-											<img src="/assets/images/details/shop/StandsDisplay/RetractableBannerStands/adjustable/1.jpg" alt="image_not_found">
-										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">Adjustable X Banner Stand</h3>
-											<span class="price_text mb_30"><del class="mr-2">$<span id="total">145.48</span> </del><strong class="text-dark">$<span id="finalTotal">72.74</span></strong> </span>
-											<br><a href="/stand-display/adjustable-x-banner-stand" class="btn-3">Customize > </a>
-										</div>
-									</div>
-								</div>
-								
-								{{--  <div class="col-md-12 text-center mt-4">
-									<a href="#" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
-								</div>  --}}
+								@endforeach
 							</div>
+							 <div class="col-md-12 text-center mt-4">
+								<a href="/product/{{$sec4->product->category->name}}" class="btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">View all</a>
+							</div> 
 						</div>
 					</div>
 				</div>
 			</section>
-
+			@endif
 			{{--  <section class="blog_section sec_ptb_130 clearfix">
 				<div class="container">
 

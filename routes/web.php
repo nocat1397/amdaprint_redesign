@@ -392,6 +392,8 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::get('/deleteImg/{id}', 'ProductController@deleteImg');
         Route::post('/assign-subcat-product', 'ProductController@assignSubcat');
         Route::post('/clone-product', 'ProductController@cloneProduct');
+        Route::get('/home-products', 'ProductController@homeProducts');
+        Route::post('/home-products-assign', 'ProductController@homeProductsAssign');
         
         //categories CRUD
         Route::get('/sub-categories/{id}', 'CategoryController@subCategories');

@@ -20,6 +20,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        body {
+            background-color : #fff!important;
+            background-image: url('/assets/images/cta/shape_01.png');
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-size: 20%;
+            background-position-x: 85%;
+            background-position-y: 42%;
+        }
         .bg-orange {
             background-color: #0ebaeb;
         }
@@ -36,7 +45,7 @@
             box-shadow: 0px 5px 16px 0px rgba(0,0,0,0.2);
         }
         .card-header {
-            background-color: #e31e24;
+            background-color: #443266;
             color: white;
             font-size: 20px;
             font-weight: bold;
@@ -55,7 +64,7 @@
         }
         .btn-primary:hover {
             color: #fff;
-            background-color: #e31e24;
+            background-color: #443266;
         }
         .bg-greeen {
             background-color: #419eaa!important;
@@ -84,7 +93,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-transparent">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/assets/images/logo/logo.png" srcset="/assets/images/logo/logo.png 2x" alt="logo_not_found" style="width: 197px;max-width:unset">
+                    <img src="/assets/images/new/logo.png" srcset="/assets/images/new/logo.png 2x" alt="logo_not_found" style="width: 197px;max-width:unset">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

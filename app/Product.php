@@ -52,4 +52,7 @@ class Product extends Model
     public function productImages() {
         return $this->hasMany('App\ProductImage');    
     }
+    public function homeProducts() {
+        return $this->hasMany('App\HomeProduct');    
+    }
 }

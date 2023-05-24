@@ -29,12 +29,12 @@
                   <p class="p-cont2">Add Banner</p>
                 </a>
               </li>
-               {{-- <li class="nav-item">
-                <a href="{{url('/add_manufacture')}}" class="nav-link shadow bg-warning rounded-pill mb-2">
-                  <i class="fas fa-plus nav-icon icon"></i>
-                  <p class="p-cont2">Add Manufacturer</p>
+               <li class="nav-item">
+                <a href="{{url('/home-products')}}" class="nav-link shadow bg-warning rounded-pill mb-2">
+                  <i class="fas fa-check nav-icon icon"></i>
+                  <p class="p-cont2">Home Products</p>
                 </a>
-              </li> --}}
+              </li>
                
                <li class="nav-item has-treeview menu-open">
                 <a class="nav-link">

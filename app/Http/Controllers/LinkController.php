@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Banner;
-use App\Category;
 use App\Coupon;
+use App\Category;
 use App\Designer;
 use Carbon\Carbon;
+use App\HomeProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +18,12 @@ class LinkController extends Controller
         $banners = Banner::first();
         $coupons = Coupon::all();
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
-        // return $categories;
-        return view('front-end.home', compact('banners','coupons','categories'));
+        $sec1 = HomeProduct::where('id',1)->with('product')->first();
+        $sec2 = HomeProduct::where('id',2)->with('product')->first();
+        $sec3 = HomeProduct::where('id',3)->with('product')->first();
+        $sec4 = HomeProduct::where('id',4)->has('product')->first();
+        // return $sec1;
+        return view('front-end.home', compact('banners','coupons','categories','sec1','sec2','sec3','sec4'));
     }
     public function about() {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();

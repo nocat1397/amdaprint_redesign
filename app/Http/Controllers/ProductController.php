@@ -8,9 +8,12 @@ use App\Image;
 use App\Rating;
 use App\Product;
 use App\Category;
+use App\HomeProduct;
 use App\Manufacture;
 use App\SubCategory;
+use App\ProductImage;
 use App\SubSubCategory;
+use App\ProductSubCategory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -19,8 +22,6 @@ use App\Http\Requests\UploadImageRequest;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Rating as RatingResource;
-use App\ProductImage;
-use App\ProductSubCategory;
 
 class ProductController extends Controller
 {
@@ -598,6 +599,22 @@ class ProductController extends Controller
     public function fetchProducts() 
     {
         return view('front-end.products.product');
+    }
+    public function homeProducts() 
+    {
+        $sections = HomeProduct::all();
+        $categories = Category::has('product')->get();
+        // return $categories;
+        return view('admin.home.homeProducts',compact('categories','sections'));
+    }
+    public function homeProductsAssign(Request $request) 
+    {
+        foreach ($request->section_id as $key=>$section_id) {
+            $home = HomeProduct::find($section_id);
+            $home->update(['product_id'=>$request->product_id[$key]]);
+            $home->save();
+        }
+        return redirect('/home-products');
     }
     public function customVinyl() 
     {
