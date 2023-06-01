@@ -1441,7 +1441,7 @@ button {
   margin-right: 30px;
 }
 .main_menu > ul > li > a {
-  color: #443266;
+  color: #fff;
   display: block;
   font-size: 14px;
   font-weight: 400;
@@ -1451,7 +1451,7 @@ button {
 .main_menu > ul > li:hover > a {
   /* color: #fff; */
   /* padding-bottom: 5px; */
-  border-bottom: 0.5px solid #443266;
+  border-bottom: 0.5px solid #fff;
 }
 .main_menu > ul > li.active > a {
   color: #443266;
@@ -1572,7 +1572,7 @@ button {
 /* default header - start
 ================================================== */
 .header_default + main {
-  margin-top: 180px;
+  margin-top: 177px;
 }
 .header_default.stuck .header_top {
   display: none;
@@ -5558,7 +5558,8 @@ blockquote .blockquote_admin i {
 .carouselBg {
   background-image: url('/assets/images/banner/banner.jpg');
   background-size: cover;
-  border-radius: 15px;
+  background-repeat: no-repeat;
+  /* border-radius: 15px; */
 }
 .home_three_slider .item {
   z-index: 1;

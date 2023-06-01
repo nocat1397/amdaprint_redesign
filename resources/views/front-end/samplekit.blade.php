@@ -5,8 +5,13 @@
         @include('front-end.section.styles')
 		<style>
 			#priceCard {
+				top: 0%;
+			    width: 300px;
+			    right: 0%;
+			}
+			#pccard{
 				top: 14%;
-			    z-index: 1000;
+			    /* z-index: 1000; */
 			    width: 300px;
 			    right: 6%;
 			}

@@ -98,16 +98,16 @@
 			<!-- slider_section - start
 			================================================== -->
 			<section class="slider_section home_three_slider clearfix">
-				<div class="container">
+				<div class="container-fluid p-0">
 					<div class="main_slider owl-carousel owl-theme clearfix">
-						{{--  @if($banners !== null)
+						 @if($banners !== null)
 						@foreach ($banners->header as $banner)
 						<div class="item carouselBg" style="background-image: url('/img/banners/header/{{$banner}}')"></div>
 						@endforeach
 						@else 
 						<div class="item carouselBg"></div>
-						@endif  --}}
-						<div class="item carouselBg" style="background-image: url('/assets/images/New/1.jpg')">
+						@endif 
+						{{-- <div class="item carouselBg" style="background-image: url('/assets/images/New/1.jpg')">
 							<div class="owl-text-overlay pl-5">
 								<p class="mb-1 text-light">For the Products You need Fast</p>
 								<h1 class="owl-title text-uppercase text-light">Same Day Shipping</h1>
@@ -138,7 +138,7 @@
 								<h4 class="text-light text-uppercase">On Best Selling Products</h4>
 								<a href="" class="btn bg-light pr-4 pl-4 mt-3">Shop Now</a>
 							  </div>
-						</div>
+						</div> --}}
 					
 					</div>
 				</div>
@@ -256,9 +256,9 @@
 							<div class="card bg-whitesmoke">
 								<!-- Image -->
 								@if(sizeof($sec1->product->productImages) && $image = $sec1->product->productImages->where('product_index',$key)->first())
-								<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+								<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 								@else 
-								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 								@endif
 								<!-- Card body -->
 								<div class="card-body">
@@ -311,9 +311,9 @@
 							<div class="card bg-whitesmoke ">
 								<!-- Image -->
 								@if(sizeof($sec2->product->productImages) && $image = $sec2->product->productImages->where('product_index',$key)->first())
-								<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+								<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 								@else 
-								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 								@endif
 								<!-- Card body -->
 								<div class="card-body">
@@ -444,9 +444,9 @@
 									<div class="product_card">
 										<a class="item_image" href="/{{$sec3->product->category->name}}/{{$name}}">
 											@if(sizeof($sec3->product->productImages) && $image = $sec3->product->productImages->where('product_index',$key)->first())
-											<img src="/products/{{$sec3->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+											<img src="/products/{{$sec3->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@endif
 										</a>
 										{{--  <span class="span_size">10x10</span>  --}}
@@ -484,9 +484,9 @@
 									<div class="product_card">
 										<a class="item_image" target="_blank" href="#">
 											@if(sizeof($sec4->product->productImages) && $image = $sec4->product->productImages->where('product_index',$key)->first())
-											<img src="/products/{{$sec4->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 40vh;">
+											<img src="/products/{{$sec4->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 40vh; object-fit: cover">
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@endif
 										</a>
 										{{--  <span class="span_size">10x10</span>  --}}
@@ -1166,7 +1166,7 @@
 			
 			<!-- shop_section - end
 			================================================== -->
-			{{--  <div class="" style="background-image: url('/img/banners/footer/{{$banners->footer ?? ''}}');height:40vh;width:-webkit-fill-available;background-size:cover;background-position: center center"></div>  --}}
+			{{--  <div class="" style="background-image: url('/img/banners/footer/{{$banners->footer ?? ''}}');height:33vh;width:-webkit-fill-available;background-size:cover;background-position: center center"></div>  --}}
 		</main>
 		<!-- main body - end
 			================================================== -->

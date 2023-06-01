@@ -177,7 +177,7 @@
 				</div>
 			</div>
 
-			<div class="header_bottom justify-content-center">
+			<div class="header_bottom justify-content-center" style="background: #443266;">
 				<div class="maxw_1420 container">
 					<div class="row align-items-center">
 
@@ -211,6 +211,35 @@
 						<div class="col-lg-12">
 							<nav class="main_menu clearfix">
 								<ul class="ul_li_center clearfix">
+									<li class="has_child">
+										<a href="javascript:void(0)">Sign & Decals</a>
+										<ul class="submenu">
+											<li class="has_child">
+												<a href="javascript:void(0)">Clear Decals </a>
+												<ul class="submenu">
+													<li><a>Front Adhesive Decals</a></li>
+													<li><a>Clear Window Decals</a></li>
+													<li><a>Clear Front Adhesive Decals</a></li>
+												</ul>
+											</li>
+											<li class="has_child">
+												<a href="javascript:void(0)">Reflective Yard Sign</a>
+												<ul class="submenu">
+													<li><a>Non Reflective Yard Sign</a></li>
+													<li><a>Birthday Yard Sign Non Reflective</a></li>
+													<li><a>Yard Sale Sign Non Reflective</a></li>
+												</ul>
+											</li>
+											<li class="has_child">
+												<a href="javascript:void(0)">Non Reflective Yard Sign</a>
+												<ul class="submenu">
+													<li><a>Non Reflective Yard Sign</a></li>
+													<li><a>Birthday Yard Sign Non Reflective</a></li>
+													<li><a>Yard Sale Sign Non Reflective</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
 									@if($categories !== null)
 									@foreach ($categories as $category)
 									<li class="has_child">

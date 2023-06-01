@@ -6,6 +6,11 @@
 		<style>
 			#priceCard {
 				top: 0%;
+			    width: 300px;
+			    right: 0%;
+			}
+			#pccard{
+				top: 0%;
 				z-index: 1000;
 				width: 300px;
 				right: 0%;
