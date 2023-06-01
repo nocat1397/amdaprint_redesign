@@ -144,20 +144,6 @@
 											</div>
 											<div class="form-row mb-3" id="">
 												<div class="col-md-3">
-													<label class="my-1 mr-2">Paper Type</label>
-												</div>
-												
-												<div class="col-md-6">
-													<select class="w-100" id="paperType">
-														@foreach ($products['paper_type'][$productKey] as $paperType)
-														<option value="{{$paperType}}">{{str_replace('-',' ',$paperType)}}</option> 
-														@endforeach 
-													</select>
-												</div>
-												
-											</div>
-											<div class="form-row mb-3" id="">
-												<div class="col-md-3">
 													<label class="my-1 mr-2">Quantity:</label>
 												</div>
 												
@@ -170,6 +156,22 @@
 												</div>
 												
 											</div>
+											<div class="form-row mb-3" id="">
+												<div class="col-md-3">
+													<label class="my-1 mr-2">Paper Type</label>
+												</div>
+												
+												<div class="col-md-6">
+													<select class="w-100" id="paperType">
+														@foreach ($products['paper_type'][$productKey] as $paperType)
+														<option value="{{$paperType}}">{{str_replace('-',' ',$paperType)}}</option> 
+														@endforeach 
+													</select>
+												</div>
+												
+											</div>
+											
+											<hr class="mt-5 mb-5">
                                             @foreach ($products['property'][$productKey] as $key=>$property)
 											<div class="form-row mb-3" id="">
 												<div class="col-md-3">

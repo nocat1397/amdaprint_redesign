@@ -336,7 +336,7 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-12 text-center">
-							<h3 class="text-light mb-5">Ways to get the Right Print </h3>
+							{{-- <h3 class="text-light mb-5">Ways to get the Right Print </h3> --}}
 						</div>
 					</div>
 					<div class="row ">
