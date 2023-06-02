@@ -306,9 +306,9 @@
 							<div class="tab-content wow fadeInUp2" data-wow-delay=".3s">
 								<div id="description_tab" class="tab-pane active">
 									<p class="mb_30">
-										Custom business cards means sourcing your own graphics, positioning your own text, choosing your own colors, cardstock, and finishes, and making every single decision about how your final card should look & Your business card design is an essential part of your branding and should act as a visual extension of your brand design.
+										{{$products['desc'][$productKey] ?? ''}}
 									</p>
-									<strong>Standard Business Cards Come in Different Paper Types</strong>
+									{{-- <strong>Standard Business Cards Come in Different Paper Types</strong>
 									<p class="mb_30">A unique business card will help your brand stand out in an increasingly virtual world while creating a lasting impression. We give you the option of printing standard business cards in different paper types and finish to create custom cards that match your brand’s unique style.</p>
 									<p class="mb_30">You can choose the standard 14 pt Cardstock Gloss paper for a better sheen, vivid colors, and printing business cards, postcards, hangtags, and pocket folders. If you’re looking for a non-glossy finish that’s easier to write on, we also give you the option of 14 pt Cardstock Matte paper for printing.</p>
 									<p class="mb_30">If you’re looking for a thicker card with a premium feel, you may choose the 16 pt Cardstock Matte paper or 17 pt Cardstock Uncoated paper. All four types of papers are sourced sustainably to reduce your carbon footprint and meet your environment-friendly brand goals.</p>
@@ -317,7 +317,7 @@
 									<p class="mb_30">Our custom business cards, postcards, and hang tags can be ordered in different paper qualities to meet your budget and style requirements. You can personalize your cards with your name, text, logos, and creative graphic to match your needs with us.</p>
 									<p class="mb_30">What's more, you can select from a wide range of templates uploaded by our talented designers and edit them as per your needs. Furthermore, you can also hire one of our designers at a nominal charge or upload your own artwork altogether.</p>
 									<strong>Standard Business Cards Available in Different Pack Sizes</strong>
-									<p class="mb_30">At Amdaprints, our business cards come in different pack sizes to cater to all your requirements. They come in pack sizes of 50, 100, 200, 250, 300, 400, 500, 1000, 1500, 2000, 2500, 5000, and 10000.</p>
+									<p class="mb_30">At Amdaprints, our business cards come in different pack sizes to cater to all your requirements. They come in pack sizes of 50, 100, 200, 250, 300, 400, 500, 1000, 1500, 2000, 2500, 5000, and 10000.</p> --}}
 									{{--  <p class="mb-0">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, 
 									</p>  --}}
