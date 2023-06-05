@@ -10,6 +10,18 @@
         .spinner-border {
             display: none;
         }
+        /* hide arrows
+ Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield !important;
+}
     </style>
 </head>
 <body>
@@ -479,7 +491,7 @@
                                         <div class="col-md-6">
                                             <label for="">Phone Number<span class="text-danger">*</span></label>
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" name="phone" value="{{Auth::user()->mobile ?? ''}}" required>
+                                                <input type="number" class="form-control" name="phone" value="{{Auth::user()->mobile ?? ''}}" required>
                                             </div>
                                         </div>
                                     </div>

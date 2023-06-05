@@ -77,7 +77,7 @@
 											@if($image->product_id == $products['id'] && $image->product_index == $productKey)
 											<li>
 												<a class="nav-item {{$key < 1 ? 'active' : ''}}" data-toggle="tab" id="#image_{{$key}}_img" href="#image_{{$key}}" role="tab" aria-controls="image_{{$key}}" aria-selected="true">
-													<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found" style="height:-webkit-fill-available;width:150px;object-fit:fill">
+													<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
 												</a>
 											</li>
 											@endif 
