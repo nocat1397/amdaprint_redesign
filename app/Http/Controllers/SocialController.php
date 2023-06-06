@@ -43,7 +43,8 @@ class SocialController extends Controller
    public function google_callback()
    {
        $userSocial = Socialite::driver('google')->stateless()->user();
-       return $userSocial;
+       print_r($userSocial);
+       exit;
 
        $users = User::where(['email' => $userSocial->getEmail()])->first();        
        if($users) {

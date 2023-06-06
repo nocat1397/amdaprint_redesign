@@ -15,7 +15,7 @@
       } 
       
       </style>
-      @elseIf(!empty(session()->get('productKey')))
+      @elseIf(session('productKey') !== null)
       <style>
         #productPropertyForm{
           display: block;
@@ -63,7 +63,6 @@
       </div><!-- /.container-fluid -->
     </div>  
     <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
         <div class="container mb-5">
@@ -215,7 +214,7 @@
                       <button type="button" class="btn btn-primary shadow" id="productInfoNext">Next <i class="fa fa-arrow-right"></i></button>
                     </div>
                 </form>
-                @if(!empty(session()->get('productKey')))
+                @if(session('productKey') !== null)
                   <form id="productPropertyForm">
 
                     <div class="alert alert-warning shadow text-center"><h5 class="font-weight-bold">Product Properties (if any)</h5></div>
@@ -325,7 +324,7 @@
                 </div>
               </form>
               @endif
-                        @if(!empty(session()->get('productDataLabels')))
+                    @if(!empty(session()->get('productDataLabels')))
                     <form id="productPricingForm">
                     <div class="form-row">
                         <div class="col-md-12 text-center">
@@ -640,7 +639,7 @@
     $('select[name="category_id"]').click(function(){
       var catName = $(this).val();
       /* alert(catName); */
-      if(catName == 1)
+      if(catName == 1 || catName == 10)
       {
         $('.paperTypeDiv').slideUp();
         $('.qtyDiv').slideUp();
@@ -734,7 +733,7 @@
     var catName2 =  $('input[name="category_id"]').val();
     var finalCatName = catName || catName2;
     // alert(finalCatN  ame);
-    if(finalCatName == 1)
+    if(finalCatName == 1 || finalCatName == 10)
       {
         $('.paperTypeDiv').hide();
         $('.qtyDiv').hide();

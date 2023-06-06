@@ -134,6 +134,9 @@ class ProductController extends Controller
                 $product->update(['name'=>$name,'desc'=>$desc,'specification'=>$spec,
                                 'size'=>$size,'paper_type'=>$paperType,'qty'=>$qty]);
                 $product->save();
+           
+            session()->put('productKey',$keyFind);
+            return response(session()->get('productData'));
             } else {
                 // return $keyFind;
                 $names = $product->name;
