@@ -5,21 +5,33 @@
     @include('admin.link')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 
+    @if(!empty(session()->get('productDataLabels')))
     <style>
-      @if(!empty(session()->get('productDataLabels')))
       #productPricingForm{
         display: block;
       } 
       #productInfoForm, #productPropertyForm{
         display: none;
       } 
-      @else 
-      #productPricingForm, #productPropertyForm{
-        display: none;
-      } 
+      
+      </style>
+      @elseIf(!empty(session()->get('productKey')))
+      <style>
+        #productPropertyForm{
+          display: block;
+        } 
+        #productInfoForm, #productPricingForm{
+          display: none;
+        } 
+        
+        </style>
+      @else
+      <style>
+        #productPricingForm, #productPropertyForm{
+          display: none;
+        } 
+      </style> 
       @endif
-
-    </style>
 
 </head>
 <body class="hold-transition sidebar-mini over">
@@ -203,12 +215,13 @@
                       <button type="button" class="btn btn-primary shadow" id="productInfoNext">Next <i class="fa fa-arrow-right"></i></button>
                     </div>
                 </form>
+                @if(!empty(session()->get('productKey')))
                   <form id="productPropertyForm">
 
                     <div class="alert alert-warning shadow text-center"><h5 class="font-weight-bold">Product Properties (if any)</h5></div>
                     <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                     <input type="hidden" name="label_session" value="{{session('productDataLabels')['category_id'] ?? ''}}">
-                    <input type="hidden" name="productArrayKey" value="{{$productArrayKey ?? 'none'}}">
+                    <input type="hidden" name="productArrayKey" value="{{session()->get('productKey') !== null ? session()->get('productKey') : ($productArrayKey ?? 'none')}}">
                     <div class="col-md-12">
                      <div class="form-row" id="properties">
                       @if(isset($productData['property'][$productArrayKey]))
@@ -311,6 +324,7 @@
                   <button type="button" class="btn btn-primary shadow" id="productPropertyNext">Next <i class="fa fa-arrow-right"></i></button>
                 </div>
               </form>
+              @endif
                         @if(!empty(session()->get('productDataLabels')))
                     <form id="productPricingForm">
                     <div class="form-row">
@@ -769,10 +783,11 @@
           
           success:function(response) {
             console.log(response);
-            $('#productInfoForm').slideUp();
-            $('#productPropertyForm').slideDown();
             $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
+            location.reload(true);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
           },
           error: function(error){
             console.log(error)
@@ -792,10 +807,11 @@
           
           success:function(response) {
             console.log(response);
-            $('#productInfoForm').slideUp();
-            $('#productPropertyForm').slideDown();
             $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
+            location.reload(true);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
           },
           error: function(error){
             console.log(error)
@@ -814,10 +830,11 @@
           
           success:function(response) {
             console.log(response);
-            $('#productInfoForm').slideUp();
-            $('#productPropertyForm').slideDown();
             $('input[name="category_id"]').val(catId);
             $('#properties').load(location.href + ' #properties .col-md-3');
+            location.reload(true);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
           },
           error: function(error){
             console.log(error)

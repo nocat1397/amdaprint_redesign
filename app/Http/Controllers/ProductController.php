@@ -58,7 +58,7 @@ class ProductController extends Controller
     }
     public function showProduct()
     {
-        \Session::forget(['showProductData','productData','productDataLabels']);
+        \Session::forget(['showProductData','productData','productDataLabels','productKey']);
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $images = ProductImage::all();
         $subcats = ProductSubCategory::first();
@@ -165,8 +165,13 @@ class ProductController extends Controller
                                 'size'=>$sizes,'paper_type'=>$paperTypes,'qty'=>$qtys]);
                 $product->save();
             }   
-            
-            
+            if($product != null)
+            {
+                $productArrayKey = array_search(str_replace(' ','-',$productName),$product->name);
+            } else {
+                $productArrayKey = null;
+            }
+            session()->put('productKey',$productArrayKey);
             return response(session()->get('productData'));
             
         } else {
@@ -189,7 +194,13 @@ class ProductController extends Controller
             $product->save();
 
             session()->put('productData',$request->all());
-
+            if($product != null)
+            {
+                $productArrayKey = array_search(str_replace(' ','-',$productName),$product->name);
+            } else {
+                $productArrayKey = null;
+            }
+            session()->put('productKey',$productArrayKey);
             return response(session()->get('productData'));
         }
     }
@@ -446,7 +457,7 @@ class ProductController extends Controller
                     $product->save();
             }
         }
-            \Session::forget(['productData', 'productDataLabels','showProductData']);
+            \Session::forget(['productData', 'productDataLabels','showProductData','productKey']);
         return response(1);
     }
 

@@ -79,5 +79,14 @@
             overflow: hidden;
         }
     }
+    @font-face{
+        font-family:"helvetica";
+        src:url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf") format("woff"),
+        url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf") format("opentype"),
+        url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf") format("truetype");
+    }
+    body{
+        font-family:"helvetica"!important;
+    }
 </style>
 <script src='//in.fw-cdn.com/30905141/480747.js' chat='true'></script>

@@ -306,7 +306,7 @@
 							<div class="tab-content wow fadeInUp2" data-wow-delay=".3s">
 								<div id="description_tab" class="tab-pane active">
 									<p class="mb_30">
-										{{$products['desc'][$productKey] ?? ''}}
+										{!!$products['desc'][$productKey] ?? ''!!}
 									</p>
 									{{-- <strong>Standard Business Cards Come in Different Paper Types</strong>
 									<p class="mb_30">A unique business card will help your brand stand out in an increasingly virtual world while creating a lasting impression. We give you the option of printing standard business cards in different paper types and finish to create custom cards that match your brand’s unique style.</p>

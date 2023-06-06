@@ -78,7 +78,7 @@
 										</ul>
 									</li>
 									@endif  --}}
-									<li class="pt-2 pb-2"><a href="#" style="color:#fff;font-weight: 400; font-size:15px;"><i class="fa fa-truck" style="color:#bfa1f9"></i> Order Tracking</a></li>
+									<li class="pt-2 pb-2"><a href="#" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-truck" style="color:#bfa1f9"></i> Order Tracking</a></li>
 									<li class="pt-2 pb-2">
 										<a href="/dealer-registration" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-handshake" style="color:#bfa1f9"></i> Dealer Registration</a>
 										
@@ -138,8 +138,8 @@
 							</a>
 						</div>
 
-						<div class="col-lg-6">
-							<div class="p-1 border rounded rounded-pill shadow-sm ml-auto" style="width: 60%;">
+						<div class="col-lg-7">
+							<div class="p-1 border rounded shadow-sm ml-auto" style="width: 80%;">
 								<div class="input-group">
 								  <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0">
 								  <div class="input-group-append">
@@ -157,7 +157,7 @@
 							  </div> --}}
 							  
 						</div>
-						<div class="col-lg-4 ">
+						<div class="col-lg-3">
 							<ul class="header_contact_info main_menu ul_li_right clearfix align-items-center">
 								
 								
