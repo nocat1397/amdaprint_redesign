@@ -333,7 +333,7 @@
                         <input type="hidden" name="productArrayKey" value="{{$productArrayKey ?? 'none'}}">
                         <input type="hidden" name="category_id" value="{{isset($productData) && $productData !== null ? $productData->catId ?? $productData->category_id : $category->id}}">
                         <div class="col-md-12">
-                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category_id != 1)
+                          @if ($productData !== null && isset($productData['pricing'][$productArrayKey]) && $productData->category_id != 1 && $productData->category_id != 10)
                               
                           @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
                           <div class="form-row align-items-center">
@@ -423,7 +423,7 @@
                         @endif
                       </div>
                   
-                      @if($productData !== null && $productData->category_id != 1)
+                      @if($productData !== null && $productData->category_id != 1 && $productData->category_id != 10)
                       <div class="col-md-12" id="qtyPricing">
                           <div class="form-row align-items-center">
 
@@ -492,9 +492,11 @@
                                 <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]">
                               </div>
                             </div>
+                            
                             @endif
                         </div>
                       </div>
+                      
                       <div class="col-md-12" id="pricingClone">
 
                       </div>
@@ -504,6 +506,56 @@
                           <button class="btn btn-outline-primary btn-sm float-right" type="button" id="addQtypricing"><i class="fa fa-plus"></i> Add</button>
                         </div>
                       </div>
+                      <div class="col-md-12" id="qtyPricing">
+                        @elseIf($productData !== null && $productData->category_id == 10)
+                        <div class="col-md-12" id="cat10">
+                          @if($productData !== null && isset($productData['pricing'][$productArrayKey]))
+                          @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
+                          <div class="col-md-12">
+                            <div class="form-row align-items-center">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Size(Sq ft) :</label>
+                                  <input name="pricingSize[]" class="form-control" placeholder="Ex : 1-60" type="text" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $pricing[0] : ''}}">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Amount :</label>
+                                  <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $pricing[1] : ''}}" name="pricing[]">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          @endforeach
+                          @else 
+                          <div class="col-md-12">
+                            <div class="form-row align-items-center">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Size(Sq ft) :</label>
+                                  <input name="pricingSize[]" class="form-control" placeholder="Ex : 1-60" type="text">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Amount :</label>
+                                  <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          @endif
+                        </div>
+                          <div class="col-md-12" id="pricingClone10">
+
+                            </div>
+                            <div class="col-md-12">
+                              <div class="btn-inline mt-2">
+                                <button class="btn btn-outline-danger btn-sm" type="button" id="removeQtypricing10"><i class="fa fa-minus"></i> Remove</button>
+                                <button class="btn btn-outline-primary btn-sm float-right" type="button" id="addQtypricing10"><i class="fa fa-plus"></i> Add</button>
+                              </div>
+                            </div>
                       @else
                       <div class="col-md-12">
                         <div class="form-row align-items-center">
@@ -699,6 +751,23 @@
       var count = $("#pricingClone").find("*").length;
       $('#pricingClone').children().last().remove();
     });
+    $('#addQtypricing10').click(function(){
+      var clone = $('#cat10').children().last().clone();
+      $('#pricingClone10').append(clone);
+    });
+    $('#removeQtypricing10').click(function() {
+      var count = $("#pricingClone10").find("*").length;
+      var count2 = $("#cat10").find("*").length;
+      if(count > 0)
+      {
+        $('#pricingClone10').children().last().remove();
+      } else {
+        if(count2 > 10)
+        {
+          $('#cat10').children().last().remove();
+        }
+      }
+    });
 
 
     $('#addProperty').click(function(){
@@ -779,6 +848,30 @@
           type: "POST",
           url: "/product-info-session",
           data: {catId:catId,name:name,desc:desc,specs:specs,size:size,paperType:paperType,qty:qty,productArrayKey:productArrayKey},
+          
+          success:function(response) {
+            console.log(response);
+            $('input[name="category_id"]').val(catId);
+            $('#properties').load(location.href + ' #properties .col-md-3');
+            location.reload(true);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
+          },
+          error: function(error){
+            console.log(error)
+          }
+        });
+      }
+    }
+      if(catId == 10)
+      {  
+        // alert(finalCatName);
+        if(size[0] != "")
+        {
+        $.ajax({
+          type: "POST",
+          url: "/product-info-session",
+          data: {catId:catId,name:name,desc:desc,specs:specs,size:size,productArrayKey:productArrayKey},
           
           success:function(response) {
             console.log(response);

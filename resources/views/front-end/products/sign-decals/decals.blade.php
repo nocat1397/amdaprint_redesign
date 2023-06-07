@@ -11,13 +11,9 @@
 			}
 			#pccard{
 				top: 0%;
-				z-index: 1000;
-				width: 300px;
-				right: 0%;
-			}
-			#details_form {
-			    height: auto;
-			    overflow: unset;
+			    z-index: 1000;
+			    width: 300px;
+			    right: 0%;
 			}
 		</style>
     </head>
@@ -102,13 +98,25 @@
 							<div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_content">
 									<h2 class="item_title mb_15 text-capitalize">{{$product}}</h2>
-									<ul class="rating_star ul_li mb_30 clearfix">
+									<ul class="rating_star ul_li mb-2 clearfix">
 										<li><i class="fas fa-star"></i></li>
 										<li><i class="fas fa-star"></i></li>
 										<li><i class="fas fa-star"></i></li>
 										<li><i class="fas fa-star"></i></li>
-										<li><i class="fas fa-star"></i></li>
+										<li><i class="fas fa-star-half"></i></li>
 									</ul>
+									<div class="row mb-4 bg-lights">
+										<div class="col-md-12 bg-lights pt-3">
+											<strong>Convey Your Business Message with Custom Vinyl Banners</strong>
+										</div>
+										@foreach ($products['specification'][$productKey] as $specs)
+										<div class="bg-lights p-3 col-md-6">
+											<ul class="list-unstyled mb-0">
+												<li><i class="fas fa-caret-right text-danger mr-2"></i>{{$specs}}.</li>											
+											</ul>
+										</div>
+										@endforeach
+									</div>
 									{{-- <span class="price_text mb_30"><strong>₹89.00</strong> <del>₹100.00</del></span> --}}
 									<div id="details_form">
                                         <form action="" class="productForm">
@@ -116,15 +124,6 @@
 											<input type="hidden" name="product_id" value="{{$products->id}}">
                                             <input type="hidden" name="product_key" value="{{$productKey}}">
 											<input type="hidden" name="base_price">
-											<div class="row mb-4">
-												@foreach ($products['specification'][$productKey] as $specs)
-												<div class="bg-lights p-3 col-md-6">
-													<ul class="list-unstyled mb-0">
-														<li><i class="fas fa-caret-right text-danger mr-2"></i>{{$specs}}.</li>											
-													</ul>
-												</div>
-												@endforeach
-											</div>
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <label class="my-1 mr-2">Size (Feet)</label>
@@ -135,82 +134,33 @@
                                                         @foreach ($products['size'][$productKey] as $size)
 														<option value="{{$size}}">{{str_replace('-',' ',$size)}}</option>
 														@endforeach
+                                                        <option value="0" id="customSize">Custom Size</option>
                                                     </select>
 													
                                                 </div>
 
                                             </div>
+											<div class="form-row mb-3 customSize">
+                                                <div class="col-md-3">
+                                                    <label class="my-1 mr-2">Custom Size :</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" class="w-100" placeholder="width" id="customOne" min="1">
+                                                </div>
+												<div class="col-md-4">
+												   <input type="number" class="w-100" placeholder="height" id="customTwo" min="1">
+											   </div>
+                                            </div>
                                             <div class="form-row">
                                                 <div class="col-md-3">
-                                                    <label class="my-1 mr-2">Quantitiy</label>
+                                                    <label class="my-1 mr-2">Quantity</label>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input class="input_number w-100" type="number" value="1" id="mainQty" min="1">
                                                 </div>
                                             </div>
-											@if($products['pricing'][$productKey][0][3] > 0)
                                             <hr class="mt-5 mb-5">
-											<div class="form-row mb-3">
-												<div class="col-md-3">
-													<label class="my-1 mr-2 text-capitalize">Add Frame</label>
-												</div>
-
-												<div class="col-md-6">
-													<select class="w-100" onchange="standPricing(this)" id="stand">
-														<option value="1">Yes</option>
-														<option value="0">No</option>
-													</select>
-												</div>
-											   <div class="col-md-3">
-												<label id="bstandVal_s" class="text-danger font-weight-bold">$<span></span></label>
-											   </div>
-											</div>
-											<div class="form-row mb-3">
-												<div class="col-md-3">
-													<label class="my-1 mr-2 text-capitalize">Add Graphics</label>
-												</div>
-
-												<div class="col-md-6">
-													<select class="w-100" onchange="bannerPricing(this)" id="banner">
-														<option value="0">No</option>
-														<option value="1">Yes</option>
-													</select>
-												</div>
-											   <div class="col-md-3">
-												<label id="bstandVal_b" class="text-danger font-weight-bold">$<span></span></label>
-											   </div>
-											</div>
-											<div class="d-none" id="bannerProperties">
-												@foreach ($products['property'][$productKey] as $key=>$property)
-												@if($property !== 'none')
-												<div class="form-row mb-3">
-													<div class="col-md-3">
-														<input type="hidden" name="property_key[]" value="{{$key}}">
-														<input type="hidden" name="property_names[]" value="{{str_replace('-',' ',$property)}}">
-														<label class="my-1 mr-2 text-capitalize">{{str_replace('-',' ',$property)}}</label>
-													</div>
-													
-													<div class="col-md-6">
-														<select class="w-100" id="propertiesPer_{{$key}}" name="percentages[]" onchange="propertyPricing({{$products->id}},{{$productKey}})">
-															@if (isset($products['property_data'][$productKey][$key]))
-															@foreach ($products['property_data'][$productKey][$key] as $dataKey=>$data)
-															<option value="{{$dataKey}}">{{$data}}</option>
-															@endforeach
-															@else 
-															<option>No Data</option>
-															@endif
-														</select>
-													</div>
-													<div class="col-md-3">
-														<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
-													</div>
-												</div>
-												@endif
-												@endforeach
-											</div>
-											@else 
 											@foreach ($products['property'][$productKey] as $key=>$property)
-											@if($property !== 'none')
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
@@ -233,10 +183,7 @@
 												<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
                                             </div>
-											@endif
 											@endforeach
-
-											@endif
 											<br>
 											<div class="form-row align-items-center">
 												<div class="col-md-3">
@@ -297,7 +244,7 @@
 							</div>
 						</div>
 
-						<hr>
+						<hr id="stop_here">
 
 						<div class="shop_description clearfix">
 							<ul class="nav description_tabnav ul_li wow fadeInUp2 clearfix" data-wow-delay=".1s" role="tablist">
@@ -315,16 +262,27 @@
 							<div class="tab-content wow fadeInUp2" data-wow-delay=".3s">
 								<div id="description_tab" class="tab-pane active">
 									<p class="mb_30">
-										Aluminum frames have a very clean finished appearance that is complemented by the many hardware and construction options available. Aluminum frames are prepped and reinforced for most hardware requirements. Different jamb sizes can give you the look you want and the functionality you need.
+										You’ve only got a few seconds to grab the attention of passersby – and custom banners are a great way to make them count. Lightweight yet durable, our vinyl banner printing is crisp and fade-resistant on your choice of indoor or outdoor fabric. And with reinforced edges and metal grommets available on all banners, you can easily design a budget-friendly banner that’s built for long-term use.
 									</p>
 									
+										<strong>High-Quality Vinyl Banners are Durable and Customizable</strong>
+										<p>To meet the advertising objectives, business professionals like you are on the lookout for a quick and easy method to get the message out to the customers. Our banners are an efficient approach to communicate with clients while also promoting your company and products. You can leave a lasting impression on your prospects with our&nbsp;business banners.</p>
+										<p>The&nbsp;advertising banners&nbsp;are durable, as they comprise&nbsp;PVC flex materials. Our banners are robust and can endure all types of weather, making them suitable for outdoor use. The premium quality material ensures resistance to everyday wear and tear.</p>
+										<p>Full-color printing has a wide color spectrum, resulting in bright images. High-resolution 720 DPI printing produces clear, professional-quality graphics and boosts visibility to attract attention to the full color banners.</p>
+										<p>Choose from a variety of existing sizes or modify the dimensions of the vinyl banners. You also have the option to personalize the material. Customize the banners by uploading your own artwork, make a design using the tool with templates, or let our professionals create graphics for you. There are a variety of extras available, including two-sided printing, premium upgrades, hanging accessories, and wind flaps. You can further add the Pantone Matching System (PMS) for color consistency.</p>
+										<strong>Portable Business Banners are Eco-Friendly</strong>
+										<p>We make these&nbsp;advertising banners using eco-solvent printing to help reduce emissions. The use of biodegradable inks helps your company present an attitude of social responsibility towards the environment.</p>
+										<p>Amdaprints banners are simple to set up and place. The full color banners are ideal for advertising at different venues. You can quickly reposition and reuse them multiple times. Easy mobility of the product boosts the ROI.</p>
+										<strong>Vinyl Banners are Easy to Care For</strong>
+										<p>Our business banners are simple to clean and maintain by gently wiping the banners with a soft, moist cloth, which does not require a cleaning solution. Preserving the banners is easy, saving time and effort.</p>
+										<p>Shop for Custom Vinyl Banners for your business online at Amdaprints.</p>
+										
 								</div>
 								<div id="additionalinfo_tab" class="tab-pane fade">
 									<ul class="list-unstyled">
-										<li><i class="fas fa-caret-right text-danger mr-2"></i>Frames can be made of aluminum (The best choice for static frames), steel, or wood.</li>										
-										<li><i class="fas fa-caret-right text-danger mr-2"></i>Steel frames have dropped out of common use by textile screen printers because of oxidation issues.</li>										
-										<li><i class="fas fa-caret-right text-danger mr-2"></i>Static wood frames are the most popular choice, even to this day.</li>										
-										
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>To start creating your vinyl banner, explore our gallery of fully customizable design templates, including industry- and event-specific options, like grand openings, restaurants, graduations and sports.</li>
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>Once you’ve found a favorite design, make it yours by adding your custom details and choosing the options that work best for you, whether you’re creating indoor or outdoor vinyl signs.</li>
+										<li><i class="fas fa-caret-right text-danger mr-2"></i>Then we’ll take care of the rest, professionally printing and shipping your order. Your vinyl signs will arrive looking great and ready to get noticed.</li>
 									</ul>
 								</div>
 								<div id="reviews_tab" class="tab-pane fade">
@@ -402,149 +360,58 @@
 		================================================== -->
 @include('front-end.section.footer')
 @include('front-end.section.scripts')
-
-<script>
-	function addCart(loginStatus)
-	{
-		var loginStatus = loginStatus;
-		// alert(loginStatus);
-		if (loginStatus > 0) {
-			if('{{$products['property'][$productKey][0]}}' !== 'none')
-			{
-				var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
-				var name = '<?php echo $product ?>';
-				var route = $('input[name="route"]:checked').val();
-				var total = $('#total').html();
-				var size = $('#bannerSize').find(":selected").text();
-				var qty = $('#mainQty').val();
-				var instruction = $('#instruction').val();
-				var pentone = $('#pentone').val();
-				var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
-				var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
-				var img = $('#image_1').find('img').attr('src');
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				
-				$.ajax({
-					type: "POST",
-					url: "/cart-add",
-					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
-					
-					success:function(response) {
-						if(route > 0)
-						{
-							location.replace('/designer/'+response.id);
-						} else {
-							location.replace('/uploadfile/'+response.id);
-						}
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			} else {
-				var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
-				var name = '<?php echo $product ?>';
-				var route = $('input[name="route"]:checked').val();
-				var total = $('#total').html();
-				var size = $('#bannerSize').find(":selected").text();
-				var qty = $('#mainQty').val();
-				
-				var img = $('#image_1').find('img').attr('src');
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				
-				$.ajax({
-					type: "POST",
-					url: "/cart-add",
-					data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,route:route},
-					
-					success:function(response) {
-						if(route > 0)
-						{
-							location.replace('/designer/'+response.id);
-						} else {
-							location.replace('/uploadfile/'+response.id);
-						}
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			}
-	} else {
-		$('#loginModal').modal('show');
-	}
-	}
-</script>
 <script>
 	$(document).ready(function(){
 		$('[id^=property]').hide();
-		$('[id^=bstandVal]').hide();
 		$('.customSize').hide();
 	});
 </script>
 <script>
-	function bannerPricing(selected){
-		var val = selected.value;
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		if(val < 1)
-		{
-			$('[id=stand]').val($('[id=stand] option:first').val());
-			$('[id=stand]').niceSelect('update');
-			$('#bannerProperties').addClass('d-none');
-			$('[id^=propertiesPer]')[0].selectedIndex = 0;
-			$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
-			$('[id^=propertiesPer_]').niceSelect('update');
-			standPrice();
-
-		} else {
-			$('#bannerProperties').removeClass('d-none');
-			if($('#stand').val() > 0)
-			{
-				bannerStandPrice();
-			} else {
-				bannerPrice();
-			}
-		}
-	}
-	function standPricing(selected){
-		var val = selected.value;
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		if(val < 1)
-		{
-			$('[id=banner]').val($('[id=banner] option:last').val());
-			$('[id=banner]').niceSelect('update');
-			$('#bannerProperties').removeClass('d-none');
-			bannerPrice();
-		} else {
-			if($('#banner').val() > 0)
-			{
-				bannerStandPrice();
-			} else {
-				standPrice();
-			}
-		}
-	}
-</script>
-<script>
 	$('#bannerSize').on('change',function(){
-		if('{{$products['property'][$productKey][0]}}' !== 'none')
-		{
-			$('[id^=propertiesPer]')[0].selectedIndex = 0;
-			$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
-			$('[id^=propertiesPer_]').niceSelect('update');
-			$('[id^=property]').fadeOut().hide();
-		}
+		$('[id^=propertiesPer]')[0].selectedIndex = 0;
+		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
+		$('[id^=propertiesPer_]').niceSelect('update');
+		$('[id^=property]').fadeOut().hide();
 		
+		if($(this).val() == 0)
+		{
+			$('#customOne,#customTwo').val('');
+			$('.customSize').fadeIn();
+			$('#customOne,#customTwo').on('keyup', function(){
+
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				var id = $('input[name="product_id"]').val();
+				var key = $('input[name="product_key"]').val();
+				var one = $('#customOne').val();
+				var two = $('#customTwo').val();
+				var bannerSize = one+' x '+two;
+				// console.log(bannerSize);
+				// return false;
+				var qty = $('#mainQty').val();
+				
+           		$.ajax({
+           		  type: "POST",
+           		  url: "/decal-price",
+           		  data: {id:id,key:key,size:bannerSize,qty:qty},
+				
+           		  success:function(response) {
+           		    console.log(response);  
+						// return false;
+						$('#total').html(response.total.toFixed(2));
+						$('#finalTotal').html(response.final.toFixed(2));   
+						$('input[name="base_price"]').val(response.baseRate);
+           		  },
+           		  error: function(error){
+           		    console.log(error)
+           		  }
+           		});
+			});
+		} else {
+			$('.customSize').fadeOut();
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -554,55 +421,24 @@
 			var key = $('input[name="product_key"]').val();
 			var bannerSize = $('#bannerSize').val();
 			var qty = $('#mainQty').val();
-            if({{$products['pricing'][$productKey][0][3]}} > 0)
-			{
-				if($('#banner').val() > 0 && $('#stand').val() < 1)
-				{
-					var route = '/custom-bstand-price';
-				}
-				if($('#stand').val() > 0 && $('#banner').val() < 1)
-				{
-					var route = '/custom-stand-price';
-				}
-				if($('#banner').val() > 0 && $('#stand').val() > 0)
-				{
-					var route = '/custom-banner-stand-price';
-				}
-
-				$.ajax({
-					type: "POST",
-					url: route,
-					data: {id:id,key:key,size:bannerSize,qty:qty},
-					
-					success:function(response) {
-						console.log(response);  
-						// return false;
-						$('#total').html(response.total.toFixed(2));
-						$('#finalTotal').html(response.final.toFixed(2));   
-						$('input[name="base_price"]').val(response.baseRate);
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			} else {
-				$.ajax({
-					type: "POST",
-					url: "/custom-stand-price",
-					data: {id:id,key:key,size:bannerSize,qty:qty},
-					
-					success:function(response) {
-						console.log(response);  
-						// return false;
-						$('#total').html(response.total.toFixed(2));
-						$('#finalTotal').html(response.final.toFixed(2));   
-						$('input[name="base_price"]').val(response.baseRate);
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			}
+            
+            $.ajax({
+              type: "POST",
+              url: "/decal-price",
+              data: {id:id,key:key,size:bannerSize,qty:qty},
+            
+              success:function(response) {
+                console.log(response);  
+				// return false;
+				$('#total').html(response.total.toFixed(2));
+				$('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.baseRate);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
+		}
 			
 	});
 	$('#mainQty').on('change keyup',function(){
@@ -612,66 +448,40 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-		
-			var bannerSize = $('#bannerSize').val();
+			if($('#bannerSize').val() == 0)
+			{
 
+				var one = $('#customOne').val();
+				var two = $('#customTwo').val();
+				var bannerSize = one+' x '+two;
+
+			} else {
+
+				var bannerSize = $('#bannerSize').val();
+
+			}
             var id = $('input[name="product_id"]').val();
 			var key = $('input[name="product_key"]').val();
+			
 			var qty = $(this).val();
-            if({{$products['pricing'][$productKey][0][3]}} > 0)
-			{
-				if($('#banner').val() > 0 && $('#stand').val() < 1)
-				{
-					var route = '/custom-bstand-price';
-				}
-				if($('#stand').val() > 0 && $('#banner').val() < 1)
-				{
-					var route = '/custom-stand-price';
-				}
-				if($('#banner').val() > 0 && $('#stand').val() > 0)
-				{
-					var route = '/custom-banner-stand-price';
-				}
-				$.ajax({
-					type: "POST",
-					url: route,
-					data: {id:id,key:key,size:bannerSize,qty:qty},
-					
-					success:function(response) {
-						console.log(response);  
-						// return false;
-						// $('#total').html(response.total.toFixed(2));
-						// $('#finalTotal').html(response.final.toFixed(2));  
-						$('input[name="base_price"]').val(response.baseRate);
-						propertyPricing(id,key); 
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			} else {
-				$.ajax({
-					type: "POST",
-					url: "/custom-stand-price",
-					data: {id:id,key:key,size:bannerSize,qty:qty},
-					
-					success:function(response) {
-						console.log(response);  
-						// return false;
-						$('input[name="base_price"]').val(response.baseRate);
-						if('{{$products['property'][$productKey][0]}}' !== 'none')
-						{
-							propertyPricing(id,key); 
-						} else {
-							$('#total').html(response.total.toFixed(2));
-							$('#finalTotal').html(response.final.toFixed(2));  
-						}
-					},
-					error: function(error){
-						console.log(error)
-					}
-				});
-			}
+            
+            $.ajax({
+              type: "POST",
+              url: "/decal-price",
+              data: {id:id,key:key,size:bannerSize,qty:qty},
+            
+              success:function(response) {
+                console.log(response);  
+				// return false;
+				// $('#total').html(response.total.toFixed(2));
+				// $('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.baseRate);
+				propertyPricing(id,key);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
 	});
 	// Property percentage Check
 	function propertyPricing($id,$key){
@@ -685,16 +495,20 @@
 				var product_key = $('input[name="product_key"]').val();
 				var property_key = $('input[name="property_key[]"]').map(function(){return $(this).val();}).get();
 				var percentageKey = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").val();}).get();
-				
-				var bannerSize = $('#bannerSize').val();
-
+				if($('#bannerSize').val() == 0)
+				{
+					var one = $('#customOne').val();
+					var two = $('#customTwo').val();
+					var bannerSize = one+' x '+two;
+				} else {
+					var bannerSize = $('#bannerSize').val();
+				}
 				var qty = $('#mainQty').val();
 				var basePrice = $('input[name="base_price"]').val();
 				var total = $('#total').html();
-
 				   $.ajax({
 					 type: "POST",
-					 url: "/custom-stand-properties",
+					 url: "/decal-properties",
 					 data: {id:id,product_key:product_key,property_key:property_key,percentageKey:percentageKey,size:bannerSize,qty:qty,basePrice:basePrice,total:total},
 				
 					 success:function(response) {
@@ -718,142 +532,95 @@
 
 		};
 </script>
+<script>
+	function addCart(loginStatus)
+	{
+		var loginStatus = loginStatus;
+		// alert(loginStatus);
+		if (loginStatus > 0) {
+			if($('#bannerSize').val() == 0)
+			{
 
-<script>
-	$(document).ready(function(){
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				var one = $('#customOne').val();
+				var two = $('#customTwo').val();
+				var bannerSize = one+' x '+two;
+
+			} else {
+
+				var bannerSize = $('#bannerSize').val();
+
 			}
-		});
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		var bannerSize = $('#bannerSize').val();
+		var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
+		var route = $('input[name="route"]:checked').val();
+		var name = '<?php echo $product ?>';
+		var total = $('#total').html();
+		var size = bannerSize;
 		var qty = $('#mainQty').val();
-		
-		$.ajax({
-		  type: "POST",
-		  url: "/custom-stand-price",
-		  data: {id:id,key:key,size:bannerSize,qty:qty},
-		
-		  success:function(response) {
-			console.log(response);  
-			// return false;
-			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));   
-			$('input[name="base_price"]').val(response.baseRate);
-		  },
-		  error: function(error){
-			console.log(error)
-		  }
-		});
-	});
-</script>
-<script>
-	function bannerPrice()
-	{
-		// alert('banner');
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		var bannerSize = $('#bannerSize').val();
-		var qty = $('#mainQty').val();
-		
-		$.ajax({
-		  type: "POST",
-		  url: "/custom-bstand-price",
-		  data: {id:id,key:key,size:bannerSize,qty:qty},
-		
-		  success:function(response) {
-			console.log(response);  
-			// return false;
-			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));   
-			$('#bstandVal_b span').html(response.bannerVal.toFixed(2));   
-			$('#bstandVal_b').fadeIn().show();   
-			$('#bstandVal_s span').html('');
-			$('#bstandVal_s').fadeIn().hide();    
-			$('input[name="base_price"]').val(response.baseRate);
-			propertyPricing(id,key);
-		  },
-		  error: function(error){
-			console.log(error)
-		  }
-		});
+		var instruction = $('#instruction').val();
+		var pentone = $('#pentone').val();
+		var propertyNames = $('input[name="property_names[]"]').map(function(){return $(this).val();}).get();
+		var propertyValues = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").text();}).get();
+		var img = $('#image_1').find('img').attr('src');
+
+			$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+              	type: "POST",
+              	url: "/cart-add",
+              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
+				
+              	success:function(response) {
+					if(route > 0)
+					{
+						location.replace('/designer/'+response.id);
+					} else {
+						location.replace('/uploadfile/'+response.id);
+					}
+              	},
+              	error: function(error){
+              	  console.log(error)
+              	}
+        	});
+	} else {
+		$('#loginModal').modal('show');
 	}
-	function standPrice()
-	{
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		var bannerSize = $('#bannerSize').val();
-		var qty = $('#mainQty').val();
-		
-		$.ajax({
-		  type: "POST",
-		  url: "/custom-stand-price",
-		  data: {id:id,key:key,size:bannerSize,qty:qty},
-		
-		  success:function(response) {
-			console.log(response);  
-			// return false;
-			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));  
-			$('#bstandVal_s span').html(response.standVal.toFixed(2));   
-			$('#bstandVal_s').fadeIn().show();   
-			$('#bstandVal_b span').html(''); 
-			$('#bstandVal_b').fadeIn().hide(); 
-			$('input[name="base_price"]').val(response.baseRate);
-			propertyPricing(id,key);
-		  },
-		  error: function(error){
-			console.log(error)
-		  }
-		});
-	}
-	function bannerStandPrice()
-	{
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		var id = $('input[name="product_id"]').val();
-		var key = $('input[name="product_key"]').val();
-		var bannerSize = $('#bannerSize').val();
-		var qty = $('#mainQty').val();
-		
-		$.ajax({
-		  type: "POST",
-		  url: "/custom-banner-stand-price",
-		  data: {id:id,key:key,size:bannerSize,qty:qty},
-		
-		  success:function(response) {
-			console.log(response);  
-			// return false;
-			$('#total').html(response.total.toFixed(2));
-			$('#finalTotal').html(response.final.toFixed(2));
-			$('#bstandVal_b span').html(response.bannerVal.toFixed(2));   
-			$('#bstandVal_s span').html(response.standVal.toFixed(2)); 
-			$('#bstandVal_b').fadeIn().show();
-			$('#bstandVal_s').fadeIn().show();  
-			$('input[name="base_price"]').val(response.baseRate);
-			propertyPricing(id,key);
-		  },
-		  error: function(error){
-			console.log(error)
-		  }
-		});
 	}
 </script>
+
+	<script>
+		$(document).ready(function(){
+			$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+			var id = $('input[name="product_id"]').val();
+			var key = $('input[name="product_key"]').val();
+			var bannerSize = $('#bannerSize').val();
+			var qty = $('#mainQty').val();
+            
+            $.ajax({
+              type: "POST",
+              url: "/decal-price",
+              data: {id:id,key:key,size:bannerSize,qty:qty},
+            
+              success:function(response) {
+                console.log(response);  
+				// return false;
+				$('#total').html(response.total.toFixed(2));
+				$('#finalTotal').html(response.final.toFixed(2));   
+				$('input[name="base_price"]').val(response.baseRate);
+              },
+              error: function(error){
+                console.log(error)
+              }
+            });
+		});
+	</script>
 
 </body>
 

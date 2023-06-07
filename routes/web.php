@@ -98,6 +98,11 @@ Route::domain(env('DOMAIN'))->group(function () {
     //////////Custom & Other Banners /////////
     Route::post('/custom-banner-price', 'BannerController@bannerPrice');
     Route::post('/custom-banner-properties', 'BannerController@bannerProperty');
+    //////////Sign & Decals /////////
+    Route::post('/decal-price', 'SigndecalsController@decalPrice');
+    Route::post('/decal-properties', 'SigndecalsController@signdecalProperty');
+    Route::post('/sign-price', 'SigndecalsController@signPrice');
+    Route::post('/sign-properties', 'SigndecalsController@signdecalProperty');
     //////////Stand & displays & Frames /////////
     Route::post('/custom-stand-price', 'StandController@standPrice');
     Route::post('/custom-bstand-price', 'StandController@bstandPrice');

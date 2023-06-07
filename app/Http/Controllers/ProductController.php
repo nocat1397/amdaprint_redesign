@@ -518,6 +518,17 @@ class ProductController extends Controller
             case '9':
                 return view('front-end.products.invitationCards.custom',compact('product','category','categories','productKey','products','images'));
                 break;
+            case '10':
+                if(stripos($product, 'decals'))
+                {
+                    return view('front-end.products.sign-decals.decals',compact('product','category','categories','productKey','products','images'));
+                } 
+                if(stripos($product, 'yard'))
+                {
+                    return view('front-end.products.sign-decals.yard',compact('product','category','categories','productKey','products','images'));
+                } 
+                return abort(404);
+                break;
             default:
 
                 break;

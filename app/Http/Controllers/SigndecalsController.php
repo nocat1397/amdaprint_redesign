@@ -3,12 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class BannerController extends Controller
+class SigndecalsController extends Controller
 {
-    public function bannerPrice(Request $request)
+    public function signPrice(Request $request)
+    {
+        $size = $request->size;
+        // $cal1 = strtok($size,' x ');
+
+        // $cal2 = substr($size, strrpos($size, " x ") + 1);
+        $replacedSize = str_replace(' x ',' ',$size);
+        // return $replacedSize;
+        $cal1 = strtok($replacedSize,' ');
+
+        $cal2 = substr($replacedSize, strrpos($replacedSize, " ") + 1);
+        $totalSize = $cal1*$cal2;
+        $qty = $request->qty;
+        if ($totalSize < 25) {
+            $priceArray = ['1-24'];
+        } 
+        $product = Product::find($request->id);
+        $priceCheck = $product->pricing[$request->key];
+        foreach ($priceCheck as $key => $check) {
+            $priceFind[] = $this->comparePriceArrays($check,$priceArray);
+        }
+        $price = array_values(array_filter(array_map('floatval',$priceFind)));
+        // return $price;
+        $bannerRate = ($totalSize*$price[0])*$qty;
+        $finalTotal = ($bannerRate*100)/50;
+        return response()->json(['total'=>$bannerRate,'final'=>$finalTotal,'baseRate'=>$price[0]]);
+        
+    }
+    public function decalPrice(Request $request)
     {
         $size = $request->size;
         // return $size;
@@ -21,18 +48,28 @@ class BannerController extends Controller
 
         $cal2 = substr($replacedSize, strrpos($replacedSize, " ") + 1);
         $totalSize = $cal1*$cal2;
+        
         $qty = $request->qty;
-        if ($totalSize < 100) {
-            $priceArray = ['0-99'];
+        if ($totalSize < 5) {
+            $priceArray = ['1-4'];
         } 
-        if ($totalSize > 99 && $totalSize < 150) {
-            $priceArray = ['100-149'];
+        if ($totalSize > 4 && $totalSize < 10) {
+            $priceArray = ['5-9'];
         } 
-        if ($totalSize > 149 && $totalSize < 200) {
-            $priceArray = ['150-199'];
+        if ($totalSize > 9 && $totalSize < 20) {
+            $priceArray = ['10-19'];
         }
-        if ($totalSize > 199) {
-            $priceArray = ['200'];
+        if ($totalSize > 19 && $totalSize < 50) {
+            $priceArray = ['20-49'];
+        }
+        if ($totalSize > 49 && $totalSize < 75) {
+            $priceArray = ['50-74'];
+        }
+        if ($totalSize > 74 && $totalSize < 100) {
+            $priceArray = ['75-99'];
+        }
+        if ($totalSize > 99) {
+            $priceArray = ['100'];
         }
         $product = Product::find($request->id);
         $priceCheck = $product->pricing[$request->key];
@@ -53,7 +90,7 @@ class BannerController extends Controller
             return $array1[1];
         }
     }
-    public function bannerProperty(Request $request)
+    public function signdecalProperty(Request $request)
     {
         // return $request;
         $product = Product::find($request->id);
@@ -102,5 +139,4 @@ class BannerController extends Controller
         return response()->json(['baseRate'=>$baseRate,'percentageRates'=>$array1, 'total'=>$bannerRate,'final'=>$finalTotal]);
         
     }
-    
 }
