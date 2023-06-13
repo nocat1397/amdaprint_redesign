@@ -24,6 +24,7 @@
                         <thead>
                             <tr class="bg_default_blue text-light">
                                 <th>#</th>
+                                <th>OrderID</th>
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
@@ -35,6 +36,7 @@
                             @forelse ($orders as $order)
                                 <tr>
                                     <td>{{++$loop->index}}</td>
+                                    <td>amdaprints_{{bin2hex('order').$order->id}}</td>
                                     <td>{{$order->product}}</td>
                                     <td>{{$order->quantity}}</td>
                                     <td>$ {{$order->amount}}</td>
@@ -87,7 +89,7 @@
                                                         <div class="card-body">
                                                             <table class="table table-striped">
                                                                 @foreach ($order->name as $key=>$name)
-                                                                @if($name !== 'img')
+                                                                @if($name !== 'img' && $name !== 'route')
                                                                 <tr>
                                                                     <td class="text-capitalize font-weight-bold">{{$name}} :</td>
                                                                     <td>@if($name == 'amount') $ @endif {{$order->data[$key]}}</td>

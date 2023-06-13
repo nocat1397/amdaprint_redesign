@@ -307,55 +307,31 @@
 						</div>
 
 						<hr>
-
-						<div class="row mt__30 justify-content-center">
-							<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
-								<div class="product_card text-center bg_gray">
-									<a class="item_image" target="_blank" href="shop_details.html">
-										<img src="/assets/images/shop/img_01.jpg" alt="image_not_found">
+						<div class="product_slider owl-carousel owl-theme mb_80">
+							@foreach ($products->name as $custkey=>$name)
+							@if(str_replace('-',' ',$name) !==$product)
+							<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
+								<div class="card bg-whitesmoke">
+									<a href="/{{$products->category->name}}/{{$name}}" type="button">
+										<!-- Image -->
+										@if(sizeof($products->productImages) && $image = $products->productImages->where('product_index',$custkey)->first())
+										<img src="/products/{{$products->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+										@else 
+										<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+										@endif
+										<!-- Card body -->
+										<div class="card-body">
+											<!-- Title -->
+											<h5 class="card-title mb-1 fw-normal"><span class="text-secondary">{{str_replace('-',' ',$name)}}</span></h5>
+											
+											<span class="btn_2">View Details</span>
+										</div>
 									</a>
-									<div class="item_content">
-										<h3 class="item_title">Business Card</h3>
-										<span class="item_price">₹25.83</span>
-									</div>
+									
 								</div>
 							</div>
-
-							<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".3s">
-								<div class="product_card text-center bg_gray">
-									<a class="item_image" target="_blank" href="/products">
-										<img src="/assets/images/shop/img_02.jpg" alt="image_not_found">
-									</a>
-									<div class="item_content">
-										<h3 class="item_title">Cover Letters</h3>
-										<span class="item_price">₹25.83</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".5s">
-								<div class="product_card text-center bg_gray">
-									<a class="item_image" target="_blank" href="/products">
-										<img src="/assets/images/shop/img_03.jpg" alt="image_not_found">
-									</a>
-									<div class="item_content">
-										<h3 class="item_title">Invitation Card</h3>
-										<span class="item_price">₹25.83</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 wow fadeInUp2" data-wow-delay=".7s">
-								<div class="product_card text-center bg_gray">
-									<a class="item_image" target="_blank" href="/products">
-										<img src="/assets/images/shop/img_04.jpg" alt="image_not_found">
-									</a>
-									<div class="item_content">
-										<h3 class="item_title">CV/Resume Design</h3>
-										<span class="item_price">₹25.83</span>
-									</div>
-								</div>
-							</div>
+							@endif
+							@endforeach
 						</div>
 
 					</div>

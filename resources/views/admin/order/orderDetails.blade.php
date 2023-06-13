@@ -267,7 +267,7 @@ section {
                   <table class="table table-hover" style="width: 100%">
                     <tr>
                       <th>Id :</th>
-                      <td>{{$order->id}}</td>
+                      <td>amdaprints_{{bin2hex('order').$order->id}}</td>
                     </tr>
                     <tr>
                       <th>Payment Id :</th>

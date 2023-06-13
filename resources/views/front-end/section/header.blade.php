@@ -78,7 +78,7 @@
 										</ul>
 									</li>
 									@endif  --}}
-									<li class="pt-2 pb-2"><a href="#" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-truck" style="color:#bfa1f9"></i> Order Tracking</a></li>
+									<li class="pt-2 pb-2"><a href="/my-orders" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-truck" style="color:#bfa1f9"></i> Order Tracking</a></li>
 									<li class="pt-2 pb-2">
 										<a href="/dealer-registration" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-handshake" style="color:#bfa1f9"></i> Dealer Registration</a>
 										

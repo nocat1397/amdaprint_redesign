@@ -4,13 +4,13 @@
     <head>
         @include('front-end.section.styles')
 		<style>
-            .exclusiveBanefitsBox {
+            /* .exclusiveBanefitsBox {
                 width: 100%;
     float: left;
     height: auto;
     padding: inherit;
     margin: 0px 0px 50px;
-            }
+            } */
             .pageTitleBox {
     width: 100%;
     float: left;
@@ -36,7 +36,7 @@
     float: left;
     height: 100px;
     position: relative;
-    margin: 0px 30px 30px 0px;
+    margin: 0px 0px 30px 0px;
     padding: 0px 0px 0px 100px;
     box-shadow: rgb(0 0 0 / 3%) 0px 2px 10px;
             }
@@ -211,42 +211,42 @@ ul.fancyCheck > li::before, ul.fancyArrow > li::before {
                         </div>
                     </div>
                     <div class="clearfix">&nbsp;</div>
-                    <div class="exclusiveBanefitsBox">
+                    <div class="exclusiveBanefitsBox container">
                         <div class="pageTitleBox text-center">
                             <h3 class="text-dark">Dealers, hello! You may be exclusive by doing this.</h3>
                         </div>
-                     <div>
-                        <div class="benefitsBox">
+                     <div class="row">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Quick Turnaround</h6>
                             </div>
                         </div>
-                        <div class="benefitsBox">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Unbranded sample kit and catalogue are provided without charge.</h6>
                             </div>
                         </div>
-                        <div class="benefitsBox">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Free blind shipments to your clients, together with unbranded packaging.</h6>
                             </div>
                         </div>
-                        <div class="benefitsBox">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Free credit account allocations based on your relationship with us.</h6>
                             </div>
                         </div>
-                        <div class="benefitsBox">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Free blind shipments to your clients, together with unbranded packaging.</h6>
                             </div>
                         </div>
-                        <div class="benefitsBox">
+                        <div class="benefitsBox col-md-4 col-lg-4">
                             <div class="iconBox">&nbsp;</div>
                             <div class="benefitsContentBox">
                                 <h6>Completely free design assistance from top experts.</h6>
@@ -303,6 +303,7 @@ ul.fancyCheck > li::before, ul.fancyArrow > li::before {
                                 <li>Agencies or Consultants for Advertising</li>
                             </ul>
                             <div class="clearfix">&nbsp;</div>
+                            
                         </div>
                     </div>
                 </div>

@@ -49,12 +49,9 @@
 							<div class="widget footer_useful_links">
 								<h3 class="footer_widget_title text-secondary">Category</h3>
 								<ul class="ul_li_block clearfix">
-									<li><a href="/terms-and-condition">Flag</a></li>
-									<li><a href="/privacy-policy">Step and Repeat Displays</a></li>
-									<li><a href="/faq">Banners</a></li>
-									<li><a href="/faq">Canopies</a></li>
-									<li><a href="/faq">Table Covers and Throws</a></li>
-									
+									@foreach ($categories as $key=>$category)
+									<li><a href="/product/{{strtolower($category->name)}}">{{str_replace('-',' ',$category->name)}}</a></li>
+									@endforeach
 								</ul>
 							</div>
 						</div>
@@ -62,13 +59,13 @@
 							<div class="widget footer_useful_links">
 								<h3 class="footer_widget_title text-secondary">Information</h3>
 								<ul class="ul_li_block clearfix">
-									<li><a href="/terms-and-condition">Order Tracking</a></li>
-									<li><a href="/privacy-policy">International Shipping</a></li>
+									<li><a href="/my-orders">Order Tracking</a></li>
+									{{-- <li><a href="/privacy-policy">International Shipping</a></li> --}}
 									<li><a href="/faq">Customer Reviews</a></li>
 									<li><a href="/faq">Special Offers</a></li>
 									<li><a href="/faq">Sitemap</a></li>
 									<li><a href="/faq">Blog</a></li>
-									<li><a href="/faq">Safety Signs & Banners</a></li>
+									{{-- <li><a href="/faq">Safety Signs & Banners</a></li> --}}
 									
 								</ul>
 							</div>
@@ -82,8 +79,8 @@
 									<li><a href="/faq">Contact us</a></li>
 									<li><a href="/privacy-policy">Privacy Policy</a></li>
 									<li><a href="/terms-and-condition">Terms of Use</a></li>
-									<li><a href="/faq">Affiliate Program</a></li>
-									<li><a href="/faq">Areas of Service</a></li>
+									{{-- <li><a href="/faq">Affiliate Program</a></li> --}}
+									{{-- <li><a href="/faq">Areas of Service</a></li> --}}
 									
 								</ul>
 							</div>
@@ -95,8 +92,8 @@
 									<li><a href="/faq">FAQs</a></li>
 									<li><a href="/return-policy">Return Policy</a></li>
 									<li><a href="/faq">Free Design Proofs</a></li>
-									<li><a href="/faq">Shipping</a></li>
-									<li><a href="/faq">Sample Kit</a></li>
+									{{-- <li><a href="/faq">Shipping</a></li> --}}
+									<li><a href="/sample-kit">Sample Kit</a></li>
 									
 								</ul>
 							</div>

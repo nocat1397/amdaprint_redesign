@@ -59,6 +59,60 @@
 						<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
 							<div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_image clearfix">
+									<div class="tab-content" id="nav-tabContent">
+										<div id="image_1" class="tab-pane active">
+											<img src="/assets/images/samplekit1.jpg" alt="image_not_found">
+										</div>
+										<div id="image_2" class="tab-pane fade">
+											<img src="/assets/images/samplekit2.jpg" alt="image_not_found">
+										</div>
+										<div id="image_3" class="tab-pane fade">
+											<img src="/assets/images/samplekit3.jpg" alt="image_not_found">
+										</div>
+										<div id="image_4" class="tab-pane fade">
+											<img src="/assets/images/samplekit4.jpg" alt="image_not_found">
+										</div>
+									</div>
+									<div style="width: -webkit-fill-available;overflow-x:hidden;" class="parent">
+										<ul class="nav ul_li_block clearfix float-left d-inline-flex child" role="tablist" id="nav-tab" style="width:max-content;cursor:pointer;pointer-events:auto;justify-content: center;min-width: -webkit-fill-available;">
+											<li>
+												<a class="active nav-item" data-toggle="tab" href="#image_1" data-toggle="tab" id="#image_1_img">
+													<img src="/assets/images/samplekit1.jpg" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
+												</a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#image_2" class="nav-item" data-toggle="tab" id="#image_1_img">
+													<img src="/assets/images/samplekit2.jpg" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
+												</a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#image_3" class="nav-item" data-toggle="tab" id="#image_1_img">
+													<img src="/assets/images/samplekit3.jpg" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
+												</a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#image_4" class="nav-item" data-toggle="tab" id="#image_1_img">
+													<img src="/assets/images/samplekit4.jpg" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
+												</a>
+											</li>
+											{{-- <li>
+												<a class="nav-item {{$key < 1 ? 'active' : ''}}" data-toggle="tab" id="#image_{{$key}}_img" href="#image_{{$key}}" role="tab" aria-controls="image_{{$key}}" aria-selected="true">
+													<img src="/products/{{$image->product_id}}/{{$image->product_index}}/{{$image->name}}" alt="image_not_found" style="height:auto;width:150px;object-fit:fill">
+												</a>
+											</li> --}}
+										</ul>
+									</div>
+									<div class="text-center">
+										<div class="text-inline">
+											<strong>Share :</strong>
+											<strong class="ml-3 mr-3"><i class="fab fa-facebook-f"></i></strong>
+											<strong><i class="fab fa-whatsapp"></i></strong>
+										</div>
+									</div>
+								</div>
+							</div>
+							{{-- <div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
+								<div class="details_image clearfix">
 									<div class="tab-content">
 										<div id="image_1" class="tab-pane active">
 											<img src="/assets/images/samplekit1.jpg" alt="image_not_found">
@@ -97,7 +151,7 @@
 										</li>
 									</ul>
 								</div>
-							</div>
+							</div> --}}
 
 							<div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 wow fadeInUp2" data-wow-delay=".1s">
 								<div class="details_content">
@@ -128,11 +182,9 @@
 												</div>
 												
 												<div class="col-md-6">
-													<input type="text" readonly value="1" disabled>
+													<input type="text" class="form-control" readonly value="1" disabled>
 												</div>
-												<div class="col-md-3">
-													<label id="laminationAmount" class="text-danger font-weight-bold"><span></span></label>
-											   </div>
+												
 											</div>
                                             <div class="form-row mb-3" id="">
 												<div class="col-md-3">
@@ -140,11 +192,9 @@
 												</div>
 												
 												<div class="col-md-6">
-													<input type="text" readonly value="All" disabled>
+													<input type="text" class="form-control" readonly value="All" disabled>
 												</div>
-												<div class="col-md-3">
-													<label id="laminationAmount" class="text-danger font-weight-bold"><span></span></label>
-											   </div>
+												
 											</div>
                                             <div class="form-row mb-3" id="">
 												<div class="col-md-3">
@@ -152,14 +202,9 @@
 												</div>
 												
 												<div class="col-md-6">
-													<input type="text" placeholder="Type Anything....">
+													<textarea type="text" class="form-control" placeholder="Type Anything...." id="instruction"></textarea>
 												</div>
-												<div class="col-md-3">
-													<label id="laminationAmount" class="text-danger font-weight-bold"><span></span></label>
-											   </div>
 											</div>
-                                            
-                                            
                                         </form>
                                     </div>
 								</div>
@@ -167,25 +212,7 @@
 							<div class="col-md-2 col-lg-3">
 								<div class="card shadow text-center border boder-0" id="priceCard">
 									<div class="card-body">
-										<h5 class="price_text mb_30"><strong class="text-danger">$<span id="finalTotal"></span></strong> <del>$<span id="total"></span> </del></h5>
-										<form>
-											<div class="text-left">
-												<div class="form-check">
-													<input class="form-check-input" type="radio" name="route" value="0" id="route1" checked>
-													<label class="form-check-label" for="route1">
-														<strong class="text-dark">Upload Artwork</strong>
-													</label>
-													<p class="text-muted">Upload your designs and get the design proofing done</p>
-												  </div>
-												  <div class="form-check">
-													<input class="form-check-input" type="radio" name="route" value="1" id="route2">
-													<label class="form-check-label" for="route2">
-														<strong class="text-dark">Hire a Designer @ $9.99</strong>
-													</label>
-													<p class="text-muted">Let a professional Designer create your design @ $9.99</p>
-												  </div>
-											</div>
-										</form>
+										<h5 class="price_text mb_30"><strong class="text-danger">$<span id="finalTotal">0.00</span></strong></h5>
 									</div>
 									<div class="card-footer">
 										@if(Auth::check())
@@ -308,5 +335,52 @@
 		================================================== -->
 @include('front-end.section.footer')
 @include('front-end.section.scripts')
+<script>
+
+	function addCart(loginStatus)
+	{
+		var loginStatus = loginStatus;
+		// alert(loginStatus);
+		if (loginStatus > 0) {
+			var category = 'sample-kit';
+			var route = $('input[name="route"]:checked').val();
+			var name = 'sample-kit';
+			var total = '0.00';
+			var qty = '1';
+			var sampleType = 'all';
+			var instruction = $('#instruction').val();
+			var img = $('#image_1').find('img').attr('src');
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+			
+            $.ajax({
+				type: "POST",
+				url: "/cart-add",
+				data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,papertype:paperType,
+					propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
+					
+					success:function(response) {
+						console.log(response);
+						// return false;
+						if(route > 0)
+						{
+							location.replace('/designer/'+response.id);
+						} else {
+							location.replace('/uploadfile/'+response.id);
+						}
+					},
+					error: function(error){
+						console.log(error)
+					}
+				});
+				
+			} else {
+				$('#loginModal').modal('show');
+			}
+		}
+</script>
 </body>
 </html>

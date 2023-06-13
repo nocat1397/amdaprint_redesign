@@ -155,14 +155,14 @@
 						<div class="col-sm-6 col-xl-4">
 							<div class="d-flex justify-content-evenly bg-whitesmoke counter_sec_img align-items-center p-4 bg-opacity-15 rounded-3" style="justify-content: space-evenly; border-radius:10px;">
 								<span class="display-6 lh-1 text-primary mb-0" style="font-size: 35px;">
-									<img src="/assets/images/New/icon1.png" class="">
+									<img src="/assets/images/New/icon1.png" style="height:70px;">
 								</span>
 								<div class="ms-4 h6 fw-normal mb-0">
 									<div class="d-flex">
-										<h5 class="purecounter text-secondary mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-delay="200" data-purecounter-duration="0">Same day shipping</h5>
+										<h5 class="purecounter text-secondary mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-delay="200" data-purecounter-duration="0">Quality Assurance</h5>
 										{{--  <span class="mb-0 h5">K</span>  --}}
 									</div>
-									<p class="mb-0">on selected products</p>
+									<p class="mb-0">on all products</p>
 								</div>
 							</div>
 						</div>
@@ -254,35 +254,20 @@
 						@if($key <= 3)	
 						<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 							<div class="card bg-whitesmoke">
-								<!-- Image -->
-								@if(sizeof($sec1->product->productImages) && $image = $sec1->product->productImages->where('product_index',$key)->first())
-								<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
-								@else 
-								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
-								@endif
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title fw-normal"><a href="/{{$sec1->product->category->name}}/{{$name}}" class="text-secondary">{{str_replace('-',' ',$name)}}</a></h5>
-{{-- 									
-	<!-- Rating star -->
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-										<li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-										<li class="list-inline-item ms-2 h6 fw-light mb-0">(5,966)</li>
-									</ul>
-									<ul class="list-inline mb-0">
-										<li class="list-inline-item  ms-2 h6">Starts at:</li>
-								
-										<li class="list-inline-item me-0  fw-light mb-0">$1.50</li>
-									</ul> --}}
-									<a href="/{{$sec1->product->category->name}}/{{$name}}" class="btn_2">View Details</a>
-								</div>
-								
+								<a href="/{{$sec1->product->category->name}}/{{$name}}" type="button">
+									<!-- Image -->
+									@if(sizeof($sec1->product->productImages) && $image = $sec1->product->productImages->where('product_index',$key)->first())
+									<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									@else 
+									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									@endif
+									<!-- Card body -->
+									<div class="card-body">
+										<!-- Title -->
+										<h5 class="card-title fw-normal"><span class="text-secondary">{{str_replace('-',' ',$name)}}</span></h5>
+										<span class="btn_2">View Details</span>
+									</div>
+								</a>
 							</div>
 						</div>
 						@endif
@@ -308,21 +293,22 @@
 					<div class="product_slider owl-carousel owl-theme mb_80">
 						@foreach ($sec2->product->name as $key=>$name)
 						<div class="item wow fadeInUp2" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
-							<div class="card bg-whitesmoke ">
-								<!-- Image -->
-								@if(sizeof($sec2->product->productImages) && $image = $sec2->product->productImages->where('product_index',$key)->first())
-								<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
-								@else 
-								<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
-								@endif
-								<!-- Card body -->
-								<div class="card-body">
-									
-									<!-- Title -->
-									<h5 class="card-title mb-1 fw-normal"><a href="/{{$sec2->product->category->name}}/{{$name}}" class="text-secondary">{{str_replace('-',' ',$name)}}</a></h5>
-									
-									<a href="/{{$sec2->product->category->name}}/{{$name}}" class="btn_2">View Details</a>
-								</div>
+							<div class="card bg-whitesmoke">
+								<a href="/{{$sec2->product->category->name}}/{{$name}}" type="button">
+									<!-- Image -->
+									@if(sizeof($sec2->product->productImages) && $image = $sec2->product->productImages->where('product_index',$key)->first())
+									<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									@else 
+									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									@endif
+									<!-- Card body -->
+									<div class="card-body">
+										<!-- Title -->
+										<h5 class="card-title mb-1 fw-normal"><span class="text-secondary">{{str_replace('-',' ',$name)}}</span></h5>
+										
+										<span class="btn_2">View Details</span>
+									</div>
+								</a>
 								
 							</div>
 						</div>
@@ -340,7 +326,7 @@
 						</div>
 					</div>
 					<div class="row ">
-						<div class="col-md-4 item_content">
+						{{-- <div class="col-md-4 item_content">
 							<div class="icons">
 								<img src="/assets/images/New/icon4.png" width="60" height="60" alt="">
 							</div>
@@ -348,8 +334,8 @@
 								<h4 class="text-light">Design Template</h4>
 								<p class="text-light">Professionally Design</p>
 							</div>
-						</div>
-						<div class="col-md-4 item_content">
+						</div> --}}
+						<div class="col-md-6 item_content">
 							<div class="icons">
 								<img src="/assets/images/New/icon5.png" width="60" height="60" alt="">
 							</div>
@@ -358,7 +344,7 @@
 								<p class="text-light">Perfect Print</p>
 							</div>
 						</div>
-						<div class="col-md-4 item_content">
+						<div class="col-md-6 item_content">
 							<div class="icons">
 								<img src="/assets/images/New/icon6.png" width="60" height="60" alt="">
 							</div>
@@ -386,9 +372,31 @@
 					<div class="row justify-content-lg-between justify-content-md-center justify-content-sm-center">
 
 						<div class="col-lg-12 col-md-12 order-last">
-							
+							<div class="product_slider owl-carousel owl-theme">
+								@foreach ($categories as $key=>$category)
+								<div class="item business-card hide-content" data-wow-delay=".1s">
+									{{-- <a href="/product/{{strtolower($category->name)}}"> --}}
+									<div class="product_card">
+										<a class="item_image" href="/product/{{strtolower($category->name)}}">
+											@if (sizeof($category->product->productImages))
+											<img src="/products/{{$category->product->id}}/0/{{$category->product->productImages[0]['name']}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											@else 
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											@endif
+											{{--  <span class="span_size">10x10</span>  --}}
+											<div class="item_content bg-light text-left">
+												<h3 class="item_title">{{str_replace('-',' ',$category->name)}}</h3>
+												{{-- <a href="/product/{{strtolower($category->name)}}" class="text-secondary">View Details</a> --}}
+											</div>
+										</a>
+									</div>
+									{{-- </a> --}}
+								</div>
+								@endforeach
+								
+							</div>
 
-							<div class="row justify-content-center">
+							{{-- <div class="row justify-content-center">
 								@foreach ($categories as $key=>$category)
 								<div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 col-6 business-card hide-content" data-wow-delay=".1s">
 									<div class="product_card text-center">
@@ -405,7 +413,7 @@
 									</div>
 								</div>
 								@endforeach
-							</div>
+							</div> --}}
 						</div>
 					</div>
 				</div>
@@ -448,12 +456,12 @@
 											@else 
 											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@endif
+											{{--  <span class="span_size">10x10</span>  --}}
+											<div class="item_content bg-light text-left">
+												<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
+												<p class="text-secondary">View Details</p>
+											</div>
 										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
-											<a href="/{{$sec3->product->category->name}}/{{$name}}" class="text-secondary">View Details</a>
-										</div>
 									</div>
 								</div>
 								@endforeach
@@ -488,12 +496,12 @@
 											@else 
 											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 											@endif
+											{{--  <span class="span_size">10x10</span>  --}}
+											<div class="item_content bg-light text-left">
+												<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
+												<p class="text-secondary mb-0">View Details</p>
+											</div>
 										</a>
-										{{--  <span class="span_size">10x10</span>  --}}
-										<div class="item_content text-left">
-											<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
-											<a href="/{{$sec4->product->category->name}}/{{$name}}" class="text-secondary">View Details</a>
-										</div>
 									</div>
 								</div>
 								@endforeach
@@ -1173,6 +1181,19 @@
 
 @include('front-end.section.footer')
 @include('front-end.section.scripts')
+@if (session('message'))
+<script>
+	swal({
+      title: "Order Placed.",
+      text: "{{session('message')}}",
+      type: "success",  
+      timer: 3000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      buttons: false,
+    });
+</script>
+@endif
 </body>
 
 </html>

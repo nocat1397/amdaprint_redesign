@@ -138,7 +138,7 @@ class PaymentController extends Controller
                     $shipping->save();
                 }
                 $cart->delete();
-                return redirect('/')->with('message','Payment is successful. Your Payment id is: '. $session->payment_intent);
+                return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
         } catch (\Exception $e) {
             throw new NotFoundHttpException();
         }
