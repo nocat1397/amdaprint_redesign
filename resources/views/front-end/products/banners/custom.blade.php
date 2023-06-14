@@ -305,7 +305,7 @@
 									<a href="/{{$products->category->name}}/{{$name}}" type="button">
 										<!-- Image -->
 										@if(sizeof($products->productImages) && $image = $products->productImages->where('product_index',$custkey)->first())
-										<img src="/products/{{$products->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+										<img src="/products/{{$products->id}}/{{$custkey}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 										@else 
 										<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
 										@endif
