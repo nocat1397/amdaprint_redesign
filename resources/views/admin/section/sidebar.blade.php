@@ -13,7 +13,7 @@
           <img src="https://ui-avatars.com/api/?name={{Auth::user()->name}}&color=f7971e&background=FCDFBB" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <h5><a href="/" class="d-block">{{Auth::user()->name ?? ''}}</a></h5>
+          <h5><a href="/home" class="d-block">{{Auth::user()->name ?? ''}}</a></h5>
          
         </div>
       </div>

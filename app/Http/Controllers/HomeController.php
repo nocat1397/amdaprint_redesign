@@ -26,12 +26,12 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role->name == "Admin"){
-            $total = Order::where('payment_status', '=', 'approved')->get()->count();
-            $new = Order::where('orderstatus_id', 1)->where('payment_status', '=', 'approved')->get()->count();
-            $accept = Order::where('orderstatus_id', 2)->where('payment_status', '=', 'approved')->get()->count();
-            $dispatch = Order::where('orderstatus_id', 3)->where('payment_status', '=', 'approved')->get()->count();
-            $deliver = Order::where('orderstatus_id', 4)->where('payment_status', '=', 'approved')->get()->count();
-            $decline = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'approved')->get()->count();
+            $total = Order::where('payment_status', '=', 'paid')->get()->count();
+            $new = Order::where('orderstatus_id', 1)->where('payment_status', '=', 'paid')->get()->count();
+            $accept = Order::where('orderstatus_id', 2)->where('payment_status', '=', 'paid')->get()->count();
+            $dispatch = Order::where('orderstatus_id', 3)->where('payment_status', '=', 'paid')->get()->count();
+            $deliver = Order::where('orderstatus_id', 4)->where('payment_status', '=', 'paid')->get()->count();
+            $decline = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'paid')->get()->count();
             return view('home',compact('total','new','accept','dispatch','deliver','decline'));
         } else {
             return redirect('/home');

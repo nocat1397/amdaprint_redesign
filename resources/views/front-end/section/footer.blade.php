@@ -62,8 +62,8 @@
 									<li><a href="/my-orders">Order Tracking</a></li>
 									{{-- <li><a href="/privacy-policy">International Shipping</a></li> --}}
 									<li><a href="/faq">Customer Reviews</a></li>
-									<li><a href="/faq">Special Offers</a></li>
-									<li><a href="/faq">Sitemap</a></li>
+									{{-- <li><a href="/faq">Special Offers</a></li> --}}
+									{{-- <li><a href="/faq">Sitemap</a></li> --}}
 									<li><a href="/faq">Blog</a></li>
 									{{-- <li><a href="/faq">Safety Signs & Banners</a></li> --}}
 									
@@ -74,7 +74,7 @@
 							<div class="widget footer_useful_links">
 								<h3 class="footer_widget_title text-secondary">Customer Service</h3>
 								<ul class="ul_li_block clearfix">
-									<li><a href="/terms-and-condition">Message from CEO</a></li>
+									{{-- <li><a href="/terms-and-condition">Message from CEO</a></li> --}}
 									<li><a href="/privacy-policy">About Us</a></li>
 									<li><a href="/faq">Contact us</a></li>
 									<li><a href="/privacy-policy">Privacy Policy</a></li>
@@ -140,8 +140,8 @@
 										</a>
 									</li>
 								</ul>
-								<h3 class="footer_widget_title text-secondary">Powerful Shoppers</h3>
-								<img src="/assets/images/New/footerimg-2.png" height="300" width="300" alt="">
+								{{-- <h3 class="footer_widget_title text-secondary">Powerful Shoppers</h3>
+								<img src="/assets/images/New/footerimg-2.png" height="300" width="300" alt=""> --}}
 							
 						</div>
 						<div class="col-lg-4 col-md-6">
