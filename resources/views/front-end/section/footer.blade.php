@@ -20,7 +20,7 @@
 											</div>
 										</li>
 
-										<li>
+										<li type="button" data-toggle="modal" data-target="#enquiryModal">
 											<div class="item_icon">
 												<i class="far fa-envelope-open"></i>
 											</div>
@@ -289,6 +289,51 @@
 			</div>
 		</div>
 		
+	  </div>
+	</div>
+  </div>
+
+  <!-- Enquiry Modal -->
+<div class="modal fade" id="enquiryModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header bg_default_orange">
+		  <h5 class="modal-title text-light" id="staticBackdropLabel">Write to us</h5>
+		  <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <form action="/make-enquiry" method="POST" class="productForm">
+			@csrf
+			<label for="">Full Name</label>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Enter your name" name="name" required>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6">
+					<label for="">Email address</label>
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Enter email address" name="email" required>
+					</div>
+				</div>
+				<div class="col-md-6">
+
+					<label for="">Mobile number</label>
+					<div class="form-group">
+						<input type="number" class="form-control" placeholder="Enter mobile number" name="mobile" required>
+					</div>
+				</div>
+			</div>
+			<label for="">Message</label>
+			<div class="form-group">
+				<textarea rows="3" class="form-control" placeholder="Write a message" name="message" required></textarea>
+			</div>
+			<div class="form-group text-center">
+				<button class="addtocart_btn custom_btn bg_default_orange" type="submit">Send</button>
+			</div>
+		  </form>
+		</div>
 	  </div>
 	</div>
   </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Banner;
 use App\Coupon;
+use App\Review;
 use App\Category;
 use App\Designer;
 use Carbon\Carbon;
@@ -17,13 +18,14 @@ class LinkController extends Controller
     public function home() {
         $banners = Banner::first();
         $coupons = Coupon::all();
+        $reviews = Review::where('status','!=',0)->where('message','!=',null)->get();
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $sec1 = HomeProduct::where('id',1)->with('product')->first();
         $sec2 = HomeProduct::where('id',2)->with('product')->first();
         $sec3 = HomeProduct::where('id',3)->with('product')->first();
         $sec4 = HomeProduct::where('id',4)->has('product')->first();
         // return $sec1;
-        return view('front-end.home', compact('banners','coupons','categories','sec1','sec2','sec3','sec4'));
+        return view('front-end.home', compact('banners','coupons','categories','sec1','sec2','sec3','sec4','reviews'));
     }
     public function about() {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
@@ -40,6 +42,10 @@ class LinkController extends Controller
     public function privacy() {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         return view('front-end.privacy' ,compact('categories'));
+    }
+    public function return() {
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        return view('front-end.return' ,compact('categories'));
     }
     public function faq() {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();

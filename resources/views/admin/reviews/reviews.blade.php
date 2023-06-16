@@ -58,15 +58,15 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Newsletters</h1>
+            <h1 class="m-0 text-dark">Reviews</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Home</a></li>
-              <li class="breadcrumb-item active">Show Newsletters</li>
+              <li class="breadcrumb-item active">Reviews</li>
             </ol>
           </div><!-- /.col -->
           <div>
@@ -74,8 +74,7 @@
           </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>  
-    <!-- /.content-header -->
+    </div>
 
     <!-- Main content -->
     <div class="content">
@@ -86,28 +85,31 @@
                 <div class="card-body table-responsive p-0">
                   <table class="table table-sm nowrap" style="width: 100%">
                     <thead style="background-color: #FCDFBB; color: #a23f25; border: 1px solid #a23f25">
-                      <th>Id</th>
+                      <th>ID</th>
+                      <th>Date</th>
                       <th>Name</th>
-                      <th>Mobile</th>
                       <th>Email</th>
                       <th>Message</th>
-                      <th>Date</th>
+                      <th>Rating</th>
+                      <th>Action</th>
                     </thead>
                     <tbody>
-                        @if($enquiries->isEmpty())
-                        <tr>
-                            <td colspan="6" class="text-center">No Data Found.</td>
-                        </tr>
-                      @endif
-                      @foreach ($enquiries as $enquiry)
-                      
+                      @foreach ($reviews as $review)
                       <tr>
-                        <td>{{$enquiry->id}}</td>
-                        <td>{{$enquiry->name}}</td>
-                        <td>{{$enquiry->mobile}}</td>
-                        <td>{{$enquiry->email}}</td>
-                        <td>{{$enquiry->message}}</td>
-                        <td>{{$enquiry->created_at->format('d M Y')}}</td>
+                        <td>{{++$loop->index}}</td>
+                        <td>{{$review->created_at->format('d M Y h:i A')}}</td>
+                        <td>{{$review->name}}</td>
+                        <td>{{$review->email}}</td>
+                        <td>{{$review->message}}</td>
+                        <td>{{$review->rating}}</td>
+                        <td>
+                          <div class="btn-inline">
+                            <a href="/delete-review/{{encrypt($review->id)}}" type="button" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-trash"></i></a>
+                            @if ($review->status < 1)
+                            <a href="/approve-review/{{encrypt($review->id)}}" type="button" class="btn btn-success btn-sm rounded-0"><i class="fa fa-check"></i></a>
+                            @endif
+                          </div>
+                        </td>
                       </tr>
                       @endforeach
                   </tbody>

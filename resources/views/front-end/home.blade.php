@@ -627,17 +627,15 @@
 					</div>
 
 					<div class="row justify-content-lg-between align-items-center">
-						
+						@if (sizeof($reviews))
 						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 							<div class="testimonial_carousel column_2_carousel owl-carousel owl-theme wow fadeInUp2 owl-loaded owl-drag" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp2;">
-							<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-2400px, 0px, 0px); transition: all 1s ease 0s; width: 4800px;"><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
+								@foreach($reviews as $review)
+								<div class="item">
 									<div class="testimonial_primary">
 										<div class="content_wrap">
 											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
+												{{$review->message}}
 											</p>
 											<span class="quote_icon">
 												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
@@ -648,266 +646,20 @@
 												{{-- <img src="assets/images/testimonial/img_01.png" alt="icon_not_found"> --}}
 											</div>
 											<div class="hero_info">
-												<h3 class="hero_name">Casey M. Vargas</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
+												<h3 class="hero_name">{{$review->name}}</h3>
+												<span class="hero_title">
+													@for ($i = 0; $i < $review->rating; $i++)
+													<i class="fa fa-star text-warning"></i>
+													@endfor
+												</span>
 											</div>
 										</div>
 									</div>
-								</div></div><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_02.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_03.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_01.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Casey M. Vargas</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_02.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_03.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item active" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_01.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Casey M. Vargas</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item active" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_02.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_03.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_01.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Casey M. Vargas</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_02.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div><div class="owl-item cloned" style="width: 370px; margin-right: 30px;"><div class="item">
-									<div class="testimonial_primary">
-										<div class="content_wrap">
-											<p>
-												Sed ut perspiciatis unde omnis iste natus
-												error sit voluptatem accusantium doloremq
-												ue laudantium totam rem aperiam eaqupsa quae abillo inventore veritatis et quasi arch
-												itecto beatae vitae dicta sunt
-											</p>
-											<span class="quote_icon">
-												<img src="assets/images/testimonial/quote_01.png" alt="icon_not_found">
-											</span>
-										</div>
-										<div class="hero_info_wrap">
-											<div class="hero_thumbnail">
-												{{-- <img src="assets/images/testimonial/img_03.png" alt="icon_not_found"> --}}
-											</div>
-											<div class="hero_info">
-												<h3 class="hero_name">Westover Charles</h3>
-												{{-- <span class="hero_title">Web designer</span> --}}
-											</div>
-										</div>
-									</div>
-								</div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots"><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div>
+								</div>
+								@endforeach
+					</div>
 						</div>
+						@endif
 						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 							<div class="card border border-0 shadow">
 								<div class="card-header text-center bg-danger">
@@ -916,25 +668,26 @@
 								<div class="card-body">
 									<div class="comment_form wow fadeInUp2 clearfix" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp2;">
 										{{-- <h3 class="title_title mb_30">Reply Comments</h3> --}}
-										<form action="#">
+										<form action="/make-review" method="POST">
+											@csrf
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 													<div class="form_item">
-														<input id="name_input" type="text" name="name" placeholder="Full Name Here" required>
+														<input id="name_input" type="text" {{Auth::check() ? 'readonly disabled' : ''}} value="{{Auth::user()->name ?? ''}}" placeholder="Full Name Here" required>
 														<label class="input_icon" for="name_input"><i class="fal fa-user"></i></label>
 													</div>
 												</div>
 	
 												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 													<div class="form_item">
-														<input id="email_input" type="email" name="email" placeholder="Email Here" required>
+														<input id="email_input" type="email" {{Auth::check() ? 'readonly disabled' : ''}} value="{{Auth::user()->email ?? ''}}" placeholder="Email Here" required>
 														<label class="input_icon" for="email_input"><i class="fal fa-envelope-open"></i></label>
 													</div>
 												</div>
 											</div>
 	
 											<div class="form_item">
-												<textarea name="message" placeholder="Type a Review...."></textarea>
+												<textarea name="message" required placeholder="Type a Review...."></textarea>
 											</div>
 											<div class="form_item">
 												<div class="rating float-left">
@@ -969,10 +722,17 @@
 														<span class="icon">★</span>
 													</label>
 												</div>
+												@if(Auth::check())
 												<button type="submit" class="btn bg-purple pt-2 pb-2 text-light pr-4 pl-4 float-right">
 													Send Message
 													<span><i class="fal fa-arrow-right"></i></span>
 												</button>
+												@else 
+												<a type="button" href="/user/login" class="btn bg-purple pt-2 pb-2 text-light pr-4 pl-4 float-right">
+													Send Message
+													<span><i class="fal fa-arrow-right"></i></span>
+												</a>
+												@endif
 											</div>
 										</form>
 									</div>
@@ -1186,6 +946,32 @@
 	swal({
       title: "Order Placed.",
       text: "{{session('message')}}",
+      type: "success",  
+      timer: 3000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      buttons: false,
+    });
+</script>
+@endif
+@if (session('enquiry'))
+<script>
+	swal({
+      title: "Thank You",
+    //   text: "{{session('message')}}",
+      type: "success",  
+      timer: 3000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      buttons: false,
+    });
+</script>
+@endif
+@if (session('review'))
+<script>
+	swal({
+      title: "Success",
+      text: "Thank You for choosing us.",
       type: "success",  
       timer: 3000,
       showCancelButton: false,

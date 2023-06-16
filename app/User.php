@@ -57,4 +57,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Coupon');
     }
+    public function review() {
+        return $this->hasOne('App\Review');    
+    }
 }

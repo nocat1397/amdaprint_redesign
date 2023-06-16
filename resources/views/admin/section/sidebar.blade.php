@@ -35,6 +35,18 @@
                   <p class="p-cont2">Home Products</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="/reviews" class="nav-link shadow bg-success rounded-pill mb-2">
+                  <i class="fas fa-comments nav-icon icon"></i>
+                  <p class="p-cont2">Reviews</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="/enquiries" class="nav-link shadow bg-danger rounded-pill mb-2">
+                  <i class="fas fa-envelope nav-icon icon"></i>
+                  <p class="p-cont2">Enquiries</p>
+                </a>
+              </li>
                
                <li class="nav-item has-treeview menu-open">
                 <a class="nav-link">

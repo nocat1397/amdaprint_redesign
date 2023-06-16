@@ -27,7 +27,8 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::get('/about', 'LinkController@about')->name('About');
     Route::get('/contact', 'LinkController@contact')->name('Contact');
     Route::get('/terms-and-condition', 'LinkController@terms')->name('Terms');
-    Route::get('/privacy-policy', 'LinkController@privacy')->name('Privacy');
+    Route::get('/privacy-policy', 'LinkController@privacy')->name('Privacy Policy');
+    Route::get('/return-policy', 'LinkController@return')->name('Return Policy');
     Route::get('/faq', 'LinkController@faq')->name('FAQ');
     Route::get('/product/{category}', 'ProductController@products');
     Route::get('/product-details', 'ProductController@fetchProducts');
@@ -37,6 +38,12 @@ Route::domain(env('DOMAIN'))->group(function () {
     Route::get('/dealer-registration', 'DealerController@front');
     Route::get('/dealerregistration', 'DealerController@register');
     Route::post('/dealer-store', 'DealerController@store');
+    
+    //// REVIEWS ROUTES ////
+    Route::post('/make-review', 'ReviewController@store');
+    
+    //// Enquiry ROUTES ////
+    Route::post('/make-enquiry', 'EnquiryController@store');
 
     Route::get('/redirect/facebook', 'SocialController@fb_redirect'); // register using facebook
     Route::get('/callback/facebook', 'SocialController@fb_callback'); // callback facebook url
@@ -385,6 +392,15 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::get('/delete-coupon/{id}', 'LinkController@couponDelete');
         Route::get('/show-coupons', 'LinkController@showCoupon');
         Route::get('/show-dealers', 'DealerController@index');
+        
+        ///  REVIEWS ROUTES
+        Route::get('/reviews', 'ReviewController@index');
+        Route::get('/delete-review/{id}', 'ReviewController@destroy');
+        Route::get('/approve-review/{id}', 'ReviewController@approve');
+        
+        ///  ENQUIRY ROUTES
+        Route::get('/enquiries', 'EnquiryController@index');
+        Route::get('/delete-enquiry/{id}', 'EnquiryController@destroy');
         
         //products CRUD
         Route::get('/add-product', 'ProductController@addProduct');
