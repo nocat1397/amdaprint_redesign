@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     
-                    <div class="row text-justify">
+                    <div class="text-justify">
                         <p>
                             Welcome to the VIBGYOR PRINTS LLC website, operating under the domain amdaprints.com. The following Terms of Service (TOS) contain the terms and conditions that govern your use of the website amdaprints.com. Use of the VIBGYOR PRINTS LLC website constitutes acceptance of these TOS. amdaprints.com is a trademark of VIBGYOR PRINTS LLC.
                         </p>
@@ -77,9 +77,9 @@
                         
                         <p style="inline-size: -webkit-fill-available;"><strong>Registration:</strong></p>
                         
-                        <p>You may register on our site to create your AVIBGYOR PRINTS LLC account. By completing registration, you hereby clearly agree, acknowledge, and grant us to access your personal information available in your account as per our privacy policy. You shall not use this site for any other purpose other than as mentioned on the site or for products/services that are not allowed under applicable law in any manner.</p>
+                        <p>You may register on our site to create your VABIGYOR PRINTS LLC account. By completing registration, you hereby clearly agree, acknowledge, and grant us to access your personal information available in your account as per our privacy policy. You shall not use this site for any other purpose other than as mentioned on the site or for products/services that are not allowed under applicable law in any manner.</p>
                         <p>
-                            You agree to provide true, accurate, and complete information while transacting or registering or for any other purpose when prompted to do so on the site. You are prohibited from misrepresenting your identity and agree not to represent yourself as another User or login/register using the identity of any other person. You are responsible for maintaining and promptly updating the information provided while registering or for any other purpose on the site to ensure that the information provided by you is true, accurate, current, and complete at all times. If you provide any information that is untrue, inaccurate, not current, or incomplete, or VIBGYOR PRINTS LLC has reasonable grounds to deduce that such information is untrue, inaccurate, not current, incomplete, or not in accordance with this User Agreement, AVIBGYOR PRINTS LLC reserves the right to indefinitely suspend, terminate, or block your use or access to the site in any manner whatsoever.
+                            You agree to provide true, accurate, and complete information while transacting or registering or for any other purpose when prompted to do so on the site. You are prohibited from misrepresenting your identity and agree not to represent yourself as another User or login/register using the identity of any other person. You are responsible for maintaining and promptly updating the information provided while registering or for any other purpose on the site to ensure that the information provided by you is true, accurate, current, and complete at all times. If you provide any information that is untrue, inaccurate, not current, or incomplete, or VIBGYOR PRINTS LLC has reasonable grounds to deduce that such information is untrue, inaccurate, not current, incomplete, or not in accordance with this User Agreement, VABIGYOR PRINTS LLC reserves the right to indefinitely suspend, terminate, or block your use or access to the site in any manner whatsoever.
                         </p>
                         <p><strong>Security:</strong></p>
                         <p>

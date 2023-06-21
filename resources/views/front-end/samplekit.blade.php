@@ -215,11 +215,7 @@
 										<h5 class="price_text mb_30"><strong class="text-danger">$<span id="finalTotal">0.00</span></strong></h5>
 									</div>
 									<div class="card-footer">
-										@if(Auth::check())
-										<a href="javascript:void(0)" class="addtocart_btn custom_btn bg_default_orange" onclick="addCart()">Checkout</a>
-										@else 
-										<a href="/user/login" class="addtocart_btn custom_btn bg_default_orange">Checkout</a>
-										@endif
+										<a href="javascript:void(0)" class="addtocart_btn custom_btn bg_default_orange" onclick="addCart({{auth()->check() ? 1 : 0}})">Checkout</a>
 									</div>
 								</div>
 
@@ -270,7 +266,7 @@
 								</div>
 							</div>
 						</div>
-
+{{-- 
 						<hr>
 
 						<div class="row mt__30 justify-content-center">
@@ -321,7 +317,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> --}}
 
 					</div>
 				</div>
@@ -342,9 +338,9 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-			var category = 'sample-kit';
-			var route = $('input[name="route"]:checked').val();
-			var name = 'sample-kit';
+			var category = 'Sample-Kit';
+			var route = 3;
+			var name = 'Sample-Kit';
 			var total = '0.00';
 			var qty = '1';
 			var sampleType = 'all';
@@ -359,18 +355,13 @@
             $.ajax({
 				type: "POST",
 				url: "/cart-add",
-				data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,papertype:paperType,
-					propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
+				data: {category:category,name:name,amount:total,qty:qty,img:img,sampleType:sampleType,
+					route:route,instruction:instruction},
 					
 					success:function(response) {
 						console.log(response);
 						// return false;
-						if(route > 0)
-						{
-							location.replace('/designer/'+response.id);
-						} else {
-							location.replace('/uploadfile/'+response.id);
-						}
+						location.replace('/sample/'+response.id);
 					},
 					error: function(error){
 						console.log(error)

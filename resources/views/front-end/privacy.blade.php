@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     
-                    <div class="row text-justify">
+                    <div class=" text-justify">
                             <p>This privacy notice discloses the privacy practices of amdaprints.com. This privacy notice applies solely to information collected by this website. It covers the following:</p>
                             <ul class="list-unstyled">
                             <li><i class="fas fa-check text-success mr-2"></i>What personally identifiable information is collected from you through the website, how is it used and with whom it may be shared.</li>

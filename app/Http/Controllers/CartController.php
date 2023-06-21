@@ -36,28 +36,33 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $except = $request->except(['propertyNames','propertyValues']);
         $inputs = $except;
         foreach ($inputs as $key => $value) {
             $names[] = $key; 
         }
-        foreach ($request->propertyNames as $value) 
-        {
-            $property = array_push($names,$value);
-        }
         foreach ($inputs as $key => $value) {
             $data[] = $value; 
         }
-        foreach ($request->propertyValues as $pValue) 
+        if($request->route != 3)
         {
-            $propertyValues = array_push($data,$pValue);
+
+            foreach ($request->propertyNames as $value) 
+            {
+                $property = array_push($names,$value);
+            }
+            foreach ($request->propertyValues as $pValue) 
+            {
+                $propertyValues = array_push($data,$pValue);
+            }
         }
 
         $cart = new Cart;
         $cart->user_id = Auth::user()->id;
         $cart->product = $request->name;
         $cart->quantity = $request->qty;
-        if($request->route >  0)
+        if($request->route > 0 && $request->route != 3)
         {
             $cart->amount = $request->amount+9.99;
         } else {

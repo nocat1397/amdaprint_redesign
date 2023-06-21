@@ -923,7 +923,7 @@
 							<form action="#" class="col-md-8 mt-4 m-auto">
 								<div class="form_item2">
 									<input type="email" name="email" placeholder="Enter Your Email">
-									<button type="submit" class="submit_btn  btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">Subscribe</button>
+									<button type="button" class="submit_btn  btn bg-purple pt-2 pb-2 text-light pr-5 pl-5">Subscribe</button>
 								</div>
 							</form>
 						</div>

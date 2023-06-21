@@ -24,8 +24,8 @@ Route::domain(env('DOMAIN'))->group(function () {
 
     Route::get('/user', 'UserController@details');
     Route::get('/', 'LinkController@home')->name('Home');
-    Route::get('/about', 'LinkController@about')->name('About');
-    Route::get('/contact', 'LinkController@contact')->name('Contact');
+    Route::get('/about-us', 'LinkController@about')->name('About');
+    Route::get('/contact-us', 'LinkController@contact')->name('Contact');
     Route::get('/terms-and-condition', 'LinkController@terms')->name('Terms');
     Route::get('/privacy-policy', 'LinkController@privacy')->name('Privacy Policy');
     Route::get('/return-policy', 'LinkController@return')->name('Return Policy');
@@ -71,6 +71,7 @@ Route::domain(env('DOMAIN'))->group(function () {
         
         Route::get('/uploadfile/{id}', 'LinkController@fileUpload');
         Route::get('/designer/{id}', 'LinkController@designer');
+        Route::get('/sample/{id}', 'LinkController@sampleCheckout');
         
         Route::post('/desc-store', 'UploadController@descStore');
         

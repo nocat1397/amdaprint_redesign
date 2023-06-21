@@ -99,7 +99,7 @@
                       
                       <tr>
                         <td>{{$order->id}}</td>
-                        <td class="font-weight-bold">{{$order->product}}</td>
+                        <td class="font-weight-bold">{{str_replace('-',' ',$order->product)}}</td>
                         <td>{{$order->user->name}}</td>
                         <td>{{$order->user->email}}</td>
                         <td>{{$order->user->mobile}}</td>

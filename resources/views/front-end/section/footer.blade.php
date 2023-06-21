@@ -75,8 +75,8 @@
 								<h3 class="footer_widget_title text-secondary">Customer Service</h3>
 								<ul class="ul_li_block clearfix">
 									{{-- <li><a href="/terms-and-condition">Message from CEO</a></li> --}}
-									<li><a href="/privacy-policy">About Us</a></li>
-									<li><a href="/faq">Contact us</a></li>
+									<li><a href="/about-us">About Us</a></li>
+									<li><a href="/contact-us">Contact us</a></li>
 									<li><a href="/privacy-policy">Privacy Policy</a></li>
 									<li><a href="/terms-and-condition">Terms of Use</a></li>
 									{{-- <li><a href="/faq">Affiliate Program</a></li> --}}

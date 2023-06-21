@@ -330,7 +330,8 @@ section {
             <div class="col-md-6 p-2">
               <div class="card">
                 <div class="card-header p-2">
-                  <h5 class="m-0 text-center"><img src="{{url('/img/icon/product.png')}}" height="30" width="30"> Product Details</h5>
+                  <h5 class="m-0 text-center">
+                    <img src="{{url('/img/icon/product.png')}}" height="30" width="30"> Product Details</h5>
                 </div>
                 <div class="card-body table-responsive">
                   <table class="table table-hover" style="width: 100%">
@@ -348,7 +349,7 @@ section {
                     @if($name !== 'img' && $name !== 'route')
                     <tr>
                       <td class="text-capitalize font-weight-bold">{{$name}} :</td>
-                      <td>@if($name == 'amount') $ @endif {{$order->data[$key] !== null ? $order->data[$key] : 'No'}}</td>
+                      <td>@if($name == 'amount') $ @endif {{$order->data[$key] !== null ? str_replace('-',' ',$order->data[$key]) : 'No'}}</td>
                     </tr>
                     @endif
                     @endforeach

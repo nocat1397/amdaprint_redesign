@@ -57,21 +57,21 @@
 								<ul class="contact_information_list ul_li_block clearfix">
 									<li class="wow fadeInUp2" data-wow-delay=".3s">
 										<div class="item_icon bg_default_orange"><i class="fal fa-map-marker-alt"></i></div>
-										<div class="item_content">
-											<h4>Locations</h4>
-											<p>20 xyz, INDIA</p>
+										<div class="item_content" style="text-align: left!important">
+											<h4>Location</h4>
+											<p>United States</p>
 										</div>
 									</li>
 									<li class="wow fadeInUp2" data-wow-delay=".4s">
 										<div class="item_icon bg_default_yellow"><i class="fal fa-envelope"></i></div>
-										<div class="item_content">
+										<div class="item_content" style="text-align: left!important">
 											<h4>Email Us</h4>
-											<p>support@gmail.com</p>
+											<p><a href="mail:info@amdaprints.com" class="text-dark">info@amdaprints.com</a></p>
 										</div>
 									</li>
 									<li class="wow fadeInUp2" data-wow-delay=".5s">
 										<div class="item_icon bg_default_lightblue"><i class="fal fa-phone"></i></div>
-										<div class="item_content">
+										<div class="item_content" style="text-align: left!important">
 											<h4>Phone Us</h4>
 											<p>+00 (000) 000 00</p>
 										</div>
@@ -82,7 +82,8 @@
 
 						<div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
 							<div class="contact_form">
-								<form id="contact-form" method="POST">
+								<form id="contact-form" action="/make-enquiry" method="POST">
+									@csrf
 									<div class="form_item wow fadeInUp2" data-wow-delay=".1s">
 										<span class="input_title">Full Name</span>
 										<div class="position-relative">
@@ -102,7 +103,7 @@
 									<div class="form_item wow fadeInUp2" data-wow-delay=".3s">
 										<span class="input_title">Phone Number</span>
 										<div class="position-relative">
-											<input id="input_phone" type="tel" name="phone" placeholder="Write Your Phone Number">
+											<input id="input_phone" type="tel" name="mobile" placeholder="Write Your Phone Number">
 											<label class="input_icon" for="input_phone"><i class="fal fa-phone"></i></label>
 										</div>
 									</div>
@@ -116,7 +117,6 @@
 										send message 
 										<span><i class="fal fa-arrow-right"></i></span>
 									</button>
-									<p class="ajax-response"></p>
 								</form>
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 			<!-- google map - start
 			================================================== -->
 			<div class="map_section wow fadeIn clearfix" data-wow-delay=".1s">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30711292.11087169!2d64.43748693609943!3d20.011157599648023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1640839949664!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16114353.307926444!2d-105.6329332429746!3d34.912136172979395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sin!4v1687326866934!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 			</div>
 			<!-- google map - end
 			================================================== -->
@@ -143,5 +143,18 @@
 
     @include('front-end.section.footer')
 @include('front-end.section.scripts')
+@if (session('enquiry'))
+<script>
+	swal({
+      title: "Thank You",
+    //   text: "{{session('message')}}",
+      type: "success",  
+      timer: 3000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      buttons: false,
+    });
+</script>
+@endif
 </body>
 </html>

@@ -66,6 +66,11 @@ class LinkController extends Controller
         $cart = Cart::find($id);
         return view('front-end.purchaser.upload', compact('cart','categories'));
     }
+    public function sampleCheckout($id) {
+        $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
+        $cart = Cart::find($id);
+        return view('front-end.purchaser.samplekitCheckout', compact('cart','categories'));
+    }
     public function designer($id) {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cart = Cart::find($id);

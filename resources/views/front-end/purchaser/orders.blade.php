@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{++$loop->index}}</td>
                                     <td>amdaprints_{{bin2hex('order').$order->id}}</td>
-                                    <td>{{$order->product}}</td>
+                                    <td>{{str_replace('-',' ',$order->product)}}</td>
                                     <td>{{$order->quantity}}</td>
                                     <td>$ {{$order->amount}}</td>
                                     <td>{{$order->orderstatus->name ?? ''}}</td>
@@ -92,7 +92,7 @@
                                                                 @if($name !== 'img' && $name !== 'route')
                                                                 <tr>
                                                                     <td class="text-capitalize font-weight-bold">{{$name}} :</td>
-                                                                    <td>@if($name == 'amount') $ @endif {{$order->data[$key]}}</td>
+                                                                    <td>@if($name == 'amount') $ @endif {{str_replace('-',' ',$order->data[$key])}}</td>
                                                                 </tr>
                                                                 @endif
                                                                 @endforeach
