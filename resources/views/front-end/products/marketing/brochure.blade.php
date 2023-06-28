@@ -113,11 +113,13 @@
 											<strong>Personalize your professional stationery to stand out.</strong>
 										</div>
 										@foreach ($products['specification'][$productKey] as $specs)
+										@if(strtolower($specs) !== 'hi')
 										<div class="bg-lights p-3 col-md-6">
 											<ul class="list-unstyled mb-0">
 												<li><i class="fas fa-caret-right text-danger mr-2"></i>{{$specs}}.</li>											
 											</ul>
 										</div>
+										@endif
 										@endforeach
 									</div>
 									<div id="details_form">

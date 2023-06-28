@@ -143,10 +143,10 @@
                       <div class="alert alert-danger shadow text-center"><h5 class="font-weight-bold">Product Features (necessary)</h5></div>
                       <div class="form-row">
 
-                      <div class="col-md-3 col-lg-3 form-group">
+                      <div class="col-md-3 col-lg-3 form-group sizeDiv">
                         <label for="">Product Size :</label>
                         <div class="sizes">
-                          @if($productData !== null)
+                          @if($productData !== null && isset($productData['size'][$productArrayKey]))
                           @foreach($productData['size'][$productArrayKey] as $size)
                             <div class="form-group">
                               <input type="text" name="size[]" placeholder='Example : 2 x 3.5... ' class="form-control" value="{{$size}}">
@@ -337,6 +337,7 @@
                               
                           @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
                           <div class="form-row align-items-center">
+                            @if(isset($productData) && $productData['size'][0] !== null)
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label for="">Size :</label>
@@ -351,6 +352,7 @@
                               </select>
                             </div>
                           </div>
+                          @endif
                           @if(isset($productData) && $productData['paper_type'][0] !== null)
                           <div class="col-md-3 paperTypeDiv">
                             
@@ -423,10 +425,10 @@
                         @endif
                       </div>
                   
-                      @if($productData !== null && $productData->category_id != 1 && $productData->category_id != 10)
+                      @if($productData !== null && $productData->category_id != 1 && $productData->category_id != 10 && $productData->category_id != 11)
                       <div class="col-md-12" id="qtyPricing">
                           <div class="form-row align-items-center">
-
+                            @if(isset($productData) && $productData['size'][0] !== null)
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label for="">Size :</label>
@@ -441,6 +443,7 @@
                                 </select>
                               </div>
                             </div>
+                            @endif
                             @if(isset($productData) && $productData['paper_type'][0] !== null)
                             <div class="col-md-3 paperTypeDiv">
 
@@ -554,6 +557,55 @@
                               <div class="btn-inline mt-2">
                                 <button class="btn btn-outline-danger btn-sm" type="button" id="removeQtypricing10"><i class="fa fa-minus"></i> Remove</button>
                                 <button class="btn btn-outline-primary btn-sm float-right" type="button" id="addQtypricing10"><i class="fa fa-plus"></i> Add</button>
+                              </div>
+                            </div>
+                        @elseIf($productData !== null && $productData->category_id == 11)
+                        <div class="col-md-12" id="cat11">
+                          @if($productData !== null && isset($productData['pricing'][$productArrayKey]))
+                          @foreach ($productData['pricing'][$productArrayKey] as $key=>$pricing)
+                          <div class="col-md-12">
+                            <div class="form-row align-items-center">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Quantity :</label>
+                                  <input name="pricingQty[]" class="form-control" type="text" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $pricing[0] : '1'}}">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Amount :</label>
+                                  <input type="text" class="form-control" placeholder="Enter Amount" value="{{isset($productData) && isset($productData['pricing'][$productArrayKey]) ? $pricing[1] : ''}}" name="pricing[]">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          @endforeach
+                          @else 
+                          <div class="col-md-12">
+                            <div class="form-row align-items-center">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Quantity :</label>
+                                  <input name="pricingQty[]" class="form-control" value="1" type="text">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="">Amount :</label>
+                                  <input type="text" class="form-control" placeholder="Enter Amount" name="pricing[]">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          @endif
+                        </div>
+                          <div class="col-md-12" id="pricingClone11">
+
+                            </div>
+                            <div class="col-md-12">
+                              <div class="btn-inline mt-2">
+                                <button class="btn btn-outline-danger btn-sm" type="button" id="removeQtypricing11"><i class="fa fa-minus"></i> Remove</button>
+                                <button class="btn btn-outline-primary btn-sm float-right" type="button" id="addQtypricing11"><i class="fa fa-plus"></i> Add</button>
                               </div>
                             </div>
                       @else
@@ -693,16 +745,26 @@
       /* alert(catName); */
       if(catName == 1 || catName == 10)
       {
+        $('.sizeDiv').slideDown();
         $('.paperTypeDiv').slideUp();
         $('.qtyDiv').slideUp();
       }
       if(catName == 2)
       {
+        $('.sizeDiv').slideDown();
+        $('.qtyDiv').slideDown();
         $('.paperTypeDiv').slideUp();
+      }
+      if(catName == 11)
+      {
+        $('.sizeDiv').slideUp();
+        $('.paperTypeDiv').slideUp();
+        $('input[name="qty[]"]').val(1);
         $('.qtyDiv').slideDown();
       }
       if(catName == 3 || catName == 4 || catName == 5 || catName == 6 || catName == 7 || catName == 8 || catName == 9)
       {
+        $('.sizeDiv').slideDown();
         $('.paperTypeDiv').slideDown();
         $('.qtyDiv').slideDown();
       }
@@ -768,6 +830,23 @@
         }
       }
     });
+    $('#addQtypricing11').click(function(){
+      var clone = $('#cat11').children().last().clone();
+      $('#pricingClone11').append(clone);
+    });
+    $('#removeQtypricing11').click(function() {
+      var count = $("#pricingClone11").find("*").length;
+      var count2 = $("#cat11").find("*").length;
+      if(count > 0)
+      {
+        $('#pricingClone11').children().last().remove();
+      } else {
+        if(count2 > 10)
+        {
+          $('#cat11').children().last().remove();
+        }
+      }
+    });
 
 
     $('#addProperty').click(function(){
@@ -804,16 +883,25 @@
     // alert(finalCatN  ame);
     if(finalCatName == 1 || finalCatName == 10)
       {
+        $('.sizeDiv').show();
         $('.paperTypeDiv').hide();
         $('.qtyDiv').hide();
       }
       if(finalCatName == 2)
       {
+        $('.sizeDiv').show();
+        $('.paperTypeDiv').hide();
+        $('.qtyDiv').slideDown();
+      }
+      if(finalCatName == 11)
+      {
+        $('.sizeDiv').hide();
         $('.paperTypeDiv').hide();
         $('.qtyDiv').slideDown();
       }
       if(finalCatName == 3 || finalCatName == 4 || finalCatName == 5 || finalCatName == 6 || finalCatName == 7 || finalCatName == 8 || finalCatName == 9)
       {
+        $('.sizeDiv').slideDown();
         $('.paperTypeDiv').slideDown();
         $('.qtyDiv').slideDown();
       }
@@ -896,6 +984,30 @@
           type: "POST",
           url: "/product-info-session",
           data: {catId:catId,name:name,desc:desc,specs:specs,size:size,productArrayKey:productArrayKey},
+          
+          success:function(response) {
+            console.log(response);
+            $('input[name="category_id"]').val(catId);
+            $('#properties').load(location.href + ' #properties .col-md-3');
+            location.reload(true);
+            $('#productInfoForm').slideUp();
+            $('#productPropertyForm').slideDown();
+          },
+          error: function(error){
+            console.log(error)
+          }
+        });
+      }
+    }
+      if(catId == 11)
+      {  
+        // alert(finalCatName);
+        if(qty[0] != "")
+        {
+        $.ajax({
+          type: "POST",
+          url: "/product-info-session",
+          data: {catId:catId,name:name,desc:desc,specs:specs,qty:qty,productArrayKey:productArrayKey},
           
           success:function(response) {
             console.log(response);

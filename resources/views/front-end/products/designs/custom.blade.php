@@ -126,7 +126,7 @@
 											<input type="hidden" name="product_id" value="{{$products->id}}">
                                             <input type="hidden" name="product_key" value="{{$productKey}}">
 											<input type="hidden" name="base_price">
-                                            <div class="form-row mb-3">
+                                            {{-- <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <label class="my-1 mr-2">Size (Feet)</label>
                                                 </div>
@@ -152,7 +152,7 @@
 												<div class="col-md-4">
 												   <input type="number" class="w-100" placeholder="height" id="customTwo" min="1">
 											   </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-row">
                                                 <div class="col-md-3">
                                                     <label class="my-1 mr-2">Quantity</label>
@@ -163,6 +163,7 @@
                                             </div>
                                             <hr class="mt-5 mb-5">
 											@foreach ($products['property'][$productKey] as $key=>$property)
+											@if(strtolower($property) !== 'none')
                                             <div class="form-row mb-3">
                                                 <div class="col-md-3">
                                                     <input type="hidden" name="property_key[]" value="{{$key}}">
@@ -185,6 +186,7 @@
 												<label id="property_{{$key}}" class="text-danger font-weight-bold">$<span></span></label>
 											   </div>
                                             </div>
+											@endif
 											@endforeach
 											<br>
 											<div class="form-row align-items-center">
@@ -299,7 +301,6 @@
 						</div>
 
 						<hr>
-
 						<div class="product_slider owl-carousel owl-theme mb_80">
 							@foreach ($products->name as $custkey=>$name)
 							@if(str_replace('-',' ',$name) !==$product)
@@ -346,80 +347,6 @@
 	});
 </script>
 <script>
-	$('#bannerSize').on('change',function(){
-		$('[id^=propertiesPer]')[0].selectedIndex = 0;
-		$('[id^=propertiesPer_]').val($('[id^=propertiesPer_] option:first').val());
-		$('[id^=propertiesPer_]').niceSelect('update');
-		$('[id^=property]').fadeOut().hide();
-		
-		if($(this).val() == 0)
-		{
-			$('#customOne,#customTwo').val('');
-			$('.customSize').fadeIn();
-			$('#customOne,#customTwo').on('keyup', function(){
-
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				var id = $('input[name="product_id"]').val();
-				var key = $('input[name="product_key"]').val();
-				var one = $('#customOne').val();
-				var two = $('#customTwo').val();
-				var bannerSize = one+' x '+two;
-				// console.log(bannerSize);
-				// return false;
-				var qty = $('#mainQty').val();
-				
-           		$.ajax({
-           		  type: "POST",
-           		  url: "/decal-price",
-           		  data: {id:id,key:key,size:bannerSize,qty:qty},
-				
-           		  success:function(response) {
-           		    console.log(response);  
-						// return false;
-						$('#total').html(response.total.toFixed(2));
-						$('#finalTotal').html(response.final.toFixed(2));   
-						$('input[name="base_price"]').val(response.baseRate);
-           		  },
-           		  error: function(error){
-           		    console.log(error)
-           		  }
-           		});
-			});
-		} else {
-			$('.customSize').fadeOut();
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-			var id = $('input[name="product_id"]').val();
-			var key = $('input[name="product_key"]').val();
-			var bannerSize = $('#bannerSize').val();
-			var qty = $('#mainQty').val();
-            
-            $.ajax({
-              type: "POST",
-              url: "/decal-price",
-              data: {id:id,key:key,size:bannerSize,qty:qty},
-            
-              success:function(response) {
-                console.log(response);  
-				// return false;
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
-				$('input[name="base_price"]').val(response.baseRate);
-              },
-              error: function(error){
-                console.log(error)
-              }
-            });
-		}
-			
-	});
 	$('#mainQty').on('change keyup',function(){
 
 		$.ajaxSetup({
@@ -427,18 +354,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-			if($('#bannerSize').val() == 0)
-			{
-
-				var one = $('#customOne').val();
-				var two = $('#customTwo').val();
-				var bannerSize = one+' x '+two;
-
-			} else {
-
-				var bannerSize = $('#bannerSize').val();
-
-			}
             var id = $('input[name="product_id"]').val();
 			var key = $('input[name="product_key"]').val();
 			
@@ -446,16 +361,20 @@
             
             $.ajax({
               type: "POST",
-              url: "/decal-price",
-              data: {id:id,key:key,size:bannerSize,qty:qty},
+              url: "/design-price",
+              data: {id:id,key:key,qty:qty},
             
               success:function(response) {
                 console.log(response);  
 				// return false;
-				// $('#total').html(response.total.toFixed(2));
-				// $('#finalTotal').html(response.final.toFixed(2));   
 				$('input[name="base_price"]').val(response.baseRate);
-				propertyPricing(id,key);
+				if('{{$products['property'][$productKey][0]}}' !== 'none')
+				{
+					propertyPricing(id,key);
+				} else {
+					$('#total').html(response.total.toFixed(2));
+					$('#finalTotal').html(response.final.toFixed(2));   
+				}
               },
               error: function(error){
                 console.log(error)
@@ -474,21 +393,14 @@
 				var product_key = $('input[name="product_key"]').val();
 				var property_key = $('input[name="property_key[]"]').map(function(){return $(this).val();}).get();
 				var percentageKey = $('select[name="percentages[]"]').map(function(){return $(this).find(":selected").val();}).get();
-				if($('#bannerSize').val() == 0)
-				{
-					var one = $('#customOne').val();
-					var two = $('#customTwo').val();
-					var bannerSize = one+' x '+two;
-				} else {
-					var bannerSize = $('#bannerSize').val();
-				}
+				
 				var qty = $('#mainQty').val();
 				var basePrice = $('input[name="base_price"]').val();
 				var total = $('#total').html();
 				   $.ajax({
 					 type: "POST",
-					 url: "/decal-properties",
-					 data: {id:id,product_key:product_key,property_key:property_key,percentageKey:percentageKey,size:bannerSize,qty:qty,basePrice:basePrice,total:total},
+					 url: "/design-properties",
+					 data: {id:id,product_key:product_key,property_key:property_key,percentageKey:percentageKey,qty:qty,basePrice:basePrice,total:total},
 				
 					 success:function(response) {
 					   console.log(response);  
@@ -517,23 +429,11 @@
 		var loginStatus = loginStatus;
 		// alert(loginStatus);
 		if (loginStatus > 0) {
-			if($('#bannerSize').val() == 0)
-			{
-
-				var one = $('#customOne').val();
-				var two = $('#customTwo').val();
-				var bannerSize = one+' x '+two;
-
-			} else {
-
-				var bannerSize = $('#bannerSize').val();
-
-			}
+			
 		var category = '<?php echo str_replace("-"," ",ucwords($category)) ?>';
 		var route = $('input[name="route"]:checked').val();
 		var name = '<?php echo $product ?>';
 		var total = $('#total').html();
-		var size = bannerSize;
 		var qty = $('#mainQty').val();
 		var instruction = $('#instruction').val();
 		var pentone = $('#pentone').val();
@@ -550,7 +450,7 @@
             $.ajax({
               	type: "POST",
               	url: "/cart-add",
-              	data: {category:category,name:name,amount:total,size:size,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
+              	data: {category:category,name:name,amount:total,qty:qty,img:img,propertyNames:propertyNames,propertyValues:propertyValues,route:route,pentone:pentone,instruction:instruction},
 				
               	success:function(response) {
 					if(route > 0)
@@ -579,20 +479,26 @@
             });
 			var id = $('input[name="product_id"]').val();
 			var key = $('input[name="product_key"]').val();
-			var bannerSize = $('#bannerSize').val();
 			var qty = $('#mainQty').val();
             
             $.ajax({
               type: "POST",
-              url: "/decal-price",
-              data: {id:id,key:key,size:bannerSize,qty:qty},
+              url: "/design-price",
+              data: {id:id,key:key,qty:qty},
             
               success:function(response) {
                 console.log(response);  
 				// return false;
-				$('#total').html(response.total.toFixed(2));
-				$('#finalTotal').html(response.final.toFixed(2));   
+				// $('#total').html(response.total.toFixed(2));
+				// $('#finalTotal').html(response.final.toFixed(2));   
 				$('input[name="base_price"]').val(response.baseRate);
+				if('{{$products['property'][$productKey][0]}}' !== 'none')
+				{
+					propertyPricing(id,key);
+				} else {
+					$('#total').html(response.total.toFixed(2));
+					$('#finalTotal').html(response.final.toFixed(2));
+				}
               },
               error: function(error){
                 console.log(error)
