@@ -1796,9 +1796,9 @@ button {
   height: 100vh;
   z-index: 9999;
   position: fixed;
-  padding: 100px 0px;
+  padding: 70px 0px;
   overflow-y: scroll;
-  background-color: #000;
+  background-color: #443165;
   transition: 0.6s cubic-bezier(1, 0, 0, 1);
 }
 .sidebar_mobile_menu.active {
@@ -2867,6 +2867,7 @@ button {
   overflow: hidden;
   margin-right: 20px;
   border-radius: 100%;
+  display: none;
 }
 .testimonial_primary .hero_name {
   line-height: 1;
@@ -6542,6 +6543,29 @@ blockquote .blockquote_admin i {
 4 - media screen and (max-width: 991px) - start
 ==================================================================================================== */
 @media screen and (max-width: 991px) {
+  .btn_2 {
+    font-size: 12px!important;
+  }
+  .form_item2 .submit_btn {
+    padding: 0.375rem 0.75rem!important;
+  }
+  .testimonial_primary {
+    margin-bottom: 35px;
+  }
+  .contentBoy {
+    padding: 0.5rem!important;
+    min-height: 85px!important;
+  }
+  .img-corner {
+    display: none;
+  }
+  .owl-theme .owl-dots .owl-dot span {
+    width: 10px;
+    height: 10px;
+  }
+  .btn {
+    padding: 0.375rem 0.75rem!important;
+  }
   .cart_btn .cart_counter {
     top: 5px;
     right: -4px;
@@ -6550,7 +6574,7 @@ blockquote .blockquote_admin i {
     font-size: 10px;
     min-width: 18px;
     border: 1px solid #443266;
-    line-height: 20px;
+    line-height: 18px;
     position: absolute;
     border-radius: 45px;
     background-color: #0000;
@@ -6565,19 +6589,32 @@ blockquote .blockquote_admin i {
     font-size: 1rem;
   }
   h5 {
-    font-size: 1.15rem;
+    font-size: 0.9rem;
   }
   .counter_section {
     padding-top: 1rem!important;
   }
   .counter_sec_img {
     margin-bottom: 10px;
+    padding: 0.5rem!important;
   }
   .counter_sec_img > span > img {
-    width: 75%;
+    /* width: 75%; */
+    width: fit-content;
+    height: 45px!important;
+  }
+  .card-img, .card-img-top {
+    height: max-content!important;
+  }
+  .img-corner {
+    display: none;
   }
   .item_content {
     border-right: unset!important;
+    padding: 0.5rem!important;
+  }
+  .product_card .item_title {
+    font-size: 13px!important;
   }
   .cta_section .hand_image {
     right: -85px;
@@ -6622,11 +6659,11 @@ blockquote .blockquote_admin i {
     background-size: contain;
     background-repeat: no-repeat;
     background-color: #443165;
-    background-position-y: 270px;
+    /* background-position-y: 270px; */
   }
   /* global - start */
   .sec_ptb_130 {
-    padding: 100px 0px;
+    padding: 50px 0px;
   }
 
   .mb_50 {
@@ -7272,6 +7309,9 @@ blockquote .blockquote_admin i {
 
   .home_three_slider .item {
     padding: 100px 0px;
+    min-height: unset;
+    height: unset;
+    background-size :cover;
   }
 
   .home_three_slider .slider_content {

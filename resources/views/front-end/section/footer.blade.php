@@ -15,7 +15,7 @@
 												<i class="far fa-phone"></i>
 											</div>
 											<div class="item_content" style="text-align:left!important">
-												<p>800-580-4489</p>
+												<p>+1 (302) 262-5168</p>
 												<p>Need to talk? We're here 24x7</p>
 											</div>
 										</li>
@@ -175,24 +175,61 @@
 				<div class="sidebar_mobile_menu">
 
 					<span class="close_btn"><i class="fal fa-times"></i></span>
-
+					@if(!Auth::check())
+						<div class="btn-inline text-center mb-4">
+							<a href="/user/login" class="addtocart_btn custom_btn bg_default_yellow text-dark">Login</a>
+							<a href="/user/register" class="addtocart_btn custom_btn bg_default_yellow text-dark">Register</a>
+						</div>
+						@endif
 					<div class="mobile_menu_list clearfix">
 						<ul class="ul_li_block clearfix">
-							<li class="active">
-								<a href="#!">Home</a>
-							
-							</li>
-							<li><a href="">About</a></li>
-
-							<li class="dropdown">
-								<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+							@if(Auth::check())
+							<li class="dropdown active">
+								<a href="#" class="text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;font-weight: 400;"><i class="fa fa-user-circle" style="color:#bfa1f9"></i> {{Auth::user()->name}}</a>
 								<ul class="dropdown-menu">
-									<li><a href="shop.html">Our Products</a></li>
-									<li><a href="shop_details.html">Product Details</a></li>
+									<li><a href="/my-orders">Your Orders</a></li>
+									<li><a href="javaascript:void(0)">Whishlist</a></li>
+									<li><a href="/logout">Logout</a></li>
 								</ul>
 							</li>
+							@endif
+							<li class="">
+								<a href="/">Home</a>
+							</li>
+							<li><a href="/about-us">About Us</a></li>
+
+							@if($categories !== null)
+							@foreach ($categories as $category)
+							<li class="dropdown">
+								<a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{str_replace('-',' ',$category->name)}}</a>
+								<ul class="dropdown-menu">
+									@if(sizeof($category->productSubCategories))
+									@foreach ($category->subcategories as $subcategory)
+									@if($category->productSubCategories->where('subcategory_id',$subcategory->id)->first())
+									<li class="dropdown">
+										<a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ucwords(str_replace('-',' ',$subcategory->name))}}</a>
+										<ul class="dropdown-menu">
+											@foreach ($category->product['name'] as $key=>$product)
+											@if($category->productSubCategories->where('product_index','=',$key)->where('subcategory_id','=',$subcategory->id)->first())
+											<li><a href="/{{strtolower($category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
+											@endif
+											@endforeach
+										</ul>
+									</li>
+									@endif
+									@endforeach
+									@else
+									@foreach ($category->product['name'] as $key=>$product)
+									<li><a href="/{{strtolower($category->name)}}/{{str_contains($product,'#') ? str_replace('#','hash-',$product) : $product}}" class="text-capitalize">{{str_replace('-',' ',$product)}}</a></li>
+									@endforeach
+									@endif
+								</ul>
+							</li>
+							@endforeach
+							@endif
 							
-							<li><a href="">Conatct</a></li>    
+							<li><a href="//dealer-registration">Dealer Registration</a></li>    
+							<li><a href="/contact-us">Conatct Us</a></li>    
 						</ul>
 					</div>
 

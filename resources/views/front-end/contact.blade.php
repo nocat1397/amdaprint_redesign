@@ -59,7 +59,7 @@
 										<div class="item_icon bg_default_orange"><i class="fal fa-map-marker-alt"></i></div>
 										<div class="item_content" style="text-align: left!important">
 											<h4>Location</h4>
-											<p>United States</p>
+											<p>16192, Coastal Highway ,Lewes , Delaware 19958</p>
 										</div>
 									</li>
 									<li class="wow fadeInUp2" data-wow-delay=".4s">
@@ -73,7 +73,7 @@
 										<div class="item_icon bg_default_lightblue"><i class="fal fa-phone"></i></div>
 										<div class="item_content" style="text-align: left!important">
 											<h4>Phone Us</h4>
-											<p>+00 (000) 000 00</p>
+											<p>+1 (302) 262-5168</p>
 										</div>
 									</li>
 								</ul>

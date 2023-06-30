@@ -84,6 +84,10 @@
   text-shadow: 0 0 5px orange;
 }
 
+/* .testimonial_carousel .owl-item {
+	display: block!important;
+    height: auto !important;
+} */
 	</style>
 </head>
 <body>
@@ -257,12 +261,12 @@
 								<a href="/{{$sec1->product->category->name}}/{{$name}}" type="button">
 									<!-- Image -->
 									@if(sizeof($sec1->product->productImages) && $image = $sec1->product->productImages->where('product_index',$key)->first())
-									<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									<img src="/products/{{$sec1->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 									@else 
-									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 									@endif
 									<!-- Card body -->
-									<div class="card-body">
+									<div class="card-body contentBoy">
 										<!-- Title -->
 										<h5 class="card-title fw-normal"><span class="text-secondary">{{str_replace('-',' ',$name)}}</span></h5>
 										<span class="btn_2">View Details</span>
@@ -297,12 +301,12 @@
 								<a href="/{{$sec2->product->category->name}}/{{$name}}" type="button">
 									<!-- Image -->
 									@if(sizeof($sec2->product->productImages) && $image = $sec2->product->productImages->where('product_index',$key)->first())
-									<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									<img src="/products/{{$sec2->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 									@else 
-									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+									<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 									@endif
 									<!-- Card body -->
-									<div class="card-body">
+									<div class="card-body contentBoy">
 										<!-- Title -->
 										<h5 class="card-title mb-1 fw-normal"><span class="text-secondary">{{str_replace('-',' ',$name)}}</span></h5>
 										
@@ -335,7 +339,7 @@
 								<p class="text-light">Professionally Design</p>
 							</div>
 						</div> --}}
-						<div class="col-md-6 item_content">
+						<div class="col-md-6 col-6 item_content">
 							<div class="icons">
 								<img src="/assets/images/New/icon5.png" width="60" height="60" alt="">
 							</div>
@@ -344,7 +348,7 @@
 								<p class="text-light">Perfect Print</p>
 							</div>
 						</div>
-						<div class="col-md-6 item_content">
+						<div class="col-md-6 col-6 item_content">
 							<div class="icons">
 								<img src="/assets/images/New/icon6.png" width="60" height="60" alt="">
 							</div>
@@ -379,9 +383,9 @@
 									<div class="product_card">
 										<a class="item_image" href="/product/{{strtolower($category->name)}}">
 											@if (sizeof($category->product->productImages))
-											<img src="/products/{{$category->product->id}}/0/{{$category->product->productImages[0]['name']}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/products/{{$category->product->id}}/0/{{$category->product->productImages[0]['name']}}" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@endif
 											{{--  <span class="span_size">10x10</span>  --}}
 											<div class="item_content bg-light text-left">
@@ -452,14 +456,14 @@
 									<div class="product_card">
 										<a class="item_image" href="/{{$sec3->product->category->name}}/{{$name}}">
 											@if(sizeof($sec3->product->productImages) && $image = $sec3->product->productImages->where('product_index',$key)->first())
-											<img src="/products/{{$sec3->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/products/{{$sec3->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@endif
 											{{--  <span class="span_size">10x10</span>  --}}
 											<div class="item_content bg-light text-left">
 												<h3 class="item_title">{{str_replace('-',' ',$name)}}</h3>
-												<p class="text-secondary">View Details</p>
+												{{-- <p class="text-secondary">View Details</p> --}}
 											</div>
 										</a>
 									</div>
@@ -492,9 +496,9 @@
 									<div class="product_card">
 										<a class="item_image" target="_blank" href="#">
 											@if(sizeof($sec4->product->productImages) && $image = $sec4->product->productImages->where('product_index',$key)->first())
-											<img src="/products/{{$sec4->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/products/{{$sec4->product->id}}/{{$key}}/{{$image->name}}" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@else 
-											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: 33vh; object-fit: cover">
+											<img src="/noImg.jpg" alt="image_not_found" class="card-img-top" style="width: auto; height: max-content; object-fit: cover">
 											@endif
 											{{--  <span class="span_size">10x10</span>  --}}
 											<div class="item_content bg-light text-left">
