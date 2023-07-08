@@ -120,7 +120,7 @@ class OrderController extends Controller
     }
     public function orderDetails($id) 
     {    
-        $order = Order::find($id);
+        $order = Order::find(decrypt($id));
         $statuses = Orderstatus::all();
 
         return view('admin.order.orderDetails',compact('order','statuses'));

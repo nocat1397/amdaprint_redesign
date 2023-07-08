@@ -108,7 +108,7 @@
 
                           <a href="/accept/{{$order->id}}" class="btn btn-success btn-sm mr-1">Accept</a>
                           <a href="/decline/{{$order->id}}" class="btn btn-danger btn-sm mr-1">Decline</a>
-                          <a href="/orderDetails/{{$order->id}}" class="btn btn-primary btn-sm">Details</a>
+                          <a href="/orderDetails/{{encrypt($order->id)}}" class="btn btn-primary btn-sm">Details</a>
                         </td>
                       </tr>
                       @empty

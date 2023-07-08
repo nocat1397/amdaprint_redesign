@@ -110,7 +110,7 @@
                           <a href="/cancelApprove/{{$order->id}}" class="btn btn-success btn-sm mr-1">Approve</a>
                           <a href="/cancelDisapprove/{{$order->id}}" class="btn btn-danger btn-sm mr-1">Disapprove</a>
                           @endif
-                          <a href="/orderDetails/{{$order->id}}" class="btn btn-primary btn-sm">Details</a>
+                          <a href="/orderDetails/{{encrypt($order->id)}}" class="btn btn-primary btn-sm">Details</a>
                         </td>
                       </tr>
                       @empty

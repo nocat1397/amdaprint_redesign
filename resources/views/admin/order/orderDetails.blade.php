@@ -252,6 +252,12 @@ section {
                       <th>Purchase Date :</th>
                       <td>{{$order->created_at->format('d M Y H:i A')}}</td>
                     </tr>
+                    <tr>
+                      <th>QR Code :</th>
+                      <td>
+                        {{-- <img src="data:image/png;base64,{!! base64_encode(QrCode::generate(env('SUB_DOMAIN').'/orderDetails/'.encrypt($order->id))) !!}" alt=""> --}}
+                      {!! QrCode::size(150)->generate(env('SUB_DOMAIN').'/orderDetails/'.encrypt($order->id)); !!}</td>
+                    </tr>
                   </table>
 
                 </div>
