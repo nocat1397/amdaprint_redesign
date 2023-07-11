@@ -64,7 +64,43 @@ class LinkController extends Controller
     public function fileUpload($id) {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();
         $cart = Cart::find($id);
-        return view('front-end.purchaser.upload', compact('cart','categories'));
+        if($cart->amount < 100)
+        {
+            $priority = 37.99;
+            $express = 25.99;
+            $standard = 21.99;
+            $saver = 15.99;
+        }
+        if($cart->amount >= 100 && $cart->amount < 200)
+        {
+            $priority = 55.99;
+            $express = 46.99;
+            $standard = 36.99;
+            $saver = 11.99;
+        }
+        if($cart->amount >= 200 && $cart->amount < 300)
+        {
+            $priority = 76.99;
+            $express = 59.99;
+            $standard = 48.99;
+            $saver = 9.99;
+        }
+        if($cart->amount >= 300 && $cart->amount < 400)
+        {
+            $priority = 89.99;
+            $express = 71.99;
+            $standard = 54.99;
+            $saver = 5.99;
+        }
+        if($cart->amount >= 400)
+        {
+            $priority = $cart->amount*30/100;
+            $express = $cart->amount*25/100;
+            $standard = $cart->amount*20/100;
+            $saver = 0;
+        }
+        // return $priority;
+        return view('front-end.purchaser.upload', compact('cart','categories','priority','express','standard','saver'));
     }
     public function sampleCheckout($id) {
         $categories = Category::with('product')->has('product')->orderBy('sequence','ASC')->get();

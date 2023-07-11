@@ -300,7 +300,7 @@ input[type=number] {
                             <hr class="mt-2 mb-2">
                             <div class="text-left font-weight-light">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="shipping" value="19.57" id="shipping1" checked>
+                                    <input class="form-check-input" type="radio" name="shipping" value="{{$priority}}" id="shipping1" checked>
                                     <div class="form-row">
                                         <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping1">    
@@ -311,13 +311,13 @@ input[type=number] {
                                         </div> --}}
                                         <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
-                                                <strong class="font-weight-bold text-dark">$19.57</strong>
+                                                <strong class="font-weight-bold text-dark">${{$priority}}</strong>
                                             </label>
                                         </div>
                                     </div>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="shipping" value="17.08" id="shipping2">
+                                    <input class="form-check-input" type="radio" name="shipping" value="{{$express}}" id="shipping2">
                                     <div class="form-row">
                                         <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping2">    
@@ -327,13 +327,13 @@ input[type=number] {
 
                                         <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
-                                                <strong class="font-weight-bold text-dark">$17.08</strong>
+                                                <strong class="font-weight-bold text-dark">${{$express}}</strong>
                                             </label>
                                         </div>
                                     </div>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="shipping" value="14.82" id="shipping3">
+                                    <input class="form-check-input" type="radio" name="shipping" value="{{$standard}}" id="shipping3">
                                     <div class="form-row">
                                         <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping3">    
@@ -342,13 +342,13 @@ input[type=number] {
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
-                                                <strong class="font-weight-bold text-dark">$14.82</strong>
+                                                <strong class="font-weight-bold text-dark">${{$standard}}</strong>
                                             </label>
                                         </div>
                                     </div>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="shipping" value="7.58" id="shipping4">
+                                    <input class="form-check-input" type="radio" name="shipping" value="{{$saver}}" id="shipping4">
                                     <div class="form-row">
                                         <div class="col-md-6 col-sm-6 col-6">
                                             <label class="form-check-label" for="shipping4">    
@@ -357,7 +357,7 @@ input[type=number] {
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-6 text-right">
                                             <label class="form-check-label" for="route1">    
-                                                <strong class="font-weight-bold text-dark">$7.58</strong>
+                                                <strong class="font-weight-bold text-dark">{{$saver > 0 ? '$'.$saver : 'FREE' }}</strong>
                                             </label>
                                         </div>
                                     </div>
@@ -393,7 +393,7 @@ input[type=number] {
                             
                             @endforeach
                             <div class="col-md-6 col-sm-6 col-6 text-dark font-weight-bold text-left text-capitalize">Shipping Charge:</div>
-                            <div class="col-md-6 col-sm-6 col-6 text-dark text-right"><strong>$</strong> <span class="totalShipping">19.57</span></div>
+                            <div class="col-md-6 col-sm-6 col-6 text-dark text-right"><strong>$</strong> <span class="totalShipping">{{$priority}}</span></div>
                             <div class="col-md-6 col-sm-6 col-6 text-left discount d-none">
                                 <strong class="text-dark">Discount :</strong>
                             </div>
