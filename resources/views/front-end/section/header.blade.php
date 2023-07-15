@@ -80,7 +80,7 @@
 									@endif  --}}
 									<li class="pt-2 pb-2"><a href="/my-orders" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-truck" style="color:#bfa1f9"></i> Order Tracking</a></li>
 									<li class="pt-2 pb-2">
-										<a href="/dealer-registration" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-handshake" style="color:#bfa1f9"></i> Dealer Registration</a>
+										<a href="/dealer-registration" style="color:#fff;font-weight: 400; font-size:15px;"><i class="far fa-handshake" style="color:#bfa1f9"></i> Become a Dealer</a>
 										
 									</li>
 									{{-- <li class="has_child pt-2 pb-2">
@@ -162,7 +162,7 @@
 								
 								
 								{{-- <li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><i class="fa fa-comments mr-2"></i>Chat Now</a></li> --}}
-								<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACNElEQVR4nO2VMWsUQRTHVwVRVPQDWAWD9ZwnBFSiztgpmE+Qxl1JKSgWFhcs9NRPEJHbeXfYbJlUIpnZwuBHSGUhJGqK2KjZN1s4MnNnMLN7ud3sbYLig2nmDft+83//t+N5FUMAppKrDQH4XoB6ISG9HEX6iLdfIUHpzOJqQwI+kKE+djAAsA3yMeY4c3AAoLTg+FOCarda+nAtAG+6+sRyD8/LLt4WgB3B8Wu+Gvhaa31o5Acp8edpw2/vFejtgj4tQD0RHLeyaqjHI4uzRqDNKgohOX4XoFYFx5cSEra9D2lTglpz2zHUE/SP4mUgcqSO4w5O2lzvx1kXwhgzdzqYU7woRL75cDPupVdMPu6kFwVg4kDeLwzARkAMnwDclN3k3OBM21HhS2Yq2C4Au0GYKYh5ck1wtZQxHShhAUJ9xp0OEaaXygIseiNCAD7KQIQJtTmOoTMRz4sDEH+LNucmfp+NIn1UcvVMcPVJglo3Epu9fiFXCVywXuA44/hgpYwCLafvO3vaX7ZFy93kutOGVbtvflaOD4oBEP/D9PTsjrEZ3Nzt92eTe/dKn3Jm/5uFjvRJRxksBEAbd266vR7I7iqw5lUJRoKHRd2f1wLB1dNKAGUgrAn7EOuuCSsHK6FEbcH+RgjanJtgJFgaKyQrADE1de+4fUlJkNSiFM15pm0R4s/fIMEt858Ylq9dCbbHB+w/xP63g/iyWtWKEPTC3aveuIMVhRj37ctC1HJ771+KX8zi/sLT7GjxAAAAAElFTkSuQmCC" style="height:25px"> +1 (302) 200 0642</a></li>
+								<li class="pt-2 pb-2"><a href="#" style="color:#373737;font-weight: 400; font-size:15px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACNElEQVR4nO2VMWsUQRTHVwVRVPQDWAWD9ZwnBFSiztgpmE+Qxl1JKSgWFhcs9NRPEJHbeXfYbJlUIpnZwuBHSGUhJGqK2KjZN1s4MnNnMLN7ud3sbYLig2nmDft+83//t+N5FUMAppKrDQH4XoB6ISG9HEX6iLdfIUHpzOJqQwI+kKE+djAAsA3yMeY4c3AAoLTg+FOCarda+nAtAG+6+sRyD8/LLt4WgB3B8Wu+Gvhaa31o5Acp8edpw2/vFejtgj4tQD0RHLeyaqjHI4uzRqDNKgohOX4XoFYFx5cSEra9D2lTglpz2zHUE/SP4mUgcqSO4w5O2lzvx1kXwhgzdzqYU7woRL75cDPupVdMPu6kFwVg4kDeLwzARkAMnwDclN3k3OBM21HhS2Yq2C4Au0GYKYh5ck1wtZQxHShhAUJ9xp0OEaaXygIseiNCAD7KQIQJtTmOoTMRz4sDEH+LNucmfp+NIn1UcvVMcPVJglo3Epu9fiFXCVywXuA44/hgpYwCLafvO3vaX7ZFy93kutOGVbtvflaOD4oBEP/D9PTsjrEZ3Nzt92eTe/dKn3Jm/5uFjvRJRxksBEAbd266vR7I7iqw5lUJRoKHRd2f1wLB1dNKAGUgrAn7EOuuCSsHK6FEbcH+RgjanJtgJFgaKyQrADE1de+4fUlJkNSiFM15pm0R4s/fIMEt858Ylq9dCbbHB+w/xP63g/iyWtWKEPTC3aveuIMVhRj37ctC1HJ771+KX8zi/sLT7GjxAAAAAElFTkSuQmCC" style="height:25px"> +1 (302) 262-5168</a></li>
 								<li>
 									@if(Auth::check())
 									<a href="/my-cart" class="cart_btn action_btn search_btn bg_default_purple">

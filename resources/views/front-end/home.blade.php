@@ -756,9 +756,9 @@
 						<div class="deco_image deco_image_3 wow fadeInUp2" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp2;">
 							<img src="assets/images/services/deco_03.png" alt="image_not_found">
 						</div>
-						<div class="deco_image deco_image_4 wow fadeInUp2" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp2;">
+						{{-- <div class="deco_image deco_image_4 wow fadeInUp2" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp2;">
 							<img src="assets/images/services/deco_04.png" alt="image_not_found">
-						</div>
+						</div> --}}
 
 						<div class="deco_image shape_image_1 wow fadeInUp2" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp2;">
 							<img src="assets/images/services/shape_01.png" alt="image_not_found">
@@ -808,7 +808,7 @@
 				</div>
 			</section>  --}}
 
-			<section class="bg_grey sec_ptb_130 blog_section">
+			<section class="bg_grey sec_ptb_130 blog_section d-none">
 				<div class="container">
 					<div class=" mt__20 mb_30 text-left">
 						<h2 class="heading">Our Blog</h2>
