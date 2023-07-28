@@ -10,6 +10,7 @@ class Order extends Model
         'user_id',
         'product',
         'quantity',
+        'invoice_link',
         'name',
         'data',
         'payment_id',

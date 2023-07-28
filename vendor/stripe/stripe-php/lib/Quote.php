@@ -5,9 +5,8 @@
 namespace Stripe;
 
 /**
- * A Quote is a way to model prices that you'd like to provide to a customer. Once
- * accepted, it will automatically create an invoice, subscription or subscription
- * schedule.
+ * A Quote is a way to model prices that you'd like to provide to a customer.
+ * Once accepted, it will automatically create an invoice, subscription or subscription schedule.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -61,24 +60,6 @@ class Quote extends ApiResource
     const STATUS_CANCELED = 'canceled';
     const STATUS_DRAFT = 'draft';
     const STATUS_OPEN = 'open';
-
-    /**
-     * @param callable $readBodyChunkCallable
-     * @param null|array $params
-     * @param null|array|string $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     */
-    public function pdf($readBodyChunkCallable, $params = null, $opts = null)
-    {
-        $opts = \Stripe\Util\RequestOptions::parse($opts);
-        if (null === $opts->apiBase) {
-            $opts->apiBase = Stripe::$apiUploadBase;
-        }
-
-        $url = $this->instanceUrl() . '/pdf';
-        $this->_requestStream('get', $url, $readBodyChunkCallable, $params, $opts);
-    }
 
     /**
      * @param null|array $params
@@ -138,7 +119,7 @@ class Quote extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return \Stripe\Collection<\Stripe\LineItem> list of LineItems
+     * @return \Stripe\Collection<\Stripe\LineItem> list of line items
      */
     public static function allComputedUpfrontLineItems($id, $params = null, $opts = null)
     {
@@ -157,7 +138,7 @@ class Quote extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return \Stripe\Collection<\Stripe\LineItem> list of LineItems
+     * @return \Stripe\Collection<\Stripe\LineItem> list of line items
      */
     public static function allLineItems($id, $params = null, $opts = null)
     {
@@ -167,5 +148,24 @@ class Quote extends ApiResource
         $obj->setLastResponse($response);
 
         return $obj;
+    }
+
+    /**
+     * @param callable $readBodyChunkCallable
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return void
+     */
+    public function pdf($readBodyChunkCallable, $params = null, $opts = null)
+    {
+        $opts = \Stripe\Util\RequestOptions::parse($opts);
+        if (!isset($opts->apiBase)) {
+            $opts->apiBase = \Stripe\Stripe::$apiUploadBase;
+        }
+        $url = $this->instanceUrl() . '/pdf';
+        $this->_requestStream('get', $url, $readBodyChunkCallable, $params, $opts);
     }
 }

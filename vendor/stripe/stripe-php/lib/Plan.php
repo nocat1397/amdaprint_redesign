@@ -5,24 +5,14 @@
 namespace Stripe;
 
 /**
- * You can now model subscriptions more flexibly using the <a
- * href="https://stripe.com/docs/api#prices">Prices API</a>. It replaces the Plans
- * API and is backwards compatible to simplify your migration.
+ * You can now model subscriptions more flexibly using the <a href="https://stripe.com/docs/api#prices">Prices API</a>. It replaces the Plans API and is backwards compatible to simplify your migration.
  *
- * Plans define the base price, currency, and billing cycle for recurring purchases
- * of products. <a href="https://stripe.com/docs/api#products">Products</a> help
- * you track inventory or provisioning, and plans help you track pricing. Different
- * physical goods or levels of service should be represented by products, and
- * pricing options should be represented by plans. This approach lets you change
- * prices without having to change your provisioning scheme.
+ * Plans define the base price, currency, and billing cycle for recurring purchases of products.
+ * <a href="https://stripe.com/docs/api#products">Products</a> help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
  *
- * For example, you might have a single &quot;gold&quot; product that has plans for
- * $10/month, $100/year, €9/month, and €90/year.
+ * For example, you might have a single &quot;gold&quot; product that has plans for $10/month, $100/year, €9/month, and €90/year.
  *
- * Related guides: <a
- * href="https://stripe.com/docs/billing/subscriptions/set-up-subscription">Set up
- * a subscription</a> and more about <a
- * href="https://stripe.com/docs/products-prices/overview">products and prices</a>.
+ * Related guides: <a href="https://stripe.com/docs/billing/subscriptions/set-up-subscription">Set up a subscription</a> and more about <a href="https://stripe.com/docs/products-prices/overview">products and prices</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -54,4 +44,23 @@ class Plan extends ApiResource
     use ApiOperations\Delete;
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
+
+    const AGGREGATE_USAGE_LAST_DURING_PERIOD = 'last_during_period';
+    const AGGREGATE_USAGE_LAST_EVER = 'last_ever';
+    const AGGREGATE_USAGE_MAX = 'max';
+    const AGGREGATE_USAGE_SUM = 'sum';
+
+    const BILLING_SCHEME_PER_UNIT = 'per_unit';
+    const BILLING_SCHEME_TIERED = 'tiered';
+
+    const INTERVAL_DAY = 'day';
+    const INTERVAL_MONTH = 'month';
+    const INTERVAL_WEEK = 'week';
+    const INTERVAL_YEAR = 'year';
+
+    const TIERS_MODE_GRADUATED = 'graduated';
+    const TIERS_MODE_VOLUME = 'volume';
+
+    const USAGE_TYPE_LICENSED = 'licensed';
+    const USAGE_TYPE_METERED = 'metered';
 }

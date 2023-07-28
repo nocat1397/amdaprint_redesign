@@ -5,13 +5,10 @@
 namespace Stripe;
 
 /**
- * Balance transactions represent funds moving through your Stripe account. They're
- * created for every type of transaction that comes into or flows out of your
- * Stripe account balance.
+ * Balance transactions represent funds moving through your Stripe account.
+ * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
  *
- * Related guide: <a
- * href="https://stripe.com/docs/reports/balance-transaction-types">Balance
- * Transaction Types</a>.
+ * Related guide: <a href="https://stripe.com/docs/reports/balance-transaction-types">Balance transaction types</a>
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -57,8 +54,8 @@ class BalanceTransaction extends ApiResource
     const TYPE_PAYOUT_FAILURE = 'payout_failure';
     const TYPE_REFUND = 'refund';
     const TYPE_REFUND_FAILURE = 'refund_failure';
-    const TYPE_RESERVE_TRANSACTION = 'reserve_transaction';
     const TYPE_RESERVED_FUNDS = 'reserved_funds';
+    const TYPE_RESERVE_TRANSACTION = 'reserve_transaction';
     const TYPE_STRIPE_FEE = 'stripe_fee';
     const TYPE_STRIPE_FX_FEE = 'stripe_fx_fee';
     const TYPE_TAX_FEE = 'tax_fee';

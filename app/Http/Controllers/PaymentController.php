@@ -35,25 +35,26 @@ class PaymentController extends Controller
         $cart = Cart::find($request->cart_id);
         $join = strtok(request()->url(), 'amda');
         $image = $join.env('DOMAIN').$cart->data[5];
-        // return $image;
+
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        // Create a PaymentIntent with amount and currency
-        $checkout_session = \Stripe\Checkout\Session::create([
-            'line_items' => [[
-                'price_data' => [
-                  'currency' => 'usd',
-                  'product_data' => [
-                    'name' => $cart->product,
-                    'images' => [$image],
+
+            // Create a PaymentIntent with amount and currency //
+            $checkout_session = \Stripe\Checkout\Session::create([
+              'line_items' => [[
+                  'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                      'name' => $cart->product,
+                      'images' => [$image],
+                    ],
+                    'unit_amount' => $request->amount*100,
                   ],
-                  'unit_amount' => $request->amount*100,
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => route('checkout.error', [], true),
-          ]);
+                  'quantity' => 1,
+              ]],
+              'mode' => 'payment',
+              'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+              'cancel_url' => route('checkout.error', [], true),
+            ]);
 
             $ship = new Shipping;
             $ship->cart_id = $request->cart_id;
@@ -138,6 +139,16 @@ class PaymentController extends Controller
                     $shipping->save();
                 }
                 $cart->delete();
+
+                $fileName = $order->user_id.'_'.$order->id.'_'.$order->rzp_order_id;
+                $pdf = PDF::loadview('billPdf', compact('order'));
+                $output = $pdf->output();
+                // file_put_contents(public_path($fileName) . '.pdf', $output);
+                $url = asset($fileName. '.pdf');
+                
+                $order->update(['invoice_link'=>$url]);
+                $order->save();
+                
                 return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
         } catch (\Exception $e) {
             throw new NotFoundHttpException();
