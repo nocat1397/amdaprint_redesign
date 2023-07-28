@@ -33,8 +33,10 @@ class HomeController extends Controller
             $deliver = Order::where('orderstatus_id', 4)->where('payment_status', '=', 'paid')->get()->count();
             $decline = Order::where('orderstatus_id', 9)->where('payment_status', '=', 'paid')->get()->count();
             return view('home',compact('total','new','accept','dispatch','deliver','decline'));
+        } elseif(Auth::user()->role->name == "Other") {
+            return redirect()->intended('defaultpage');
         } else {
-            return redirect('/home');
+            return redirect(env('DOMAIN'));
         }
     }  
 }

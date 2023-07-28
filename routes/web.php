@@ -430,6 +430,10 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::post('/update-category', 'CategoryController@update');
         Route::get('/delete-category/{id}', 'CategoryController@destroy');
         Route::post('/categorySeq', 'CategoryController@sequence');
+        
+        //other user for order details check using qr code
+        Route::get('/add-user', 'UserController@index');
+        Route::post('/store-other-user', 'UserController@storeOther');
 
         Route::get('/logout', function(){
             Auth::logout();

@@ -47,6 +47,13 @@
                   <p class="p-cont2">Enquiries</p>
                 </a>
               </li>
+              </li>
+               <li class="nav-item">
+                <a href="/add-user" class="nav-link shadow bg-dark rounded-pill mb-2">
+                  <i class="fas fa-user nav-icon icon"></i>
+                  <p class="p-cont2">Other User</p>
+                </a>
+              </li>
                
                <li class="nav-item has-treeview menu-open">
                 <a class="nav-link">

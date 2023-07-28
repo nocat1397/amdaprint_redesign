@@ -171,19 +171,25 @@ section {
   background: red!important;
 }
     </style>
-
+@if(Auth::user()->role->name == 'Other')
+<style>
+  .main-header, .main-footer {
+    margin-left: 0!important;
+  }
+</style>
+@endif
 </head>
 <body class="hold-transition sidebar-mini over">
 <div class="wrapper">
 
     @include('admin.section.navbar')
-    
+    @if(Auth::user()->role->name !== 'Other')
     @include('admin.section.sidebar')
-
+    @endif
     
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" @if(Auth::user()->role->name == 'Other') style="margin-left:0" @endif>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -192,10 +198,12 @@ section {
             <h1 class="m-0 text-dark">Order Details</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
+            @if(Auth::user()->role->name !== 'Other')
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Home</a></li>
               <li class="breadcrumb-item active">Show Details</li>
             </ol>
+            @endif
           </div><!-- /.col -->
           <div>
             
@@ -209,6 +217,7 @@ section {
     <div class="content">
         <div class="container-fluid">
           <div class="row justify-content-center mb-5">
+            @if(Auth::user()->role->name !== 'Other')
             <div class="col-md-3 col-6 col-lg-3 col-sm-3 p-0">
               <div class="card mb-1 progress-card">
                 <div class="card-header progress-card bg-orange">
@@ -228,7 +237,7 @@ section {
                 </div>
                     
             </div>
-            
+            @endif
             <div class="col-md-6 p-2">
               <div class="card">
                 <div class="card-header p-2">

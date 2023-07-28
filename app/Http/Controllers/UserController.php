@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        return view('admin.otherUser');
+    }
+    public function storeOther(Request $request)
+    {
+        // return $request;
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        $user->password = Hash::make($request->pass);
+        $user->role_id = 3;
+        $user->save();
+
+        return redirect()->back()->with('message','New User Created');
+    }
     public function user(Request $request) {
         // return $request;
         
