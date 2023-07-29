@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "barryvdh/laravel-dompdf": "^1.0",
+        "dompdf/dompdf": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -18,11 +20,10 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.2",
         "league/omnipay": "^3.2",
+        "mpdf/mpdf": "^6.1",
         "omnipay/paypal": "^3.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "stripe/stripe-php": "^10.12",
-        "dompdf/dompdf": "*",
-        "mpdf/mpdf": "^6.1"
+        "stripe/stripe-php": "^10.12"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

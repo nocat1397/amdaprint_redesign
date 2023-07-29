@@ -5,5 +5,5 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> <a href="/">amda</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> <a href="//amdaprints.com">AmdaPrints</a>.</strong> All rights reserved.
   </footer>

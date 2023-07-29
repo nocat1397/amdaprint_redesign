@@ -79,6 +79,7 @@ Route::domain(env('DOMAIN'))->group(function () {
         Route::post('/charge', 'PaymentController@charge');
         Route::get('/success', 'PaymentController@success')->name('checkout.success');
         Route::get('/error', 'PaymentController@error')->name('checkout.error');
+        Route::get('/order-invoice/{id}', 'PaymentController@invoice');
         
         Route::get('/my-orders', 'OrderController@userOrders');
         // Purchasers Routes End
@@ -396,6 +397,7 @@ Route::domain(env('SUB_DOMAIN'))->group(function () {
         Route::get('/delete-coupon/{id}', 'LinkController@couponDelete');
         Route::get('/show-coupons', 'LinkController@showCoupon');
         Route::get('/show-dealers', 'DealerController@index');
+        Route::get('/delivery-qr-invoice/{id}', 'PaymentController@deliveryInvoice');
         
         ///  REVIEWS ROUTES
         Route::get('/reviews', 'ReviewController@index');

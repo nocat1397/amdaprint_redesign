@@ -17,6 +17,7 @@ class Order extends Model
         'payer_id',
         'payer_email',
         'amount',
+        'shipping_rate',
         'currency',
         'payment_status',
         'discount',

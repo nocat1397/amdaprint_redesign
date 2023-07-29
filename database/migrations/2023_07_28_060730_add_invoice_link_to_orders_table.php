@@ -15,6 +15,7 @@ class AddInvoiceLinkToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->longText('invoice_link')->after('quantity')->nullable();
+            $table->string('shipping_rate')->after('amount')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddInvoiceLinkToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('invoice_link');
+            $table->dropColumn('shipping_rate');
         });
     }
 }

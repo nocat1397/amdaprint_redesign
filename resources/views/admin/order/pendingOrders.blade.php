@@ -61,12 +61,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Pending Orders</h1>
+            <h1 class="m-0 text-dark">New Orders</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Home</a></li>
-              <li class="breadcrumb-item active">Pending Orders</li>
+              <li class="breadcrumb-item active">New Orders</li>
             </ol>
           </div><!-- /.col -->
           <div>
@@ -83,8 +83,8 @@
           <div class="row justify-content-center">
             <div class="col-md-12 p-0">
               <div class="card shadow">
-                <div class="card-body p-0 table-responsive">
-                  <table class="table table-light" style="width: 100%">
+                <div class="card-body table-responsive">
+                  <table class="table table-striped" style="width: 100%">
                     <thead style="background-color: #000; color: #fff; border: 1px solid red">
                       <th>Id</th>
                       <th>Product</th>
@@ -104,7 +104,7 @@
                         <td>{{$order->user->email}}</td>
                         <td>{{$order->user->mobile}}</td>
                         <td>$ {{$order->amount}}</td>
-                        <td class="btn-group">
+                        <td class="btn-inline">
 
                           <a href="/accept/{{$order->id}}" class="btn btn-success btn-sm mr-1">Accept</a>
                           <a href="/decline/{{$order->id}}" class="btn btn-danger btn-sm mr-1">Decline</a>
@@ -145,6 +145,11 @@
 
 <!-- REQUIRED SCRIPTS -->
 @include('admin.script')
-
+{{-- <script src="http://console.spider.ai/admin/js/pushmenu.js" defer></script> --}}
+<script>
+    $(function () {
+      $(".table").DataTable();
+    });
+</script>
 </body>
 </html>

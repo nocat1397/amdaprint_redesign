@@ -434,6 +434,7 @@ input[type=number] {
                                     <input type="hidden" name="route" value="0">
                                     <input type="hidden" name="discountAmount" value="0">
                                     <input type="hidden" name="couponUsed" value="0">
+                                    <input type="hidden" name="shippingRate">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <label for="">First Name<span class="text-danger">*</span></label>
@@ -566,6 +567,7 @@ input[type=number] {
             $('#uploadCheckout').fadeOut();
             $('#uploadCheckout2').fadeOut();
             $('#shippingCharges').html(shipping);
+            $('input[name="shippingRate"]').val(shipping);
             var total = parseFloat(shipping) + parseFloat(<?php echo $cart->amount ?>);
             $('.grandTotal').html(total.toFixed(2));
             $('input[name="amount"]').val(total.toFixed(2));
@@ -598,6 +600,7 @@ input[type=number] {
             var shipping = $(this).val();
             $('#shippingCharges').html(shipping);
             $('.totalShipping').html(shipping);
+            $('input[name="shippingRate"]').val(shipping);
             var total = parseFloat($(this).val()) + parseFloat(<?php echo $cart->amount ?>);
             $('.grandTotal').html((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
             $('input[name="amount"]').val((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
@@ -607,6 +610,7 @@ input[type=number] {
             // alert(shipping);
             $('#shippingCharges').html(shipping);
             $('.totalShipping').html(shipping);
+            $('input[name="shippingRate"]').val(shipping);
             var total = parseFloat($(this).val()) + parseFloat(<?php echo $cart->amount ?>);
             $('.grandTotal').html((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
             $('input[name="amount"]').val((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
@@ -615,6 +619,7 @@ input[type=number] {
             var shipping = $(this).val();
             $('#shippingCharges').html(shipping);
             $('.totalShipping').html(shipping);
+            $('input[name="shippingRate"]').val(shipping);
             var total = parseFloat($(this).val()) + parseFloat(<?php echo $cart->amount ?>);
             $('.grandTotal').html((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
             $('input[name="amount"]').val((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
@@ -623,6 +628,7 @@ input[type=number] {
             var shipping = $(this).val();
             $('#shippingCharges').html(shipping);
             $('.totalShipping').html(shipping);
+            $('input[name="shippingRate"]').val(shipping);
             var total = parseFloat($(this).val()) + parseFloat(<?php echo $cart->amount ?>);
             $('.grandTotal').html((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));
             $('input[name="amount"]').val((parseFloat(total)-parseFloat($('input[name="discountAmount').val())).toFixed(2));

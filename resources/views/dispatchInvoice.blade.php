@@ -13,9 +13,9 @@
     .invoice-box {
         max-width: 890px;
         margin: auto;
-        padding:5px;
+        padding:0px;
         border: 1px solid #eee;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
         font-size: 14px;
         line-height: 20px;
         font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -97,12 +97,12 @@
   <div class="invoice-box">
     <table cellpadding="0" cellspacing="0" style="border: unset">
 <tr class="top_rw">
-   <td style="width: 40%">
-    <h2 style="margin-bottom: 0px;"> <img src="{{url('assets')}}/images/New/logo.png" height="50"></h2>
-    <span style=""> Order id: {{'amdaprints_'.bin2hex('order').$order->id ?? ''}} </span>
+   <td style="width: 35%">
+    <h2 style="margin-bottom: 0px;"> <img src="{{url('assets')}}/images/New/logo.png" height="40"></h2>
+    <span style=""> <strong>Order id:</strong> {{'amdaprints_'.bin2hex('order').$order->id ?? ''}} </span>
    </td>
-   <td style="width: 30%">
-    <h2 style="margin-bottom: 0px;text-align:center"> Invoice</h2>
+   <td style="width: 35%">
+    <h2 style="margin-bottom: 0px;text-align:center">Shipping Invoice</h2>
    </td>
     <td style="width:30%;text-align:right">
       <strong>Invoice No:</strong> {{$order->id ?? ''}} <br> 
@@ -113,16 +113,13 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td style="vertical-align: baseline">
-                            <b> From: </b> <br>
-                            <strong>VIBGYOR PRINTS LLC</strong><br>
-                            16192, Coastal Highway ,Lewes , Delaware 19958 <br>
-                            USA <br>
+                        <td>
+                            {!! QrCode::size(150)->generate(env('SUB_DOMAIN').'/orderDetails/'.encrypt($order->id)); !!}
                             {{-- <strong>PAN:</strong> AAICT2076N <br>
                             <strong>GSTIN:</strong> 24AAICT2076N1ZY <br>
                             <strong>CIN:</strong> U74999GJ2020PTC117940 <br> --}}
                         </td>
-                        <td style="vertical-align: baseline"> <b> To: </b><br>
+                        <td style="vertical-align: baseline"> <b style="color: #000;font-weight:700"> SHIP TO: </b><br>
                           <strong style="text-transform: capitalize">{{$order->shipping['fname'] ?? ''}} {{$order->shipping['lname'] ?? ''}}</strong><br>
                           {{$order->payer_email}}<br>
                           {{$order->shipping['phone'] ?? ''}}<br>
@@ -137,12 +134,12 @@
               <td colspan="3">
                 <table>
                     <tr>
-                        {{-- <td colspan="2">
-                            <b style="text-decoration:underline;"> Banking Details: </b> <br>
-                            <strong>Bank Name:</strong> State Bank Of India <br>
-                            <strong>Account No:</strong> 39930933815 <br>
-                            <strong>IFSC Code:</strong> SBIN0017900 <br>
-                        </td> --}}
+                        <td colspan="2">
+                            <b style="color: #000;font-weight:700"> SHIP FROM: </b> <br>
+                            <strong>VIBGYOR PRINTS LLC</strong><br>
+                            16192, Coastal Highway ,Lewes , Delaware 19958 <br>
+                            USA <br>
+                        </td>
                         <td colspan="2">
                             <b style="text-decoration:underline;margin-bottom:10px"> Contact Details: </b> <br>
                             <a href="https://amdaprints.com/" style="text-decoration: none">amdaprints.com/</a> <br>
@@ -155,7 +152,7 @@
             </td>
         </tr>
         <td colspan="5">
-        <table cellspacing="0px" cellpadding="2px">
+        <table cellspacing="0px" cellpadding="2px" style="border-bottom:none">
         <tr class="heading">
             <td style="width:35%;">
                 PRODUCT
@@ -231,43 +228,14 @@
           </tr>
         </td>
   </table>
-        
-  <tr>
-     <td colspan="3">
-       <table cellspacing="0px" cellpadding="2px" style="border: unset">
-        <tr>
-              <td width="20%">
-        {{-- <b> Declaration: </b> <br> --}}
-        <ul style="list-style-type: decimal">
-            {{-- <li>This is a computer Generated Invoice and does not require a signature.</li>
-            <li>Payment to be made by crossed Cheque/DD in favour of "TAXWEB INDIA PRIVATE LIMITED".</li>
-            <li>Please obtain receipts against all payment made.</li>
-            <li>For invoice related queries kindly contact via email : info.taxweb.in</li>
-            <li>All disputes are subjected to Ahmedabad jurisdication only.</li> --}}
-        </ul>
-        </td>
-        <td style="width: 80%">
-            <br>
-            {{-- <img src="{{url('images')}}/sign.png" height="50"> --}}
-            <br>
-           <b> Authorized Signature <br> (This is a computer generate invoice no signature required) </b>
-        </td>
-          </tr>
-       <tr>
-              <td width="20%">
-        </td>
-        <td>
-            
-          <br>
-          <br>
-          <br>
-        </td>
-          </tr>
-       </table>
-     </td>
-  </tr>
+
     </table>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script>
+    $(document).click(function(){
+        javascript:window.print();
+    });
+</script>
 </body>
 </html>

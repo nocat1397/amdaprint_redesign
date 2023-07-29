@@ -83,8 +83,8 @@
           <div class="row justify-content-center">
             <div class="col-md-12 p-0">
               <div class="card shadow">
-                <div class="card-body p-0 table-responsive">
-                  <table class="table table-light" style="width: 100%">
+                <div class="card-body table-responsive">
+                  <table class="table table-striped display" style="width: 100%">
                     <thead style="background-color: #000; color: #fff; border: 1px solid red">
                       <th>Id</th>
                       <th>Product</th>
@@ -103,7 +103,7 @@
                         <td>{{$order->user->email}}</td>
                         <td>{{$order->user->mobile}}</td>
                         <td>$ {{$order->amount}}/-</td>
-                        <td class="btn-group">
+                        <td class="btn-inline">
                           {{-- @if($order->orderstatus_id !== 1)
                             <a href="#" class="btn btn-success btn-sm disabled mr-1">Accept</a>
                             <a href="#" class="btn btn-danger btn-sm disabled mr-1">Decline</a>
@@ -112,6 +112,7 @@
                           <a href="/decline/{{$order->id}}" class="btn btn-danger btn-sm mr-1">Decline</a>
                           @endif --}}
                           <a href="/orderDetails/{{encrypt($order->id)}}" class="btn btn-primary btn-sm">Details</a>
+                          <a href="/delivery-qr-invoice/{{encrypt($order->id)}}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-download"></i> Dispatch Invoice</a>
                         </td>
                       </tr>
                       @empty
@@ -148,6 +149,10 @@
 
 <!-- REQUIRED SCRIPTS -->
 @include('admin.script')
-
+<script>
+  $(function () {
+    $(".table").DataTable();
+  });
+</script>
 </body>
 </html>

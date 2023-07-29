@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Stripe;
 use App\Cart;
 use App\Order;
 use App\Upload;
 use App\Designer;
 use App\Shipping;
-use Stripe;
 use Omnipay\Omnipay;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Nette\Utils\Finder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PaymentController extends Controller
@@ -71,6 +73,7 @@ class PaymentController extends Controller
 
             $order = new Order;
             $order->amount = $request->amount;
+            $order->shipping_rate = $request->shippingRate;
             $order->session_id = $checkout_session->id;
             $order->save();
         
@@ -140,16 +143,8 @@ class PaymentController extends Controller
                 }
                 $cart->delete();
 
-                $fileName = $order->user_id.'_'.$order->id.'_'.$order->rzp_order_id;
-                $pdf = PDF::loadview('billPdf', compact('order'));
-                $output = $pdf->output();
-                // file_put_contents(public_path($fileName) . '.pdf', $output);
-                $url = asset($fileName. '.pdf');
+                return redirect('/order-invoice/'.$order->id);
                 
-                $order->update(['invoice_link'=>$url]);
-                $order->save();
-                
-                return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
         } catch (\Exception $e) {
             throw new NotFoundHttpException();
         }
@@ -162,5 +157,36 @@ class PaymentController extends Controller
     public function error()
     {
         return 'User cancelled the payment.';
+    }
+    public function invoice($id)
+    {
+        $order = Order::find($id);
+        // return view('billPdf', compact('order'));
+        $fileName = $order->user_id.'_'.$order->id.'_'.$order->payment_intent;
+        $pdf = PDF::loadview('billPdf', compact('order'));
+        // return $pdf;
+        $output = $pdf->output();
+        file_put_contents(public_path($fileName) . '.pdf', $output);
+        $url = asset($fileName. '.pdf');
+        
+        $order->update(['invoice_link'=>$url]);
+        $order->save();
+        return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
+    }
+    public function deliveryInvoice($id)
+    {
+        $order = Order::find(decrypt($id));
+        // return $order;
+        return view('dispatchInvoice', compact('order'));
+        $fileName = $order->user_id.'_'.$order->id.'_'.$order->payment_intent;
+        $pdf = PDF::loadview('billPdf', compact('order'));
+        // return $pdf;
+        $output = $pdf->output();
+        file_put_contents(public_path($fileName) . '.pdf', $output);
+        $url = asset($fileName. '.pdf');
+        
+        $order->update(['invoice_link'=>$url]);
+        $order->save();
+        return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
     }
 }
