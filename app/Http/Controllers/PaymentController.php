@@ -171,6 +171,17 @@ class PaymentController extends Controller
         
         $order->update(['invoice_link'=>$url]);
         $order->save();
+        if($url !== null)
+        {
+            $details = [
+                'title' => 'Invoice from AMDAPRINTS',
+                'body' => $url,
+                'name' => $order->shipping->fname.' '.$order->shipping->lname,
+                'product' => $order->product
+            ];
+            \Mail::to($order->payer_email)->send(new \App\Mail\Invoice($details));
+        }
+
         return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
     }
     public function deliveryInvoice($id)
@@ -178,15 +189,16 @@ class PaymentController extends Controller
         $order = Order::find(decrypt($id));
         // return $order;
         return view('dispatchInvoice', compact('order'));
-        $fileName = $order->user_id.'_'.$order->id.'_'.$order->payment_intent;
-        $pdf = PDF::loadview('billPdf', compact('order'));
-        // return $pdf;
-        $output = $pdf->output();
-        file_put_contents(public_path($fileName) . '.pdf', $output);
-        $url = asset($fileName. '.pdf');
+        // $fileName = $order->user_id.'_'.$order->id.'_'.$order->payment_intent;
+        // $pdf = PDF::loadview('dispatchInvoice', compact('order'));
+        // // return $pdf;
+        // $output = $pdf->output();
+        // file_put_contents(public_path($fileName) . '.pdf', $output);
+        // $url = asset($fileName. '.pdf');
         
-        $order->update(['invoice_link'=>$url]);
-        $order->save();
-        return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
+        // $order->update(['invoice_link'=>$url]);
+        // $order->save();
+
+        // return redirect('/')->with('message','Payment is successful. Your Order id is: amdaprints_'.bin2hex('order').$order->id);
     }
 }

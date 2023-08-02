@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitea87cc435d181bd01089a1908bf99825
+class ComposerStaticInit77ce5b33186af5fcd5eef077617dbbaf
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -364,8 +364,8 @@ class ComposerStaticInitea87cc435d181bd01089a1908bf99825
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -470,8 +470,8 @@ class ComposerStaticInitea87cc435d181bd01089a1908bf99825
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message/src',
-            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            1 => __DIR__ . '/..' . '/php-http/message/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -3869,6 +3869,7 @@ class ComposerStaticInitea87cc435d181bd01089a1908bf99825
         'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/nette/utils/src/compatibility.php',
         'Nette\\Utils\\Image' => __DIR__ . '/..' . '/nette/utils/src/Utils/Image.php',
         'Nette\\Utils\\ImageException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\ImageType' => __DIR__ . '/..' . '/nette/utils/src/Utils/ImageType.php',
         'Nette\\Utils\\Json' => __DIR__ . '/..' . '/nette/utils/src/Utils/Json.php',
         'Nette\\Utils\\JsonException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\ObjectHelpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectHelpers.php',
@@ -6474,9 +6475,9 @@ class ComposerStaticInitea87cc435d181bd01089a1908bf99825
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitea87cc435d181bd01089a1908bf99825::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitea87cc435d181bd01089a1908bf99825::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitea87cc435d181bd01089a1908bf99825::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit77ce5b33186af5fcd5eef077617dbbaf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit77ce5b33186af5fcd5eef077617dbbaf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit77ce5b33186af5fcd5eef077617dbbaf::$classMap;
 
         }, null, ClassLoader::class);
     }
