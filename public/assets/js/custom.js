@@ -26,10 +26,10 @@
 
   // preloader - start
   // --------------------------------------------------
-  $(window).on('load', function() {
+  $(document).ready(function() {
     $('.preloader').addClass('loaded');
     if ($('.preloader').hasClass('loaded')) {
-      $('.spinner').delay(1000).queue(function () {
+      $('.spinner').delay(0).queue(function () {
         $(this).remove();
       });
     }

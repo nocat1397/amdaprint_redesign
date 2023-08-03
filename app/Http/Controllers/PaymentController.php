@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nette\Utils\Finder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\File;
 
 class PaymentController extends Controller
 {
@@ -164,10 +165,16 @@ class PaymentController extends Controller
         // return view('billPdf', compact('order'));
         $fileName = $order->user_id.'_'.$order->id.'_'.$order->payment_intent;
         $pdf = PDF::loadview('billPdf', compact('order'));
-        // return $pdf;
         $output = $pdf->output();
-        file_put_contents(public_path($fileName) . '.pdf', $output);
-        $url = asset($fileName. '.pdf');
+        $path = 'invoices';
+        if ( ! File::exists(public_path($path)) ) {
+            mkdir($path,0777,true);
+            file_put_contents(public_path('invoices/'.$fileName) . '.pdf', $output);
+        } else {
+            file_put_contents(public_path('invoices/'.$fileName) . '.pdf', $output);
+        }
+        $url = asset('invoices/'.$fileName. '.pdf');
+        // return $url;
         
         $order->update(['invoice_link'=>$url]);
         $order->save();

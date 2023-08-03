@@ -4,6 +4,8 @@
 /storage/*.key
 /vendor
 /public/uploads
+/public/products
+/public/invoices
 /public/category
 /public/subcategory
 /public/subsubcategory

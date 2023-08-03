@@ -42,7 +42,12 @@
                                     <td>$ {{$order->amount}}</td>
                                     <td>{{$order->orderstatus->name ?? ''}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-primary shadow" data-toggle="modal" data-target="#modal{{$order->id}}">Details</button>
+                                        <div class="btn-inline">
+                                            <button type="button" class="btn btn-outline-primary btn-sm shadow" data-toggle="modal" data-target="#modal{{$order->id}}">Details</button>
+                                            @if($order->invoice_link !== null)
+                                            <a class="btn btn-outline-success shadow btn-sm" href="{{$order->invoice_link}}" download="download"><i class="fa fa-download"></i> Invoice</a>
+                                            @endif
+                                        </div>
                                         <!--{{$order->id}} Modal -->
                                 <div class="modal fade" id="modal{{$order->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl">
